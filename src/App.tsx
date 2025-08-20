@@ -3,8 +3,10 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './store/themeStore';
 import AppLayout from './components/layout/AppLayout';
 import Overview from './pages/Overview';
+import Analytics from './pages/Analytics';
 import Sales from './pages/Sales';
 import Customers from './pages/Customers';
+import Inventory from './pages/Inventory';
 import Support from './pages/Support';
 import Returns from './pages/Returns';
 import Settings from './pages/Settings';
@@ -31,8 +33,10 @@ export default function App() {
         <Routes>
           <Route path="/" element={<AppLayout />}>
             <Route index element={<Overview />} />
+            <Route path="analytics" element={<Analytics />} />
             <Route path="sales" element={<Sales />} />
             <Route path="customers" element={<Customers />} />
+            <Route path="inventory" element={<Inventory />} />
             <Route path="support" element={<Support />} />
             <Route path="returns" element={<Returns />} />
             <Route path="settings" element={<Settings />} />

@@ -2,8 +2,10 @@
   "nav": {
     "dashboard": "Kontrol Paneli",
     "overview": "Genel Bakış",
+    "analytics": "Analitik",
     "sales": "Satışlar",
     "customers": "Müşteriler",
+    "inventory": "Envanter",
     "support": "Destek",
     "returns": "İadeler",
     "settings": "Ayarlar"
@@ -228,6 +230,66 @@
       "Banka Havalesi": "Banka Havalesi",
       "Nakit": "Nakit",
       "Mağaza Kredisi": "Mağaza Kredisi"
+    }
+  },
+  "analytics": {
+    "title": "Analitik Dashboard",
+    "subtitle": "Detaylı performans analizi ve iş zekası",
+    "conversionFunnel": "Dönüşüm Hunisi",
+    "customerAcquisition": "Müşteri Kazanımı",
+    "revenueByHour": "Saatlik Gelir Analizi",
+    "productPerformance": "Ürün Performansı",
+    "geographicAnalysis": "Coğrafi Analiz",
+    "timeBasedAnalysis": "Zaman Bazlı Analiz"
+  },
+  "inventory": {
+    "title": "Envanter Yönetimi",
+    "subtitle": "Stok seviyeleri, tedarikçiler ve depo yönetimi",
+    "products": "Ürünler",
+    "suppliers": "Tedarikçiler",
+    "warehouses": "Depolar",
+    "movements": "Stok Hareketleri",
+    "searchPlaceholder": "Ürün adı, SKU veya kategori ara...",
+    "showingResults": "{{count}} ürün gösteriliyor",
+    "showingResultsFiltered": "{{filtered}} ürün gösteriliyor ({{total}} toplam)",
+    "clearFilters": "Filtreleri Temizle",
+    "noDataFound": "Ürün bulunamadı",
+    "noFilterResults": "Arama kriterlerine uygun ürün bulunamadı",
+    "columns": {
+      "name": "Ürün Adı",
+      "sku": "SKU",
+      "category": "Kategori",
+      "currentStock": "Mevcut Stok",
+      "status": "Durum",
+      "supplier": "Tedarikçi",
+      "location": "Konum",
+      "unitPrice": "Birim Fiyat",
+      "turnover": "Devir Hızı"
+    },
+    "filters": {
+      "status": "Stok Durumu",
+      "category": "Kategori",
+      "supplier": "Tedarikçi",
+      "location": "Depo Konumu"
+    },
+    "statuses": {
+      "Stokta": "Stokta",
+      "Düşük Stok": "Düşük Stok",
+      "Kritik Düşük": "Kritik Düşük",
+      "Stok Yok": "Stok Yok",
+      "Fazla Stok": "Fazla Stok"
+    },
+    "stockLevels": {
+      "current": "Mevcut",
+      "available": "Kullanılabilir",
+      "reserved": "Rezerve",
+      "onOrder": "Siparişte"
+    },
+    "alerts": {
+      "lowStock": "Düşük Stok Uyarısı",
+      "outOfStock": "Stok Tükendi",
+      "overStock": "Fazla Stok",
+      "reorderNeeded": "Yeniden Sipariş Gerekli"
     }
   },
   "pagination": {

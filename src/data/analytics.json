@@ -1,0 +1,160 @@
+{
+  "conversionFunnel": [
+    {
+      "stage": "Ziyaretçiler",
+      "value": 10000,
+      "percentage": 100,
+      "color": "#3b82f6"
+    },
+    {
+      "stage": "Ürün Görüntüleme",
+      "value": 6500,
+      "percentage": 65,
+      "color": "#10b981"
+    },
+    {
+      "stage": "Sepete Ekleme",
+      "value": 2800,
+      "percentage": 28,
+      "color": "#f59e0b"
+    },
+    {
+      "stage": "Ödeme Sayfası",
+      "value": 1200,
+      "percentage": 12,
+      "color": "#ef4444"
+    },
+    {
+      "stage": "Satın Alma",
+      "value": 850,
+      "percentage": 8.5,
+      "color": "#8b5cf6"
+    }
+  ],
+  "revenueByHour": [
+    { "hour": "00:00", "revenue": 1200 },
+    { "hour": "01:00", "revenue": 800 },
+    { "hour": "02:00", "revenue": 600 },
+    { "hour": "03:00", "revenue": 400 },
+    { "hour": "04:00", "revenue": 300 },
+    { "hour": "05:00", "revenue": 500 },
+    { "hour": "06:00", "revenue": 800 },
+    { "hour": "07:00", "revenue": 1200 },
+    { "hour": "08:00", "revenue": 1800 },
+    { "hour": "09:00", "revenue": 2400 },
+    { "hour": "10:00", "revenue": 3200 },
+    { "hour": "11:00", "revenue": 3800 },
+    { "hour": "12:00", "revenue": 4200 },
+    { "hour": "13:00", "revenue": 3900 },
+    { "hour": "14:00", "revenue": 4100 },
+    { "hour": "15:00", "revenue": 4500 },
+    { "hour": "16:00", "revenue": 4800 },
+    { "hour": "17:00", "revenue": 4600 },
+    { "hour": "18:00", "revenue": 4200 },
+    { "hour": "19:00", "revenue": 3800 },
+    { "hour": "20:00", "revenue": 3200 },
+    { "hour": "21:00", "revenue": 2800 },
+    { "hour": "22:00", "revenue": 2200 },
+    { "hour": "23:00", "revenue": 1600 }
+  ],
+  "customerAcquisition": [
+    {
+      "source": "Organik Arama",
+      "customers": 320,
+      "cost": 0,
+      "cac": 0,
+      "percentage": 45.2
+    },
+    {
+      "source": "Sosyal Medya",
+      "customers": 180,
+      "cost": 2400,
+      "cac": 13.33,
+      "percentage": 25.4
+    },
+    {
+      "source": "Google Ads",
+      "customers": 120,
+      "cost": 3600,
+      "cac": 30,
+      "percentage": 16.9
+    },
+    {
+      "source": "E-posta",
+      "customers": 60,
+      "cost": 800,
+      "cac": 13.33,
+      "percentage": 8.5
+    },
+    {
+      "source": "Referans",
+      "customers": 28,
+      "cost": 0,
+      "cac": 0,
+      "percentage": 4.0
+    }
+  ],
+  "productPerformance": [
+    {
+      "product": "Pro Planı",
+      "revenue": 45600,
+      "units": 152,
+      "avgPrice": 300,
+      "margin": 68,
+      "growth": 12.5
+    },
+    {
+      "product": "Temel Plan",
+      "revenue": 28800,
+      "units": 288,
+      "avgPrice": 100,
+      "margin": 45,
+      "growth": 8.2
+    },
+    {
+      "product": "Kurumsal",
+      "revenue": 67200,
+      "units": 84,
+      "avgPrice": 800,
+      "margin": 75,
+      "growth": 18.7
+    }
+  ],
+  "geographicData": [
+    {
+      "country": "Türkiye",
+      "revenue": 48200,
+      "customers": 156,
+      "avgOrderValue": 309,
+      "coordinates": [39.9334, 32.8597]
+    },
+    {
+      "country": "ABD",
+      "revenue": 38400,
+      "customers": 128,
+      "avgOrderValue": 300,
+      "coordinates": [39.8283, -98.5795]
+    },
+    {
+      "country": "Almanya",
+      "revenue": 24600,
+      "customers": 82,
+      "avgOrderValue": 300,
+      "coordinates": [51.1657, 10.4515]
+    },
+    {
+      "country": "İngiltere",
+      "revenue": 18900,
+      "customers": 63,
+      "avgOrderValue": 300,
+      "coordinates": [55.3781, -3.4360]
+    },
+    {
+      "country": "Fransa",
+      "revenue": 15600,
+      "customers": 52,
+      "avgOrderValue": 300,
+      "coordinates": [46.2276, 2.2137]
+    }
+  ]
+}

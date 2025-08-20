@@ -2,8 +2,10 @@
   "nav": {
     "dashboard": "Dashboard",
     "overview": "Overview",
+    "analytics": "Analytics",
     "sales": "Sales",
     "customers": "Customers",
+    "inventory": "Inventory",
     "support": "Support",
     "returns": "Returns",
     "settings": "Settings"
@@ -228,6 +230,66 @@
       "Banka Havalesi": "Bank Transfer",
       "Nakit": "Cash",
       "Mağaza Kredisi": "Store Credit"
+    }
+  },
+  "analytics": {
+    "title": "Analytics Dashboard",
+    "subtitle": "Detailed performance analysis and business intelligence",
+    "conversionFunnel": "Conversion Funnel",
+    "customerAcquisition": "Customer Acquisition",
+    "revenueByHour": "Hourly Revenue Analysis",
+    "productPerformance": "Product Performance",
+    "geographicAnalysis": "Geographic Analysis",
+    "timeBasedAnalysis": "Time-based Analysis"
+  },
+  "inventory": {
+    "title": "Inventory Management",
+    "subtitle": "Stock levels, suppliers and warehouse management",
+    "products": "Products",
+    "suppliers": "Suppliers",
+    "warehouses": "Warehouses",
+    "movements": "Stock Movements",
+    "searchPlaceholder": "Search product name, SKU or category...",
+    "showingResults": "Showing {{count}} products",
+    "showingResultsFiltered": "Showing {{filtered}} products ({{total}} total)",
+    "clearFilters": "Clear Filters",
+    "noDataFound": "No products found",
+    "noFilterResults": "No products found matching search criteria",
+    "columns": {
+      "name": "Product Name",
+      "sku": "SKU",
+      "category": "Category",
+      "currentStock": "Current Stock",
+      "status": "Status",
+      "supplier": "Supplier",
+      "location": "Location",
+      "unitPrice": "Unit Price",
+      "turnover": "Turnover Rate"
+    },
+    "filters": {
+      "status": "Stock Status",
+      "category": "Category",
+      "supplier": "Supplier",
+      "location": "Warehouse Location"
+    },
+    "statuses": {
+      "Stokta": "In Stock",
+      "Düşük Stok": "Low Stock",
+      "Kritik Düşük": "Critical Low",
+      "Stok Yok": "Out of Stock",
+      "Fazla Stok": "Overstock"
+    },
+    "stockLevels": {
+      "current": "Current",
+      "available": "Available",
+      "reserved": "Reserved",
+      "onOrder": "On Order"
+    },
+    "alerts": {
+      "lowStock": "Low Stock Alert",
+      "outOfStock": "Out of Stock",
+      "overStock": "Overstock",
+      "reorderNeeded": "Reorder Needed"
     }
   },
   "pagination": {
