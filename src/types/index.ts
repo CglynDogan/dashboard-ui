@@ -51,3 +51,28 @@ export type SupportTicket = {
   resolvedAt: string | null;
   tags: string[];
 };
+
+export type ReturnRequest = {
+  id: string;
+  originalSaleId: string;
+  customerId: string;
+  customerName: string;
+  customerEmail: string;
+  product: string;
+  region: 'EMEA' | 'AMER' | 'APAC';
+  channel: 'Web' | 'Mobil' | 'Mağaza';
+  originalAmount: number;
+  refundAmount: number;
+  units: number;
+  reason: string;
+  reasonCategory: 'Kalite' | 'Sipariş Hatası' | 'Teknik' | 'Politika' | 'Hasar' | 'Değişim' | 'Memnuniyetsizlik';
+  status: 'Onay Bekliyor' | 'İnceleme' | 'İşlemde' | 'Tamamlandı' | 'Reddedildi' | 'İptal Edildi';
+  priority: 'Düşük' | 'Orta' | 'Yüksek' | 'Kritik';
+  requestedAt: string;
+  processedAt: string | null;
+  completedAt: string | null;
+  assignedTo: string;
+  notes: string;
+  refundMethod: 'Kredi Kartı' | 'Banka Havalesi' | 'Nakit' | 'Mağaza Kredisi' | null;
+  isProcessed: boolean;
+};

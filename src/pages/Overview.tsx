@@ -4,14 +4,17 @@ import KpiStat from '../components/widgets/KpiStat';
 import Card from '../components/ui/Card';
 import { formatRelativeDate, formatCurrency, formatDate } from '../lib/format';
 import salesData from '../data/sales.json';
+import returnsData from '../data/returns.json';
 import customersData from '../data/customers.json';
 import activitiesData from '../data/activities.json';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 export default function Overview() {
   const { t } = useTranslation();
-  // KPI hesaplamaları
-  const totalRevenue = salesData.reduce((sum, sale) => sum + sale.revenue, 0);
+  // KPI hesaplamaları (iadeler dahil)
+  const completedReturns = returnsData.filter((returnItem: any) => returnItem.status === 'Tamamlandı');
+  const totalReturns = completedReturns.reduce((sum: number, returnItem: any) => sum + returnItem.refundAmount, 0);
+  const totalRevenue = salesData.reduce((sum, sale) => sum + sale.revenue, 0) - totalReturns;
   const totalCustomers = customersData.length;
   const totalOrders = salesData.length;
   const avgOrderValue = totalRevenue / totalOrders;

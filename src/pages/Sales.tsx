@@ -8,17 +8,45 @@ import FilterDropdown from '../components/filters/FilterDropdown';
 import ChartTypeSelector, { type ChartType } from '../components/charts/ChartTypeSelector';
 import SalesChart from '../components/charts/SalesChart';
 import { formatCurrency, formatDate } from '../lib/format';
-import { type Sale } from '../types';
+import { type Sale, type ReturnRequest } from '../types';
 import salesData from '../data/sales.json';
+import returnsData from '../data/returns.json';
 
 export default function Sales() {
   const { t } = useTranslation();
-  const [data] = useState<Sale[]>(salesData as Sale[]);
+  const [salesData_] = useState<Sale[]>(salesData as Sale[]);
+  const [returnsData_] = useState<ReturnRequest[]>(returnsData as ReturnRequest[]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
   const [selectedChannels, setSelectedChannels] = useState<string[]>([]);
   const [selectedProducts, setSelectedProducts] = useState<string[]>([]);
   const [chartType, setChartType] = useState<ChartType>('bar');
+
+  // Combine sales and completed returns (as negative sales)
+  const data = useMemo(() => {
+    const completedReturns = returnsData_.filter(returnItem => returnItem.status === 'Tamamlandı');
+    
+    // Map channel names from returns to sales format
+    const mapChannel = (channel: string): 'Web' | 'Mobile' | 'Retail' => {
+      switch (channel) {
+        case 'Mobil': return 'Mobile';
+        case 'Mağaza': return 'Retail';
+        default: return 'Web';
+      }
+    };
+    
+    const returnSales: Sale[] = completedReturns.map(returnItem => ({
+      id: `return-${returnItem.id}`,
+      date: returnItem.completedAt!,
+      region: returnItem.region,
+      product: returnItem.product,
+      channel: mapChannel(returnItem.channel),
+      revenue: -returnItem.refundAmount, // Negative for returns
+      units: -returnItem.units // Negative units
+    }));
+
+    return [...salesData_, ...returnSales];
+  }, [salesData_, returnsData_]);
 
   // Filter options
   const regionOptions = [
@@ -98,12 +126,27 @@ export default function Sales() {
       key: 'revenue',
       header: t('sales.columns.revenue'),
       sortable: true,
-      render: (value) => formatCurrency(value)
+      render: (value, row) => (
+        <span className={value < 0 ? 'text-red-600 dark:text-red-400' : ''}>
+          {formatCurrency(value)}
+          {row.id.startsWith('return-') && (
+            <span className="ml-1 text-xs text-red-500">(İade)</span>
+          )}
+        </span>
+      )
     },
     {
       key: 'units',
       header: t('sales.columns.units'),
-      sortable: true
+      sortable: true,
+      render: (value, row) => (
+        <span className={value < 0 ? 'text-red-600 dark:text-red-400' : ''}>
+          {value}
+          {row.id.startsWith('return-') && (
+            <span className="ml-1 text-xs text-red-500">(İade)</span>
+          )}
+        </span>
+      )
     }
   ];
 

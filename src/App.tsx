@@ -6,6 +6,7 @@ import Overview from './pages/Overview';
 import Sales from './pages/Sales';
 import Customers from './pages/Customers';
 import Support from './pages/Support';
+import Returns from './pages/Returns';
 import Settings from './pages/Settings';
 
 export default function App() {
@@ -33,6 +34,7 @@ export default function App() {
             <Route path="sales" element={<Sales />} />
             <Route path="customers" element={<Customers />} />
             <Route path="support" element={<Support />} />
+            <Route path="returns" element={<Returns />} />
             <Route path="settings" element={<Settings />} />
           </Route>
         </Routes>

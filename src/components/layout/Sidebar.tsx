@@ -5,7 +5,8 @@ import {
   ChartBarIcon, 
   UsersIcon, 
   CogIcon,
-  LifebuoyIcon
+  LifebuoyIcon,
+  ArrowUturnLeftIcon
 } from '@heroicons/react/24/outline';
 
 export default function Sidebar() {
@@ -16,6 +17,7 @@ export default function Sidebar() {
     { name: t('nav.sales'), href: '/sales', icon: ChartBarIcon },
     { name: t('nav.customers'), href: '/customers', icon: UsersIcon },
     { name: t('nav.support'), href: '/support', icon: LifebuoyIcon },
+    { name: t('nav.returns'), href: '/returns', icon: ArrowUturnLeftIcon },
     { name: t('nav.settings'), href: '/settings', icon: CogIcon },
   ];
 

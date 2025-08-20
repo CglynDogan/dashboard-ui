@@ -5,6 +5,7 @@
     "sales": "Sales",
     "customers": "Customers",
     "support": "Support",
+    "returns": "Returns",
     "settings": "Settings"
   },
   "overview": {
@@ -170,6 +171,63 @@
       "Raporlama": "Reporting",
       "Bildirim": "Notification",
       "Özellik Talebi": "Feature Request"
+    }
+  },
+  "returns": {
+    "title": "Return Requests",
+    "subtitle": "View and manage customer return requests",
+    "searchPlaceholder": "Search return ID, customer or product...",
+    "showingResults": "Showing {{count}} returns",
+    "showingResultsFiltered": "Showing {{filtered}} returns ({{total}} total)",
+    "clearFilters": "Clear Filters",
+    "noDataFound": "No return requests found",
+    "noFilterResults": "No returns found matching search criteria",
+    "columns": {
+      "id": "Return ID",
+      "customer": "Customer",
+      "product": "Product",
+      "originalAmount": "Original Amount",
+      "refundAmount": "Refund Amount",
+      "reason": "Return Reason",
+      "status": "Status",
+      "priority": "Priority",
+      "requestedAt": "Requested Date",
+      "assignedTo": "Assigned To"
+    },
+    "filters": {
+      "status": "Status",
+      "priority": "Priority",
+      "reasonCategory": "Reason Category",
+      "refundMethod": "Refund Method"
+    },
+    "statuses": {
+      "Onay Bekliyor": "Pending Approval",
+      "İnceleme": "Under Review",
+      "İşlemde": "Processing",
+      "Tamamlandı": "Completed",
+      "Reddedildi": "Rejected",
+      "İptal Edildi": "Cancelled"
+    },
+    "priorities": {
+      "Düşük": "Low",
+      "Orta": "Medium",
+      "Yüksek": "High",
+      "Kritik": "Critical"
+    },
+    "reasonCategories": {
+      "Kalite": "Quality",
+      "Sipariş Hatası": "Order Error",
+      "Teknik": "Technical",
+      "Politika": "Policy",
+      "Hasar": "Damage",
+      "Değişim": "Exchange",
+      "Memnuniyetsizlik": "Dissatisfaction"
+    },
+    "refundMethods": {
+      "Kredi Kartı": "Credit Card",
+      "Banka Havalesi": "Bank Transfer",
+      "Nakit": "Cash",
+      "Mağaza Kredisi": "Store Credit"
     }
   },
   "pagination": {

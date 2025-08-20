@@ -5,6 +5,7 @@
     "sales": "Satışlar",
     "customers": "Müşteriler",
     "support": "Destek",
+    "returns": "İadeler",
     "settings": "Ayarlar"
   },
   "overview": {
@@ -170,6 +171,63 @@
       "Raporlama": "Raporlama",
       "Bildirim": "Bildirim",
       "Özellik Talebi": "Özellik Talebi"
+    }
+  },
+  "returns": {
+    "title": "İade Talepleri",
+    "subtitle": "Müşteri iade taleplerini görüntüle ve yönet",
+    "searchPlaceholder": "İade ID, müşteri veya ürün ara...",
+    "showingResults": "{{count}} iade gösteriliyor",
+    "showingResultsFiltered": "{{filtered}} iade gösteriliyor ({{total}} toplam)",
+    "clearFilters": "Filtreleri Temizle",
+    "noDataFound": "İade talebi bulunamadı",
+    "noFilterResults": "Arama kriterlerine uygun iade bulunamadı",
+    "columns": {
+      "id": "İade ID",
+      "customer": "Müşteri",
+      "product": "Ürün",
+      "originalAmount": "Orijinal Tutar",
+      "refundAmount": "İade Tutarı",
+      "reason": "İade Nedeni",
+      "status": "Durum",
+      "priority": "Öncelik",
+      "requestedAt": "Talep Tarihi",
+      "assignedTo": "Atanan"
+    },
+    "filters": {
+      "status": "Durum",
+      "priority": "Öncelik",
+      "reasonCategory": "Neden Kategorisi",
+      "refundMethod": "İade Yöntemi"
+    },
+    "statuses": {
+      "Onay Bekliyor": "Onay Bekliyor",
+      "İnceleme": "İnceleme",
+      "İşlemde": "İşlemde",
+      "Tamamlandı": "Tamamlandı",
+      "Reddedildi": "Reddedildi",
+      "İptal Edildi": "İptal Edildi"
+    },
+    "priorities": {
+      "Düşük": "Düşük",
+      "Orta": "Orta",
+      "Yüksek": "Yüksek",
+      "Kritik": "Kritik"
+    },
+    "reasonCategories": {
+      "Kalite": "Kalite",
+      "Sipariş Hatası": "Sipariş Hatası",
+      "Teknik": "Teknik",
+      "Politika": "Politika",
+      "Hasar": "Hasar",
+      "Değişim": "Değişim",
+      "Memnuniyetsizlik": "Memnuniyetsizlik"
+    },
+    "refundMethods": {
+      "Kredi Kartı": "Kredi Kartı",
+      "Banka Havalesi": "Banka Havalesi",
+      "Nakit": "Nakit",
+      "Mağaza Kredisi": "Mağaza Kredisi"
     }
   },
   "pagination": {
