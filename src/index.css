@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  
+  body {
+    @apply bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100;
+  }
+  
+  /* CSS Variables for tooltips */
+  :root {
+    --tooltip-bg: #ffffff;
+    --tooltip-border: #e5e7eb;
+    --tooltip-text: #111827;
+  }
+  
+  .dark {
+    --tooltip-bg: #374151;
+    --tooltip-border: #4b5563;
+    --tooltip-text: #f9fafb;
+  }
+}
+
+@layer utilities {
+  /* Kompakt görünüm */
+  .compact-view .p-6 {
+    @apply p-4;
+  }
+  
+  .compact-view .py-3 {
+    @apply py-2;
+  }
+  
+  .compact-view .space-y-6 > * + * {
+    margin-top: 1rem !important;
+  }
+  
+  .compact-view .text-2xl {
+    @apply text-xl;
+  }
+  
+  /* Animasyonları kapat */
+  .no-animations *,
+  .no-animations *::before,
+  .no-animations *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

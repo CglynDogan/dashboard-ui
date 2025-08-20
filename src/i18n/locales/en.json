@@ -1,0 +1,181 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "overview": "Overview",
+    "sales": "Sales",
+    "customers": "Customers",
+    "support": "Support",
+    "settings": "Settings"
+  },
+  "overview": {
+    "title": "Overview",
+    "subtitle": "Dashboard main page",
+    "totalRevenue": "Total Revenue",
+    "activeCustomers": "Active Customers",
+    "totalOrders": "Total Orders",
+    "avgOrderValue": "Average Order Value",
+    "revenueChart": "Revenue Trend",
+    "recentActivities": "Recent Activities",
+    "vsLastWeek": "vs last week"
+  },
+  "sales": {
+    "title": "Sales",
+    "subtitle": "View and analyze sales data",
+    "chartTitle": "Regional Sales Distribution",
+    "chartTitleFiltered": "Regional Sales Distribution (Filtered)",
+    "searchPlaceholder": "Search product, region or channel...",
+    "showingResults": "Showing {{count}} sales",
+    "showingResultsFiltered": "Showing {{filtered}} sales ({{total}} total)",
+    "clearFilters": "Clear Filters",
+    "noDataFound": "No sales data found",
+    "noFilterResults": "No sales found matching search criteria",
+    "columns": {
+      "date": "Date",
+      "region": "Region",
+      "product": "Product",
+      "channel": "Channel",
+      "revenue": "Revenue",
+      "units": "Units"
+    },
+    "filters": {
+      "region": "Region",
+      "channel": "Channel",
+      "product": "Product"
+    }
+  },
+  "customers": {
+    "title": "Customers",
+    "subtitle": "View and manage customer information",
+    "searchPlaceholder": "Search customer name, email or country...",
+    "showingResults": "Showing {{count}} customers",
+    "showingResultsFiltered": "Showing {{filtered}} customers ({{total}} total)",
+    "clearFilters": "Clear Filters",
+    "noDataFound": "No customer data found",
+    "noFilterResults": "No customers found matching search criteria",
+    "columns": {
+      "name": "Customer Name",
+      "email": "Email",
+      "country": "Country",
+      "ltv": "Lifetime Value",
+      "lastActive": "Last Active",
+      "segment": "Segment"
+    },
+    "filters": {
+      "segment": "Segment",
+      "country": "Country"
+    },
+    "segments": {
+      "VIP": "VIP",
+      "Loyal": "Loyal",
+      "New": "New",
+      "ChurnRisk": "Churn Risk"
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Manage application settings",
+    "themeSettings": "Theme Settings",
+    "darkMode": "Dark Mode",
+    "darkModeDesc": "Change interface theme",
+    "displaySettings": "Display Settings",
+    "compactView": "Compact View",
+    "compactViewDesc": "Use less spacing",
+    "animations": "Animations",
+    "animationsDesc": "Transition animations",
+    "language": "Language",
+    "languageDesc": "Change interface language",
+    "on": "On",
+    "off": "Off",
+    "compactActive": "✓ Compact view active - Using less spacing",
+    "animationsOff": "⚡ Animations disabled - Faster performance"
+  },
+  "common": {
+    "search": "Search...",
+    "clear": "Clear",
+    "noData": "No data found",
+    "loading": "Loading...",
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "daysAgo": "{{count}} days ago",
+    "weeksAgo": "{{count}} weeks ago"
+  },
+  "products": {
+    "Pro Planı": "Pro Plan",
+    "Temel Plan": "Basic Plan",
+    "Kurumsal": "Enterprise"
+  },
+  "channels": {
+    "Web": "Web",
+    "Mobil": "Mobile",
+    "Mağaza": "Retail"
+  },
+  "chart": {
+    "revenue": "Revenue",
+    "date": "Date",
+    "region": "Region"
+  },
+  "charts": {
+    "type": "Chart Type",
+    "bar": "Bar Chart",
+    "line": "Line Chart",
+    "pie": "Pie Chart", 
+    "area": "Area Chart"
+  },
+  "support": {
+    "title": "Support Tickets",
+    "subtitle": "View and manage customer support requests",
+    "searchPlaceholder": "Search ticket ID, title or customer...",
+    "showingResults": "Showing {{count}} tickets",
+    "showingResultsFiltered": "Showing {{filtered}} tickets ({{total}} total)",
+    "clearFilters": "Clear Filters",
+    "noDataFound": "No support tickets found",
+    "noFilterResults": "No tickets found matching search criteria",
+    "columns": {
+      "id": "Ticket ID",
+      "title": "Title",
+      "customer": "Customer",
+      "priority": "Priority",
+      "status": "Status",
+      "category": "Category",
+      "assignedTo": "Assigned To",
+      "createdAt": "Created",
+      "updatedAt": "Updated"
+    },
+    "filters": {
+      "status": "Status",
+      "priority": "Priority",
+      "category": "Category",
+      "assignedTo": "Assigned To"
+    },
+    "priorities": {
+      "Düşük": "Low",
+      "Orta": "Medium",
+      "Yüksek": "High", 
+      "Kritik": "Critical"
+    },
+    "statuses": {
+      "Açık": "Open",
+      "İşlemde": "In Progress",
+      "Beklemede": "Pending",
+      "İnceleme": "Under Review",
+      "Çözüldü": "Resolved",
+      "Kapatıldı": "Closed"
+    },
+    "categories": {
+      "Hesap": "Account",
+      "Faturalama": "Billing",
+      "Teknik": "Technical",
+      "Ödeme": "Payment",
+      "Mobil": "Mobile",
+      "Raporlama": "Reporting",
+      "Bildirim": "Notification",
+      "Özellik Talebi": "Feature Request"
+    }
+  },
+  "pagination": {
+    "itemsPerPage": "Items per page",
+    "results": "results",
+    "showing": "Showing",
+    "of": "of"
+  }
+}

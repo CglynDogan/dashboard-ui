@@ -1,0 +1,74 @@
+[
+  {
+    "id": "s1",
+    "date": "2024-01-15",
+    "region": "EMEA",
+    "product": "Pro Planı",
+    "channel": "Web",
+    "revenue": 2500,
+    "units": 5
+  },
+  {
+    "id": "s2",
+    "date": "2024-01-16",
+    "region": "AMER",
+    "product": "Temel Plan",
+    "channel": "Mobil",
+    "revenue": 1200,
+    "units": 12
+  },
+  {
+    "id": "s3",
+    "date": "2024-01-17",
+    "region": "APAC",
+    "product": "Kurumsal",
+    "channel": "Mağaza",
+    "revenue": 8500,
+    "units": 2
+  },
+  {
+    "id": "s4",
+    "date": "2024-01-18",
+    "region": "EMEA",
+    "product": "Temel Plan",
+    "channel": "Web",
+    "revenue": 800,
+    "units": 8
+  },
+  {
+    "id": "s5",
+    "date": "2024-01-19",
+    "region": "AMER",
+    "product": "Pro Planı",
+    "channel": "Mobil",
+    "revenue": 3200,
+    "units": 6
+  },
+  {
+    "id": "s6",
+    "date": "2024-01-20",
+    "region": "APAC",
+    "product": "Temel Plan",
+    "channel": "Web",
+    "revenue": 950,
+    "units": 9
+  },
+  {
+    "id": "s7",
+    "date": "2024-01-21",
+    "region": "EMEA",
+    "product": "Kurumsal",
+    "channel": "Mağaza",
+    "revenue": 7200,
+    "units": 1
+  },
+  {
+    "id": "s8",
+    "date": "2024-01-22",
+    "region": "AMER",
+    "product": "Pro Planı",
+    "channel": "Web",
+    "revenue": 2800,
+    "units": 4
+  }
+]

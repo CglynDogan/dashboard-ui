@@ -1,0 +1,181 @@
+{
+  "nav": {
+    "dashboard": "Kontrol Paneli",
+    "overview": "Genel Bakış",
+    "sales": "Satışlar",
+    "customers": "Müşteriler",
+    "support": "Destek",
+    "settings": "Ayarlar"
+  },
+  "overview": {
+    "title": "Genel Bakış",
+    "subtitle": "Dashboard ana sayfası",
+    "totalRevenue": "Toplam Gelir",
+    "activeCustomers": "Aktif Müşteri",
+    "totalOrders": "Toplam Sipariş",
+    "avgOrderValue": "Ortalama Sipariş Değeri",
+    "revenueChart": "Gelir Trendi",
+    "recentActivities": "Son Aktiviteler",
+    "vsLastWeek": "vs geçen hafta"
+  },
+  "sales": {
+    "title": "Satışlar",
+    "subtitle": "Satış verilerini görüntüle ve analiz et",
+    "chartTitle": "Bölgesel Satış Dağılımı",
+    "chartTitleFiltered": "Bölgesel Satış Dağılımı (Filtrelenmiş)",
+    "searchPlaceholder": "Ürün, bölge veya kanal ara...",
+    "showingResults": "{{count}} satış gösteriliyor",
+    "showingResultsFiltered": "{{filtered}} satış gösteriliyor ({{total}} toplam)",
+    "clearFilters": "Filtreleri Temizle",
+    "noDataFound": "Satış verisi bulunamadı",
+    "noFilterResults": "Arama kriterlerine uygun satış bulunamadı",
+    "columns": {
+      "date": "Tarih",
+      "region": "Bölge",
+      "product": "Ürün",
+      "channel": "Kanal",
+      "revenue": "Gelir",
+      "units": "Adet"
+    },
+    "filters": {
+      "region": "Bölge",
+      "channel": "Kanal",
+      "product": "Ürün"
+    }
+  },
+  "customers": {
+    "title": "Müşteriler",
+    "subtitle": "Müşteri bilgilerini görüntüle ve yönet",
+    "searchPlaceholder": "Müşteri adı, e-posta veya ülke ara...",
+    "showingResults": "{{count}} müşteri gösteriliyor",
+    "showingResultsFiltered": "{{filtered}} müşteri gösteriliyor ({{total}} toplam)",
+    "clearFilters": "Filtreleri Temizle",
+    "noDataFound": "Müşteri verisi bulunamadı",
+    "noFilterResults": "Arama kriterlerine uygun müşteri bulunamadı",
+    "columns": {
+      "name": "Müşteri Adı",
+      "email": "E-posta",
+      "country": "Ülke",
+      "ltv": "Yaşam Boyu Değer",
+      "lastActive": "Son Aktivite",
+      "segment": "Segment"
+    },
+    "filters": {
+      "segment": "Segment",
+      "country": "Ülke"
+    },
+    "segments": {
+      "VIP": "VIP",
+      "Loyal": "Sadık",
+      "New": "Yeni",
+      "ChurnRisk": "Kayıp Riski"
+    }
+  },
+  "settings": {
+    "title": "Ayarlar",
+    "subtitle": "Uygulama ayarlarını yönet",
+    "themeSettings": "Tema Ayarları",
+    "darkMode": "Karanlık Mod",
+    "darkModeDesc": "Arayüz temasını değiştir",
+    "displaySettings": "Görünüm Ayarları",
+    "compactView": "Kompakt Görünüm",
+    "compactViewDesc": "Daha az boşluk kullan",
+    "animations": "Animasyonlar",
+    "animationsDesc": "Geçiş animasyonları",
+    "language": "Dil",
+    "languageDesc": "Arayüz dilini değiştir",
+    "on": "Açık",
+    "off": "Kapalı",
+    "compactActive": "✓ Kompakt görünüm etkin - Daha az boşluk kullanılıyor",
+    "animationsOff": "⚡ Animasyonlar kapalı - Daha hızlı performans"
+  },
+  "common": {
+    "search": "Ara...",
+    "clear": "Temizle",
+    "noData": "Veri bulunamadı",
+    "loading": "Yükleniyor...",
+    "today": "Bugün",
+    "yesterday": "Dün",
+    "daysAgo": "{{count}} gün önce",
+    "weeksAgo": "{{count}} hafta önce"
+  },
+  "products": {
+    "Pro Planı": "Pro Planı",
+    "Temel Plan": "Temel Plan",
+    "Kurumsal": "Kurumsal"
+  },
+  "channels": {
+    "Web": "Web",
+    "Mobil": "Mobil",
+    "Mağaza": "Mağaza"
+  },
+  "chart": {
+    "revenue": "Gelir",
+    "date": "Tarih",
+    "region": "Bölge"
+  },
+  "charts": {
+    "type": "Grafik Türü",
+    "bar": "Çubuk Grafik",
+    "line": "Çizgi Grafik", 
+    "pie": "Pasta Grafik",
+    "area": "Alan Grafik"
+  },
+  "support": {
+    "title": "Destek Talepleri",
+    "subtitle": "Müşteri destek taleplerini görüntüle ve yönet",
+    "searchPlaceholder": "Talep ID, başlık veya müşteri ara...",
+    "showingResults": "{{count}} talep gösteriliyor",
+    "showingResultsFiltered": "{{filtered}} talep gösteriliyor ({{total}} toplam)",
+    "clearFilters": "Filtreleri Temizle",
+    "noDataFound": "Destek talebi bulunamadı",
+    "noFilterResults": "Arama kriterlerine uygun talep bulunamadı",
+    "columns": {
+      "id": "Talep ID",
+      "title": "Başlık",
+      "customer": "Müşteri",
+      "priority": "Öncelik",
+      "status": "Durum",
+      "category": "Kategori",
+      "assignedTo": "Atanan",
+      "createdAt": "Oluşturulma",
+      "updatedAt": "Güncellenme"
+    },
+    "filters": {
+      "status": "Durum",
+      "priority": "Öncelik",
+      "category": "Kategori",
+      "assignedTo": "Atanan Kişi"
+    },
+    "priorities": {
+      "Düşük": "Düşük",
+      "Orta": "Orta", 
+      "Yüksek": "Yüksek",
+      "Kritik": "Kritik"
+    },
+    "statuses": {
+      "Açık": "Açık",
+      "İşlemde": "İşlemde",
+      "Beklemede": "Beklemede",
+      "İnceleme": "İnceleme",
+      "Çözüldü": "Çözüldü",
+      "Kapatıldı": "Kapatıldı"
+    },
+    "categories": {
+      "Hesap": "Hesap",
+      "Faturalama": "Faturalama",
+      "Teknik": "Teknik",
+      "Ödeme": "Ödeme",
+      "Mobil": "Mobil",
+      "Raporlama": "Raporlama",
+      "Bildirim": "Bildirim",
+      "Özellik Talebi": "Özellik Talebi"
+    }
+  },
+  "pagination": {
+    "itemsPerPage": "Sayfa başına",
+    "results": "sonuç",
+    "showing": "Gösterilen",
+    "of": "/"
+  }
+}
