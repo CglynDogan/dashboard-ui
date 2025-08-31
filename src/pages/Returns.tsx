@@ -190,13 +190,13 @@ export default function Returns() {
       key: 'originalAmount',
       header: t('returns.columns.originalAmount'),
       sortable: true,
-      render: (value) => formatCurrency(value)
+      render: (value) => formatCurrency(Number(value || 0))
     },
     {
       key: 'refundAmount',
       header: t('returns.columns.refundAmount'),
       sortable: true,
-      render: (value) => formatCurrency(value)
+      render: (value) => formatCurrency(Number(value || 0))
     },
     {
       key: 'reason',
@@ -218,8 +218,8 @@ export default function Returns() {
       header: t('returns.columns.status'),
       sortable: true,
       render: (value) => (
-        <Badge variant={getStatusVariant(value)}>
-          {getStatusLabel(value)}
+        <Badge variant={getStatusVariant(String(value || ''))}>
+          {getStatusLabel(String(value || ''))}
         </Badge>
       )
     },
@@ -229,8 +229,8 @@ export default function Returns() {
       sortable: true,
       sortFunction: prioritySortFunction,
       render: (value) => (
-        <Badge variant={getPriorityVariant(value)}>
-          {getPriorityLabel(value)}
+        <Badge variant={getPriorityVariant(String(value || ''))}>
+          {getPriorityLabel(String(value || ''))}
         </Badge>
       )
     },
@@ -238,7 +238,7 @@ export default function Returns() {
       key: 'requestedAt',
       header: t('returns.columns.requestedAt'),
       sortable: true,
-      render: (value) => formatDate(value)
+      render: (value) => formatDate(String(value || ''))
     },
     {
       key: 'assignedTo',

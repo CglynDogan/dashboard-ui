@@ -1,16 +1,14 @@
 import { memo, useCallback } from 'react';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
-import { useDebounce } from '../../hooks/useDebounce';
 
 interface SearchInputProps {
   value: string;
   onChange: (value: string) => void;
   placeholder?: string;
-  debounceMs?: number;
 }
 
-function SearchInput({ value, onChange, placeholder = "Ara...", debounceMs = 300 }: SearchInputProps) {
-  const debouncedValue = useDebounce(value, debounceMs);
+function SearchInput({ value, onChange, placeholder = "Ara..." }: SearchInputProps) {
+  // const debouncedValue = useDebounce(value, debounceMs);
   
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value);

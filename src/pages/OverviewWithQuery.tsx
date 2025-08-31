@@ -54,7 +54,7 @@ export default function OverviewWithQuery() {
   // Calculate KPIs from sales data
   const totalRevenue = salesData.reduce((sum, sale) => sum + sale.revenue, 0);
   const totalOrders = salesData.length;
-  const avgOrderValue = totalRevenue / totalOrders;
+  // const avgOrderValue = totalRevenue / totalOrders;
 
   // Chart data
   const chartData = salesData

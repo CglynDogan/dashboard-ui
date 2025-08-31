@@ -143,7 +143,7 @@ function ModernCustomerAcquisition({ data, className = '' }: ModernCustomerAcqui
       {/* Main Content - Cards View */}
       {viewMode === 'cards' && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {data.map((source, index) => {
+          {data.map((source) => {
             const Icon = sourceIcons[source.source] || GlobeAltIcon;
             const color = sourceColors[source.source] || '#6b7280';
             const isSelected = selectedSource === source.source;
@@ -269,7 +269,7 @@ function ModernCustomerAcquisition({ data, className = '' }: ModernCustomerAcqui
             {/* Visual Chart Representation */}
             <div className="lg:col-span-2">
               <div className="space-y-4">
-                {data.map((source, index) => {
+                {data.map((source) => {
                   const Icon = sourceIcons[source.source] || GlobeAltIcon;
                   const color = sourceColors[source.source] || '#6b7280';
                   

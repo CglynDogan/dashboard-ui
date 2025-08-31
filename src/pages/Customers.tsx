@@ -111,21 +111,21 @@ export default function Customers() {
       key: 'ltv',
       header: t('customers.columns.ltv'),
       sortable: true,
-      render: (value) => formatCurrency(value)
+      render: (value) => formatCurrency(Number(value))
     },
     {
       key: 'lastActive',
       header: t('customers.columns.lastActive'),
       sortable: true,
-      render: (value) => formatDate(value)
+      render: (value) => formatDate(String(value))
     },
     {
       key: 'segment',
       header: t('customers.columns.segment'),
       sortable: true,
       render: (value) => (
-        <Badge variant={getSegmentVariant(value)}>
-          {getSegmentLabel(value)}
+        <Badge variant={getSegmentVariant(String(value))}>
+          {getSegmentLabel(String(value))}
         </Badge>
       )
     }

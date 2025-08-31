@@ -96,7 +96,7 @@ export default function Sales() {
       key: 'date',
       header: t('sales.columns.date'),
       sortable: true,
-      render: (value) => formatDate(value)
+      render: (value) => formatDate(String(value))
     },
     {
       key: 'region',
@@ -127,8 +127,8 @@ export default function Sales() {
       header: t('sales.columns.revenue'),
       sortable: true,
       render: (value, row) => (
-        <span className={value < 0 ? 'text-red-600 dark:text-red-400' : ''}>
-          {formatCurrency(value)}
+        <span className={Number(value) < 0 ? 'text-red-600 dark:text-red-400' : ''}>
+          {formatCurrency(Number(value))}
           {row.id.startsWith('return-') && (
             <span className="ml-1 text-xs text-red-500">(İade)</span>
           )}
@@ -140,7 +140,7 @@ export default function Sales() {
       header: t('sales.columns.units'),
       sortable: true,
       render: (value, row) => (
-        <span className={value < 0 ? 'text-red-600 dark:text-red-400' : ''}>
+        <span className={Number(value) < 0 ? 'text-red-600 dark:text-red-400' : ''}>
           {value}
           {row.id.startsWith('return-') && (
             <span className="ml-1 text-xs text-red-500">(İade)</span>

@@ -52,7 +52,7 @@ export const inventoryApi = {
     return { data: inventoryData, success: true };
   },
   
-  updateStock: async (id: string, quantity: number): Promise<ApiResponse<boolean>> => {
+  updateStock: async (_id: string, _quantity: number): Promise<ApiResponse<boolean>> => {
     await delay(800);
     // Simulate API call
     return { data: true, success: true, message: 'Stock updated successfully' };
@@ -66,7 +66,7 @@ export const supportApi = {
     return { data: supportData, success: true };
   },
   
-  updateTicketStatus: async (id: string, status: string): Promise<ApiResponse<boolean>> => {
+  updateTicketStatus: async (_id: string, _status: string): Promise<ApiResponse<boolean>> => {
     await delay(500);
     return { data: true, success: true, message: 'Ticket status updated' };
   },
@@ -79,7 +79,7 @@ export const returnsApi = {
     return { data: returnsData, success: true };
   },
   
-  processReturn: async (id: string, approved: boolean): Promise<ApiResponse<boolean>> => {
+  processReturn: async (_id: string, approved: boolean): Promise<ApiResponse<boolean>> => {
     await delay(700);
     return { 
       data: approved, 

@@ -64,7 +64,7 @@ export default function AnalyticsModern() {
     const geoData = analyticsData.geographicData;
     const productData = analyticsData.productPerformance;
     const hourlyData = analyticsData.revenueByHour;
-    const _acquisitionData = analyticsData.customerAcquisition;
+    // const _acquisitionData = analyticsData.customerAcquisition;
 
     const totalRevenue = geoData.reduce((sum, item) => sum + item.revenue, 0);
     const totalCustomers = geoData.reduce((sum, item) => sum + item.customers, 0);

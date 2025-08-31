@@ -1,5 +1,4 @@
 import { memo, useCallback } from 'react';
-import { format } from 'date-fns';
 
 interface DateRangeFilterProps {
   startDate?: string;

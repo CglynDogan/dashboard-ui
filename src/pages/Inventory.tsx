@@ -207,10 +207,10 @@ export default function Inventory() {
         }
       },
       render: (value) => (
-        <Badge variant={getStatusVariant(value)}>
+        <Badge variant={getStatusVariant(String(value || ''))}>
           <div className="flex items-center space-x-1">
-            {getStatusIcon(value)}
-            <span>{getStatusLabel(value)}</span>
+            {getStatusIcon(String(value || ''))}
+            <span>{getStatusLabel(String(value || ''))}</span>
           </div>
         </Badge>
       )
@@ -229,7 +229,7 @@ export default function Inventory() {
       key: 'unitPrice',
       header: t('inventory.columns.unitPrice'),
       sortable: true,
-      render: (value) => formatCurrency(value)
+      render: (value) => formatCurrency(Number(value || 0))
     },
     {
       key: 'turnoverRate',

@@ -1,4 +1,4 @@
-import { ReactNode, memo } from 'react';
+import { type ReactNode, memo } from 'react';
 import { clsx } from 'clsx';
 import { formatCurrency, formatNumber } from '../../lib/format';
 

@@ -196,8 +196,8 @@ export default function Support() {
       sortable: true,
       sortFunction: prioritySortFunction,
       render: (value) => (
-        <Badge variant={getPriorityVariant(value)}>
-          {getPriorityLabel(value)}
+        <Badge variant={getPriorityVariant(String(value || ''))}>
+          {getPriorityLabel(String(value || ''))}
         </Badge>
       )
     },
@@ -206,8 +206,8 @@ export default function Support() {
       header: t('support.columns.status'),
       sortable: true,
       render: (value) => (
-        <Badge variant={getStatusVariant(value)}>
-          {getStatusLabel(value)}
+        <Badge variant={getStatusVariant(String(value || ''))}>
+          {getStatusLabel(String(value || ''))}
         </Badge>
       )
     },
@@ -226,7 +226,7 @@ export default function Support() {
       key: 'createdAt',
       header: t('support.columns.createdAt'),
       sortable: true,
-      render: (value) => formatDate(value)
+      render: (value) => formatDate(String(value || ''))
     }
   ];
 

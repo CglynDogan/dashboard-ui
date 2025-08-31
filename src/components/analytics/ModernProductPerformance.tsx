@@ -4,18 +4,13 @@ import {
   ChartBarIcon,
   ArrowTrendingUpIcon,
   ArrowTrendingDownIcon,
-  CurrencyDollarIcon,
   ShoppingCartIcon,
   StarIcon,
   TrophyIcon,
-  ExclamationTriangleIcon,
-  CheckCircleIcon,
-  EyeIcon,
   Squares2X2Icon,
   ListBulletIcon,
   ChevronRightIcon,
-  BanknotesIcon,
-  ScaleIcon
+  BanknotesIcon
 } from '@heroicons/react/24/outline';
 import { formatCurrency } from '../../lib/format';
 
@@ -43,7 +38,7 @@ function ModernProductPerformance({ data, className = '' }: ModernProductPerform
   // Calculate metrics
   const totalRevenue = data.reduce((sum, item) => sum + item.revenue, 0);
   const totalUnits = data.reduce((sum, item) => sum + item.units, 0);
-  const avgMargin = data.reduce((sum, item) => sum + item.margin, 0) / data.length;
+  // const avgMargin = data.reduce((sum, item) => sum + item.margin, 0) / data.length;
   const bestPerformer = data.reduce((best, current) => 
     current.revenue > best.revenue ? current : best
   );
