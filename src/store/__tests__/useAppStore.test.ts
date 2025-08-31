@@ -7,7 +7,6 @@ describe('useAppStore', () => {
     // Reset store state
     useAppStore.setState({
       settings: {
-        compactView: false,
         animations: true,
         sidebarCollapsed: false,
       },
@@ -33,7 +32,6 @@ describe('useAppStore', () => {
     const { result } = renderHook(() => useAppStore())
     
     expect(result.current.settings).toEqual({
-      compactView: false,
       animations: true,
       sidebarCollapsed: false,
     })
@@ -44,11 +42,11 @@ describe('useAppStore', () => {
     const { result } = renderHook(() => useAppStore())
     
     act(() => {
-      result.current.updateSettings({ compactView: true })
+      result.current.updateSettings({ animations: false })
     })
     
-    expect(result.current.settings.compactView).toBe(true)
-    expect(result.current.settings.animations).toBe(true) // should not change
+    expect(result.current.settings.animations).toBe(false)
+    expect(result.current.settings.sidebarCollapsed).toBe(false) // should not change
   })
 
   it('updates loading state', () => {

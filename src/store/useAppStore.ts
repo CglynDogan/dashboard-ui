@@ -2,7 +2,6 @@ import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 
 interface AppSettings {
-  compactView: boolean;
   animations: boolean;
   sidebarCollapsed: boolean;
 }
@@ -50,7 +49,6 @@ export const useAppStore = create<AppState>()(
       (set, get) => ({
         // Initial state
         settings: {
-          compactView: false,
           animations: true,
           sidebarCollapsed: false,
         },

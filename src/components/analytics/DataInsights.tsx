@@ -1,4 +1,5 @@
 import { memo, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   LightBulbIcon,
   ArrowTrendingUpIcon,
@@ -21,6 +22,7 @@ interface Insight {
 }
 
 function DataInsights({ data, className = '' }: DataInsightsProps) {
+  const { t } = useTranslation();
   const insights = useMemo(() => {
     if (!data) return [];
 
@@ -36,16 +38,16 @@ function DataInsights({ data, className = '' }: DataInsightsProps) {
       if (recentAvg > olderAvg * 1.1) {
         insights.push({
           type: 'positive',
-          title: 'Gelir Artış Trendi',
-          description: `Son 6 saatte gelir ortalaması %${((recentAvg - olderAvg) / olderAvg * 100).toFixed(1)} arttı`,
+          title: t('dataInsights.revenueIncrease'),
+          description: t('dataInsights.revenueIncreaseDesc', { percentage: ((recentAvg - olderAvg) / olderAvg * 100).toFixed(1) }),
           icon: ArrowTrendingUpIcon,
           priority: 9
         });
       } else if (recentAvg < olderAvg * 0.9) {
         insights.push({
           type: 'warning',
-          title: 'Gelir Düşüş Eğilimi',
-          description: `Son 6 saatte gelir ortalaması %${((olderAvg - recentAvg) / olderAvg * 100).toFixed(1)} azaldı`,
+          title: t('dataInsights.revenueDecline'),
+          description: t('dataInsights.revenueDeclineDesc', { percentage: ((olderAvg - recentAvg) / olderAvg * 100).toFixed(1) }),
           icon: ArrowTrendingDownIcon,
           priority: 8
         });
@@ -61,8 +63,8 @@ function DataInsights({ data, className = '' }: DataInsightsProps) {
       if (topProductShare > 60) {
         insights.push({
           type: 'warning',
-          title: 'Ürün Yoğunlaşma Riski',
-          description: `${topProduct.product} toplam gelirin %${topProductShare.toFixed(1)}'ini oluşturuyor`,
+          title: t('dataInsights.productConcentration'),
+          description: t('dataInsights.productConcentrationDesc', { product: topProduct.product, percentage: topProductShare.toFixed(1) }),
           icon: ExclamationTriangleIcon,
           priority: 7
         });
@@ -73,8 +75,8 @@ function DataInsights({ data, className = '' }: DataInsightsProps) {
       if (growthProducts.length > 0) {
         insights.push({
           type: 'positive',
-          title: 'Yüksek Büyüme Ürünleri',
-          description: `${growthProducts.length} ürün %15'in üzerinde büyüme gösteriyor`,
+          title: t('dataInsights.highGrowthProducts'),
+          description: t('dataInsights.highGrowthProductsDesc', { count: growthProducts.length }),
           icon: CheckCircleIcon,
           priority: 6
         });
@@ -98,8 +100,12 @@ function DataInsights({ data, className = '' }: DataInsightsProps) {
       if (biggestDrop.drop > 20) {
         insights.push({
           type: 'warning',
-          title: 'Dönüşüm Kaybı Tespit Edildi',
-          description: `${stages[biggestDrop.index - 1].stage} → ${stages[biggestDrop.index].stage} arasında %${biggestDrop.drop.toFixed(1)} kayıp var`,
+          title: t('dataInsights.conversionLoss'),
+          description: t('dataInsights.conversionLossDesc', { 
+            fromStage: stages[biggestDrop.index - 1].stage, 
+            toStage: stages[biggestDrop.index].stage, 
+            percentage: biggestDrop.drop.toFixed(1) 
+          }),
           icon: ExclamationTriangleIcon,
           priority: 8
         });
@@ -116,8 +122,8 @@ function DataInsights({ data, className = '' }: DataInsightsProps) {
       if (topCountryShare < 30) {
         insights.push({
           type: 'positive',
-          title: 'Dengeli Coğrafi Dağılım',
-          description: `Gelir farklı ülkelere dengeli şekilde dağılmış (En yüksek %${topCountryShare.toFixed(1)})`,
+          title: t('dataInsights.balancedDistribution'),
+          description: t('dataInsights.balancedDistributionDesc', { percentage: topCountryShare.toFixed(1) }),
           icon: CheckCircleIcon,
           priority: 5
         });
@@ -125,7 +131,7 @@ function DataInsights({ data, className = '' }: DataInsightsProps) {
     }
 
     return insights.sort((a, b) => b.priority - a.priority).slice(0, 4);
-  }, [data]);
+  }, [data, t]);
 
   const getInsightStyle = (type: Insight['type']) => {
     switch (type) {
@@ -171,7 +177,7 @@ function DataInsights({ data, className = '' }: DataInsightsProps) {
           <LightBulbIcon className="w-5 h-5 text-purple-600 dark:text-purple-400" />
         </div>
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-          Veri İçgörüleri
+          {t('dataInsights.title')}
         </h3>
       </div>
 
@@ -208,7 +214,7 @@ function DataInsights({ data, className = '' }: DataInsightsProps) {
 
       <div className="mt-6 p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
         <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
-          Bu içgörüler verileriniz otomatik olarak analiz edilerek oluşturulmuştur
+          {t('dataInsights.autoGenerated')}
         </p>
       </div>
     </div>

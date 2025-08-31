@@ -302,7 +302,10 @@ export default function AnalyticsModern() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
           <div className="lg:col-span-2">
             <InteractiveChart
-              data={analyticsData.geographicData}
+              data={analyticsData.geographicData.map(item => ({
+                ...item,
+                country: t(`countries.${item.country}`, item.country)
+              }))}
               title=""
               xKey="country"
               yKey="revenue"
@@ -350,10 +353,10 @@ export default function AnalyticsModern() {
             <div className="bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-900/20 dark:to-orange-800/20 rounded-2xl p-6 border border-orange-200 dark:border-orange-800">
               <div className="flex items-center gap-3 mb-2">
                 <SparklesIcon className="w-5 h-5 text-orange-600 dark:text-orange-400" />
-                <span className="text-sm font-medium text-orange-600 dark:text-orange-400">{t('analytics.metrics.topPerformance', 'Top Performance')}</span>
+                <span className="text-sm font-medium text-orange-600 dark:text-orange-400">{t('analytics.metrics.topPerformance')}</span>
               </div>
               <div className="text-lg font-bold text-orange-700 dark:text-orange-300">
-                {[...analyticsData.geographicData].sort((a, b) => b.revenue - a.revenue)[0].country}
+                {t(`countries.${[...analyticsData.geographicData].sort((a, b) => b.revenue - a.revenue)[0].country}`, [...analyticsData.geographicData].sort((a, b) => b.revenue - a.revenue)[0].country)}
               </div>
               <div className="text-sm text-orange-600 dark:text-orange-400">
                 {formatCurrency([...analyticsData.geographicData].sort((a, b) => b.revenue - a.revenue)[0].revenue)}

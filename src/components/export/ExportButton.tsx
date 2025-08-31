@@ -1,4 +1,5 @@
 import { memo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ArrowDownTrayIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 import { DataExporter, type ExportFormat } from '../../lib/export';
 import Button from '../ui/Button';
@@ -16,12 +17,13 @@ function ExportButton<T extends Record<string, any>>({
   disabled = false,
   className
 }: ExportButtonProps<T>) {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
 
   const handleExport = async (format: ExportFormat) => {
     if (!data || data.length === 0) {
-      alert('Dışa aktarılacak veri yok');
+      alert(t('export.noData'));
       return;
     }
 
@@ -33,7 +35,7 @@ function ExportButton<T extends Record<string, any>>({
       });
     } catch (error) {
       console.error('Export error:', error);
-      alert('Dışa aktarma sırasında bir hata oluştu');
+      alert(t('export.error'));
     } finally {
       setIsExporting(false);
       setIsOpen(false);
@@ -50,7 +52,7 @@ function ExportButton<T extends Record<string, any>>({
         variant="secondary"
       >
         <ArrowDownTrayIcon className="h-4 w-4" />
-        Dışa Aktar
+        {t('export.button')}
         <ChevronDownIcon className="h-4 w-4" />
       </Button>
 
@@ -61,19 +63,19 @@ function ExportButton<T extends Record<string, any>>({
               onClick={() => handleExport('csv')}
               className="block w-full px-4 py-2 text-left text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
             >
-              CSV Dosyası (.csv)
+              {t('export.formats.csv')}
             </button>
             <button
               onClick={() => handleExport('excel')}
               className="block w-full px-4 py-2 text-left text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
             >
-              Excel Dosyası (.xlsx)
+              {t('export.formats.excel')}
             </button>
             <button
               onClick={() => handleExport('json')}
               className="block w-full px-4 py-2 text-left text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
             >
-              JSON Dosyası (.json)
+              {t('export.formats.json')}
             </button>
           </div>
         </div>

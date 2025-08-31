@@ -27,20 +27,13 @@ export default function App() {
   
   // Initialize app settings from localStorage and apply to DOM
   useEffect(() => {
-    // Apply compact view
-    if (settings.compactView) {
-      document.body.classList.add('compact-view');
-    } else {
-      document.body.classList.remove('compact-view');
-    }
-    
     // Apply animations setting
     if (!settings.animations) {
       document.body.classList.add('no-animations');
     } else {
       document.body.classList.remove('no-animations');
     }
-  }, [settings.compactView, settings.animations]);
+  }, [settings.animations]);
   
   // Initialize theme
   useEffect(() => {

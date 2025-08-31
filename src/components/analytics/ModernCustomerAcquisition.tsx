@@ -119,7 +119,7 @@ function ModernCustomerAcquisition({ data, className = '' }: ModernCustomerAcqui
             <span className="text-sm font-medium text-purple-700 dark:text-purple-300">{t('customerAcquisition.bestSource')}</span>
           </div>
           <div className="text-lg font-bold text-purple-800 dark:text-purple-200 truncate">
-            {bestPerformer.source}
+            {t(`customerAcquisition.sources.${bestPerformer.source}`, bestPerformer.source)}
           </div>
           <div className="text-xs text-purple-600 dark:text-purple-400">
             {bestPerformer.customers} {t('customerAcquisition.customers')}
@@ -132,7 +132,7 @@ function ModernCustomerAcquisition({ data, className = '' }: ModernCustomerAcqui
             <span className="text-sm font-medium text-orange-700 dark:text-orange-300">{t('customerAcquisition.mostEfficient')}</span>
           </div>
           <div className="text-lg font-bold text-orange-800 dark:text-orange-200 truncate">
-            {mostEfficient.source}
+            {t(`customerAcquisition.sources.${mostEfficient.source}`, mostEfficient.source)}
           </div>
           <div className="text-xs text-orange-600 dark:text-orange-400">
             {formatCurrency(mostEfficient.cac)} CAC
@@ -167,7 +167,7 @@ function ModernCustomerAcquisition({ data, className = '' }: ModernCustomerAcqui
                         <Icon className="w-5 h-5 text-white" />
                       </div>
                       <div>
-                        <h4 className="font-semibold text-lg">{source.source}</h4>
+                        <h4 className="font-semibold text-lg">{t(`customerAcquisition.sources.${source.source}`, source.source)}</h4>
                         <p className="text-white/80 text-sm">
                           {source.percentage.toFixed(1)}% {t('customerAcquisition.share')}
                         </p>
@@ -285,7 +285,7 @@ function ModernCustomerAcquisition({ data, className = '' }: ModernCustomerAcqui
                         <div className="flex-1">
                           <div className="flex items-center justify-between mb-2">
                             <h5 className="font-semibold text-gray-900 dark:text-white">
-                              {source.source}
+                              {t(`customerAcquisition.sources.${source.source}`, source.source)}
                             </h5>
                             <div className="text-right">
                               <div className="font-bold text-gray-900 dark:text-white">

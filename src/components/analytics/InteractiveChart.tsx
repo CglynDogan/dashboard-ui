@@ -1,4 +1,5 @@
 import { memo, useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   LineChart,
   Line,
@@ -53,6 +54,7 @@ function InteractiveChart({
   formatValue = (value) => value.toString(),
   className = ''
 }: InteractiveChartProps) {
+  const { t } = useTranslation();
   const [selectedType, setSelectedType] = useState<ChartType>(type);
   const [, setHoveredIndex] = useState<number | null>(null);
 
@@ -255,25 +257,25 @@ function InteractiveChart({
         {summaryStats && selectedType !== 'pie' && (
           <div className="grid grid-cols-4 gap-4 mb-4">
             <div className="text-center">
-              <div className="text-xs text-gray-500 dark:text-gray-400">Toplam</div>
+              <div className="text-xs text-gray-500 dark:text-gray-400">{t('analytics.statsTotal')}</div>
               <div className="text-sm font-semibold text-gray-900 dark:text-white">
                 {formatValue(summaryStats.total)}
               </div>
             </div>
             <div className="text-center">
-              <div className="text-xs text-gray-500 dark:text-gray-400">Ortalama</div>
+              <div className="text-xs text-gray-500 dark:text-gray-400">{t('analytics.statsAverage')}</div>
               <div className="text-sm font-semibold text-gray-900 dark:text-white">
                 {formatValue(summaryStats.average)}
               </div>
             </div>
             <div className="text-center">
-              <div className="text-xs text-gray-500 dark:text-gray-400">En Yüksek</div>
+              <div className="text-xs text-gray-500 dark:text-gray-400">{t('analytics.statsMax')}</div>
               <div className="text-sm font-semibold text-gray-900 dark:text-white">
                 {formatValue(summaryStats.max)}
               </div>
             </div>
             <div className="text-center">
-              <div className="text-xs text-gray-500 dark:text-gray-400">En Düşük</div>
+              <div className="text-xs text-gray-500 dark:text-gray-400">{t('analytics.statsMin')}</div>
               <div className="text-sm font-semibold text-gray-900 dark:text-white">
                 {formatValue(summaryStats.min)}
               </div>

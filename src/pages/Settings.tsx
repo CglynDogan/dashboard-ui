@@ -61,13 +61,6 @@ export default function Settings() {
             {t('settings.displaySettings')}
           </h3>
           <div className="space-y-4">
-            {settings.compactView && (
-              <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-3 mb-4">
-                <p className="text-sm text-blue-800 dark:text-blue-200">
-                  {t('settings.compactActive')}
-                </p>
-              </div>
-            )}
             {!settings.animations && (
               <div className="bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 rounded-lg p-3 mb-4">
                 <p className="text-sm text-orange-800 dark:text-orange-200">
@@ -75,23 +68,6 @@ export default function Settings() {
                 </p>
               </div>
             )}
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-900 dark:text-white">
-                  {t('settings.compactView')}
-                </p>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
-                  {t('settings.compactViewDesc')}
-                </p>
-              </div>
-              <Button 
-                variant={settings.compactView ? 'primary' : 'secondary'} 
-                size="sm"
-                onClick={() => updateSettings({ compactView: !settings.compactView })}
-              >
-                {settings.compactView ? t('settings.on') : t('settings.off')}
-              </Button>
-            </div>
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-900 dark:text-white">

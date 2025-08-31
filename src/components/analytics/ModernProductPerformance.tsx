@@ -149,9 +149,9 @@ function ModernProductPerformance({ data, className = '' }: ModernProductPerform
                   <BanknotesIcon className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-lg">Toplam Gelir</h4>
+                  <h4 className="font-semibold text-lg">{t('analytics.metrics.totalRevenue')}</h4>
                   <p className="text-white/80 text-sm">
-                    %{((totalRevenue / (totalRevenue + 50000)) * 100).toFixed(1)} hedef
+                    %{((totalRevenue / (totalRevenue + 50000)) * 100).toFixed(1)} {t('analytics.target')}
                   </p>
                 </div>
               </div>
@@ -168,7 +168,7 @@ function ModernProductPerformance({ data, className = '' }: ModernProductPerform
                 {formatCurrency(totalRevenue)}
               </div>
               <div className="text-xs text-gray-500 dark:text-gray-400">
-                Toplam Gelir
+                {t('analytics.metrics.totalRevenue')}
               </div>
             </div>
             {selectedCard === 'revenue' && (
@@ -206,9 +206,9 @@ function ModernProductPerformance({ data, className = '' }: ModernProductPerform
                   <ShoppingCartIcon className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-lg">Toplam Satış</h4>
+                  <h4 className="font-semibold text-lg">{t('analytics.totalSales')}</h4>
                   <p className="text-white/80 text-sm">
-                    {totalUnits} birim
+                    {totalUnits} {t('analytics.units')}
                   </p>
                 </div>
               </div>
@@ -225,7 +225,7 @@ function ModernProductPerformance({ data, className = '' }: ModernProductPerform
                 {totalUnits.toLocaleString()}
               </div>
               <div className="text-xs text-gray-500 dark:text-gray-400">
-                Birim Satış
+                {t('analytics.productUnitSales')}
               </div>
             </div>
             {selectedCard === 'sales' && (
@@ -233,7 +233,7 @@ function ModernProductPerformance({ data, className = '' }: ModernProductPerform
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-600 dark:text-gray-400">Günlük Ortalama:</span>
                   <span className="font-medium text-gray-900 dark:text-white">
-                    {Math.round(totalUnits / 30)} birim
+                    {Math.round(totalUnits / 30)} {t('analytics.units')}
                   </span>
                 </div>
                 <div className="flex justify-between text-sm">
@@ -263,9 +263,9 @@ function ModernProductPerformance({ data, className = '' }: ModernProductPerform
                   <TrophyIcon className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-lg">En İyi Ürün</h4>
+                  <h4 className="font-semibold text-lg">{t('analytics.bestProduct', 'Best Product')}</h4>
                   <p className="text-white/80 text-sm">
-                    {bestPerformer.product}
+                    {t(`products.${bestPerformer.product}`, bestPerformer.product)}
                   </p>
                 </div>
               </div>
@@ -282,19 +282,19 @@ function ModernProductPerformance({ data, className = '' }: ModernProductPerform
                 {formatCurrency(bestPerformer.revenue)}
               </div>
               <div className="text-xs text-gray-500 dark:text-gray-400">
-                Gelir
+                {t('analytics.metrics.revenue')}
               </div>
             </div>
             {selectedCard === 'best' && (
               <div className="pt-4 border-t border-gray-200 dark:border-gray-700 space-y-2">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600 dark:text-gray-400">Birim Satış:</span>
+                  <span className="text-gray-600 dark:text-gray-400">{t('analytics.productUnitSales')}:</span>
                   <span className="font-medium text-gray-900 dark:text-white">
                     {bestPerformer.units.toLocaleString()}
                   </span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600 dark:text-gray-400">Market Payı:</span>
+                  <span className="text-gray-600 dark:text-gray-400">{t('analytics.productMarketShare')}:</span>
                   <span className="font-medium text-green-600 dark:text-green-400">
                     %{((bestPerformer.revenue / totalRevenue) * 100).toFixed(1)}
                   </span>
@@ -320,9 +320,9 @@ function ModernProductPerformance({ data, className = '' }: ModernProductPerform
                   <ArrowTrendingUpIcon className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-lg">En Hızlı Büyüyen</h4>
+                  <h4 className="font-semibold text-lg">{t('analytics.fastestGrowing', 'Fastest Growing')}</h4>
                   <p className="text-white/80 text-sm">
-                    {fastestGrowing.product}
+                    {t(`products.${fastestGrowing.product}`, fastestGrowing.product)}
                   </p>
                 </div>
               </div>
@@ -339,13 +339,13 @@ function ModernProductPerformance({ data, className = '' }: ModernProductPerform
                 +%{fastestGrowing.growth}
               </div>
               <div className="text-xs text-gray-500 dark:text-gray-400">
-                Büyüme Oranı
+                {t('analytics.productPerformanceGrowthRate')}
               </div>
             </div>
             {selectedCard === 'fastest' && (
               <div className="pt-4 border-t border-gray-200 dark:border-gray-700 space-y-2">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600 dark:text-gray-400">Gelir:</span>
+                  <span className="text-gray-600 dark:text-gray-400">{t('analytics.metrics.revenue')}:</span>
                   <span className="font-medium text-gray-900 dark:text-white">
                     {formatCurrency(fastestGrowing.revenue)}
                   </span>
@@ -388,7 +388,7 @@ function ModernProductPerformance({ data, className = '' }: ModernProductPerform
                         <StarIcon className="w-5 h-5 text-white" />
                       </div>
                       <div>
-                        <h4 className="font-semibold text-lg">{product.product}</h4>
+                        <h4 className="font-semibold text-lg">{t(`products.${product.product}`, product.product)}</h4>
                         <p className="text-white/80 text-sm">
                           {((product.revenue / totalRevenue) * 100).toFixed(1)}% pay
                         </p>
@@ -410,7 +410,7 @@ function ModernProductPerformance({ data, className = '' }: ModernProductPerform
                         {product.units.toLocaleString()}
                       </div>
                       <div className="text-xs text-gray-500 dark:text-gray-400">
-                        Birim Satış
+                        {t('analytics.productUnitSales')}
                       </div>
                     </div>
                     <div className="text-center">
@@ -418,7 +418,7 @@ function ModernProductPerformance({ data, className = '' }: ModernProductPerform
                         {formatCurrency(product.revenue)}
                       </div>
                       <div className="text-xs text-gray-500 dark:text-gray-400">
-                        Toplam Gelir
+                        {t('analytics.metrics.totalRevenue')}
                       </div>
                     </div>
                   </div>
@@ -427,7 +427,7 @@ function ModernProductPerformance({ data, className = '' }: ModernProductPerform
                   <div className="mb-4">
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-sm text-gray-600 dark:text-gray-400">
-                        Market Payı
+                        {t('analytics.productMarketShare')}
                       </span>
                       <span className="text-sm font-medium text-gray-900 dark:text-white">
                         %{((product.revenue / totalRevenue) * 100).toFixed(1)}
@@ -513,9 +513,9 @@ function ModernProductPerformance({ data, className = '' }: ModernProductPerform
                       }}
                     >
                       <div className="flex items-center gap-1">
-                        {key === 'revenue' ? 'Gelir' :
-                         key === 'units' ? 'Satış' :
-                         key === 'margin' ? 'Marj' : 'Büyüme'}
+                        {key === 'revenue' ? t('analytics.metrics.revenue') :
+                         key === 'units' ? t('analytics.productSales', 'Sales') :
+                         key === 'margin' ? t('analytics.productMargin', 'Margin') : t('analytics.productGrowth', 'Growth')}
                         {sortBy === key && (
                           sortOrder === 'desc' ? 
                             <ArrowTrendingDownIcon className="w-3 h-3" /> : 
@@ -553,7 +553,7 @@ function ModernProductPerformance({ data, className = '' }: ModernProductPerform
                         {formatCurrency(product.revenue)}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
-                        {product.units.toLocaleString()} birim
+                        {product.units.toLocaleString()} {t('analytics.units')}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
@@ -606,7 +606,7 @@ function ModernProductPerformance({ data, className = '' }: ModernProductPerform
                         {formatCurrency(product.revenue)}
                       </div>
                       <div className="text-xs text-gray-500 dark:text-gray-400">
-                        {product.units} birim
+                        {product.units} {t('analytics.units')}
                       </div>
                     </div>
                   </div>
