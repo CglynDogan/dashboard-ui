@@ -3,13 +3,17 @@ import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon, ChartBarIcon } from '@heroicons/react/24/outline';
 import InteractiveChart from './InteractiveChart';
 
+interface ChartDataItem {
+  [key: string]: string | number;
+}
+
 interface DrillDownModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  title: string;
-  data: any[];
-  drillDownType: 'hourly' | 'daily' | 'weekly' | 'monthly';
-  metric: string;
+  readonly isOpen: boolean;
+  readonly onClose: () => void;
+  readonly title: string;
+  readonly data: ChartDataItem[];
+  readonly drillDownType: 'hourly' | 'daily' | 'weekly' | 'monthly';
+  readonly metric: string;
 }
 
 function DrillDownModal({ 
@@ -56,7 +60,7 @@ function DrillDownModal({
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-50" onClose={onClose}>
-        <Transition.Child
+        <Transition
           as={Fragment}
           enter="ease-out duration-300"
           enterFrom="opacity-0"
@@ -66,11 +70,11 @@ function DrillDownModal({
           leaveTo="opacity-0"
         >
           <div className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm" />
-        </Transition.Child>
+        </Transition>
 
         <div className="fixed inset-0 overflow-y-auto">
           <div className="flex min-h-full items-center justify-center p-4 text-center">
-            <Transition.Child
+            <Transition
               as={Fragment}
               enter="ease-out duration-300"
               enterFrom="opacity-0 scale-95"
@@ -79,16 +83,16 @@ function DrillDownModal({
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-4xl transform overflow-hidden rounded-3xl bg-white dark:bg-gray-800 p-8 text-left align-middle shadow-2xl transition-all">
+              <div className="w-full max-w-4xl transform overflow-hidden rounded-3xl bg-white dark:bg-gray-800 p-8 text-left align-middle shadow-2xl transition-all">
                 <div className="flex items-center justify-between mb-6">
                   <div className="flex items-center gap-4">
                     <div className="p-3 bg-blue-100 dark:bg-blue-900 rounded-2xl">
                       <ChartBarIcon className="w-6 h-6 text-blue-600 dark:text-blue-400" />
                     </div>
                     <div>
-                      <Dialog.Title className="text-2xl font-bold text-gray-900 dark:text-white">
+                      <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
                         {getTimeLabel()} {title} Analizi
-                      </Dialog.Title>
+                      </h3>
                       <p className="text-gray-600 dark:text-gray-400 mt-1">
                         Detaylı veri görünümü ve trend analizi
                       </p>
@@ -207,8 +211,8 @@ function DrillDownModal({
                     Rapor Dışa Aktar
                   </button>
                 </div>
-              </Dialog.Panel>
-            </Transition.Child>
+              </div>
+            </Transition>
           </div>
         </div>
       </Dialog>

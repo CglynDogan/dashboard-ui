@@ -7,10 +7,19 @@ import {
 import Button from '../ui/Button';
 import DateRangeFilter from '../filters/DateRangeFilter';
 
+interface FilterValues {
+  dateRange: {
+    startDate: string;
+    endDate: string;
+  };
+  selectedMetrics: string[];
+  timeGranularity: string;
+}
+
 interface AnalyticsFiltersProps {
-  onFiltersChange: (filters: any) => void;
-  onReset: () => void;
-  loading?: boolean;
+  readonly onFiltersChange: (filters: FilterValues) => void;
+  readonly onReset: () => void;
+  readonly loading?: boolean;
 }
 
 function AnalyticsFilters({ onFiltersChange, onReset, loading = false }: AnalyticsFiltersProps) {
@@ -99,6 +108,8 @@ function AnalyticsFilters({ onFiltersChange, onReset, loading = false }: Analyti
               <button
                 onClick={() => setIsOpen(false)}
                 className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                title="Filtreleri kapat"
+                aria-label="Filtreleri kapat"
               >
                 <XMarkIcon className="w-5 h-5" />
               </button>
@@ -117,10 +128,10 @@ function AnalyticsFilters({ onFiltersChange, onReset, loading = false }: Analyti
 
             {/* Time Granularity */}
             <div className="mb-6">
-              <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 block">
+              <label htmlFor="time-granularity" className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 block">
                 Zaman Aralığı
               </label>
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-2 gap-2" id="time-granularity">
                 {timeOptions.map((option) => (
                   <button
                     key={option.value}
@@ -141,10 +152,11 @@ function AnalyticsFilters({ onFiltersChange, onReset, loading = false }: Analyti
 
             {/* Metrics Selection */}
             <div className="mb-6">
-              <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3 block">
-                Gösterilecek Metrikler
-              </label>
-              <div className="space-y-2">
+              <fieldset>
+                <legend className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3 block">
+                  Gösterilecek Metrikler
+                </legend>
+                <div className="space-y-2">
                 {metrics.map((metric) => (
                   <label
                     key={metric.id}
@@ -162,7 +174,8 @@ function AnalyticsFilters({ onFiltersChange, onReset, loading = false }: Analyti
                     </span>
                   </label>
                 ))}
-              </div>
+                </div>
+              </fieldset>
             </div>
 
             {/* Action Buttons */}
@@ -189,9 +202,10 @@ function AnalyticsFilters({ onFiltersChange, onReset, loading = false }: Analyti
 
       {/* Backdrop */}
       {isOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-20 z-40"
+        <button
+          className="fixed inset-0 bg-black bg-opacity-20 z-40 cursor-default"
           onClick={() => setIsOpen(false)}
+          aria-label="Filtreleri kapat"
         />
       )}
     </div>
