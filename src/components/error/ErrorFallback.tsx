@@ -1,4 +1,5 @@
-import { ExclamationTriangleIcon, ArrowPathIcon } from '@heroicons/react/24/outline';
+import { ArrowPathIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline';
+
 import Button from '../ui/Button';
 
 interface ErrorFallbackProps {
@@ -25,8 +26,8 @@ export default function ErrorFallback({ error, resetError }: ErrorFallbackProps)
         <p className="text-gray-600 dark:text-gray-400 mb-4">
           Üzgünüz, beklenmeyen bir hata oluştu. Sayfayı yeniden yüklemeyi deneyin.
         </p>
-        
-        {process.env.NODE_ENV === 'development' && error && (
+
+        {import.meta.env.DEV && error && (
           <details className="text-left bg-gray-50 dark:bg-gray-800 p-3 rounded-md mb-4 text-sm">
             <summary className="cursor-pointer font-medium text-red-600 dark:text-red-400">
               Hata detayları (geliştirme modunda)
@@ -37,7 +38,7 @@ export default function ErrorFallback({ error, resetError }: ErrorFallbackProps)
             </pre>
           </details>
         )}
-        
+
         <Button onClick={handleRefresh} className="inline-flex items-center gap-2">
           <ArrowPathIcon className="h-4 w-4" />
           Sayfayı Yenile

@@ -1,6 +1,8 @@
 import { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { ArrowDownTrayIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
+
 import { DataExporter, type ExportFormat } from '../../lib/export';
 import Button from '../ui/Button';
 
@@ -11,11 +13,11 @@ interface ExportButtonProps<T> {
   className?: string;
 }
 
-function ExportButton<T extends Record<string, any>>({
+function ExportButton<T extends Record<string, unknown>>({
   data,
   filename = 'export',
   disabled = false,
-  className
+  className,
 }: ExportButtonProps<T>) {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
@@ -31,7 +33,7 @@ function ExportButton<T extends Record<string, any>>({
     try {
       const extension = format === 'excel' ? 'xlsx' : format;
       await DataExporter.export(format, data, {
-        filename: `${filename}.${extension}`
+        filename: `${filename}.${extension}`,
       });
     } catch (error) {
       console.error('Export error:', error);
@@ -82,14 +84,11 @@ function ExportButton<T extends Record<string, any>>({
       )}
 
       {/* Backdrop to close dropdown */}
-      {isOpen && (
-        <div
-          className="fixed inset-0 z-0"
-          onClick={() => setIsOpen(false)}
-        />
-      )}
+      {isOpen && <div className="fixed inset-0 z-0" onClick={() => setIsOpen(false)} />}
     </div>
   );
 }
 
-export default memo(ExportButton) as <T extends Record<string, any>>(props: ExportButtonProps<T>) => JSX.Element;
+export default memo(ExportButton) as <T extends Record<string, unknown>>(
+  props: ExportButtonProps<T>
+) => React.JSX.Element;

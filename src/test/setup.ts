@@ -1,25 +1,31 @@
-import '@testing-library/jest-dom'
-import { vi } from 'vitest'
+import '@testing-library/jest-dom';
+import { vi } from 'vitest';
 
 // Mock IntersectionObserver
-global.IntersectionObserver = class IntersectionObserver {
-  root = null
-  rootMargin = ''
-  thresholds = []
-  constructor() {}
-  disconnect() {}
-  observe() {}
-  unobserve() {}
-  takeRecords() { return [] }
-} as any
+Object.assign(globalThis, {
+  IntersectionObserver: class IntersectionObserver {
+    root = null;
+    rootMargin = '';
+    thresholds: number[] = [];
+    constructor() {}
+    disconnect() {}
+    observe() {}
+    unobserve() {}
+    takeRecords() {
+      return [];
+    }
+  },
+});
 
 // Mock ResizeObserver
-global.ResizeObserver = class ResizeObserver {
-  constructor() {}
-  disconnect() {}
-  observe() {}
-  unobserve() {}
-}
+Object.assign(globalThis, {
+  ResizeObserver: class ResizeObserver {
+    constructor() {}
+    disconnect() {}
+    observe() {}
+    unobserve() {}
+  },
+});
 
 // Mock matchMedia
 Object.defineProperty(window, 'matchMedia', {
@@ -32,6 +38,6 @@ Object.defineProperty(window, 'matchMedia', {
     removeListener: vi.fn(),
     addEventListener: vi.fn(),
     removeEventListener: vi.fn(),
-    dispatchEvent: vi.fn()
+    dispatchEvent: vi.fn(),
   })),
-})
+});
