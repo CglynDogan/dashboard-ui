@@ -162,7 +162,7 @@ export default function Inventory() {
             {value}
           </div>
           <div className="text-sm text-gray-500 dark:text-gray-400">
-            SKU: {row.sku}
+{t('inventory.labels.sku')}: {row.sku}
           </div>
         </div>
       )
@@ -177,7 +177,7 @@ export default function Inventory() {
       header: t('inventory.columns.currentStock'),
       sortable: true,
       render: (_, row) => (
-        <div className="w-32">
+        <div className="w-48">
           <StockLevelIndicator product={row} />
         </div>
       )
@@ -186,6 +186,26 @@ export default function Inventory() {
       key: 'status',
       header: t('inventory.columns.status'),
       sortable: true,
+      sortFunction: (a, b, direction) => {
+        // Custom status sorting: Fazla stok > Stokta > Düşük stok > Kritik stok
+        const statusOrder: Record<string, number> = {
+          'Fazla Stok': 0,
+          'Stokta': 1,
+          'Düşük Stok': 2,
+          'Kritik Düşük': 3,
+          'Kritik Seviye': 3,
+          'Stok Yok': 4
+        };
+        
+        const aOrder = statusOrder[a.status] !== undefined ? statusOrder[a.status] : 999;
+        const bOrder = statusOrder[b.status] !== undefined ? statusOrder[b.status] : 999;
+        
+        if (direction === 'asc') {
+          return aOrder - bOrder;
+        } else {
+          return bOrder - aOrder;
+        }
+      },
       render: (value) => (
         <Badge variant={getStatusVariant(value)}>
           <div className="flex items-center space-x-1">
@@ -232,7 +252,7 @@ export default function Inventory() {
           <div className="flex items-center">
             <div className="flex-1">
               <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                Toplam Ürün
+                {t('inventory.metrics.totalProducts')}
               </p>
               <p className="text-2xl font-bold text-gray-900 dark:text-white">
                 {summaryStats.totalProducts}
@@ -246,7 +266,7 @@ export default function Inventory() {
           <div className="flex items-center">
             <div className="flex-1">
               <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                Düşük Stok Uyarısı
+                {t('inventory.metrics.lowStockAlert')}
               </p>
               <p className="text-2xl font-bold text-orange-600">
                 {summaryStats.lowStockProducts}
@@ -260,7 +280,7 @@ export default function Inventory() {
           <div className="flex items-center">
             <div className="flex-1">
               <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                Stok Tükendi
+                {t('inventory.metrics.outOfStock')}
               </p>
               <p className="text-2xl font-bold text-red-600">
                 {summaryStats.outOfStockProducts}
@@ -274,7 +294,7 @@ export default function Inventory() {
           <div className="flex items-center">
             <div className="flex-1">
               <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                Toplam Stok Değeri
+                {t('inventory.metrics.totalStockValue')}
               </p>
               <p className="text-2xl font-bold text-green-600">
                 {formatCurrency(summaryStats.totalValue)}

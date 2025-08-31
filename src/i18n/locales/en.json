@@ -19,7 +19,14 @@
     "avgOrderValue": "Average Order Value",
     "revenueChart": "Revenue Trend",
     "recentActivities": "Recent Activities",
-    "vsLastWeek": "vs last week"
+    "vsLastWeek": "vs last week",
+    "lastUpdate": "Last update",
+    "activeUsers": "Active Users",
+    "conversionRate": "Conversion Rate",
+    "loadingDashboard": "Loading dashboard data...",
+    "errorLoadingDashboard": "Failed to load dashboard data",
+    "systemUpdated": "System updated",
+    "activity": "Activity"
   },
   "sales": {
     "title": "Sales",
@@ -238,9 +245,39 @@
     "conversionFunnel": "Conversion Funnel",
     "customerAcquisition": "Customer Acquisition",
     "revenueByHour": "Hourly Revenue Analysis",
+    "hourlyRevenueSubtitle": "Last 24 hours revenue distribution and trend analysis",
+    "timeRanges": {
+      "24h": "Last 24 Hours",
+      "7d": "Last 7 Days",
+      "30d": "Last 30 Days",
+      "90d": "Last 3 Months"
+    },
     "productPerformance": "Product Performance",
+    "productPerformanceSubtitle": "Detailed product performance analysis",
+    "productPerformanceGrowthRate": "Growth Rate",
+    "table": "Table",
     "geographicAnalysis": "Geographic Analysis",
-    "timeBasedAnalysis": "Time-based Analysis"
+    "geographicAnalysisSubtitle": "Revenue and customer distribution by countries",
+    "timeBasedAnalysis": "Time-based Analysis",
+    "metrics": {
+      "totalRevenue": "Total Revenue",
+      "totalCustomers": "Total Customers", 
+      "avgHourlyRevenue": "Avg. Hourly Revenue",
+      "last24Hours": "Last 24 hours",
+      "topProduct": "Top Product",
+      "last30Days": "Last 30 days",
+      "today": "Today",
+      "hour": "Hour",
+      "revenue": "Revenue",
+      "units": "Units",
+      "avgPrice": "Avg. Price",
+      "margin": "Margin",
+      "country": "Country",
+      "totalCountries": "Total Countries",
+      "globalRevenue": "Global Revenue",
+      "globalCustomers": "Global Customers",
+      "topPerformance": "Top Performance"
+    }
   },
   "inventory": {
     "title": "Inventory Management",
@@ -290,6 +327,17 @@
       "outOfStock": "Out of Stock",
       "overStock": "Overstock",
       "reorderNeeded": "Reorder Needed"
+    },
+    "metrics": {
+      "totalProducts": "Total Products",
+      "lowStockAlert": "Low Stock Alert", 
+      "outOfStock": "Out of Stock",
+      "totalStockValue": "Total Stock Value"
+    },
+    "labels": {
+      "sku": "SKU",
+      "min": "Min",
+      "max": "Max"
     }
   },
   "pagination": {
@@ -297,5 +345,47 @@
     "results": "results",
     "showing": "Showing",
     "of": "of"
+  },
+  "errors": {
+    "somethingWentWrong": "Something went wrong",
+    "unexpectedError": "Sorry, an unexpected error occurred. Please try refreshing the page.",
+    "errorDetails": "Error details (development mode)",
+    "refreshPage": "Refresh Page"
+  },
+  "customerAcquisition": {
+    "title": "Customer Acquisition",
+    "subtitle": "Detailed customer analysis by source",
+    "cards": "Cards",
+    "chart": "Chart",
+    "customers": "customers",
+    "totalCustomers": "Total Customers",
+    "avgCAC": "Average CAC",
+    "bestSource": "Best Source",
+    "mostEfficient": "Most Efficient",
+    "free": "Free",
+    "metrics": "Customer Acquisition Metrics",
+    "acquired": "Acquired Customers",
+    "share": "share",
+    "customerCount": "Customer Count",
+    "acquisitionCost": "Customer Acquisition Cost",
+    "shareOfTotal": "Share of Total",
+    "totalCost": "Total Cost",
+    "efficiencyScore": "Efficiency Score",
+    "excellent": "Excellent",
+    "good": "Good",
+    "average": "Average",
+    "poor": "Poor",
+    "recommendedAction": "Recommended Action",
+    "increaseInvestment": "Increase investment",
+    "increaseBudget": "Increase budget",
+    "optimize": "Optimize",
+    "reevaluate": "Reevaluate",
+    "summaryStats": "Summary Statistics",
+    "totalAcquired": "Total Acquired Customers",
+    "totalSpent": "Total Spent"
+  },
+  "charts": {
+    "updating": "Updating...",
+    "liveDataError": "Live data error"
   }
 }

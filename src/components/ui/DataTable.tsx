@@ -1,12 +1,13 @@
-import { type ReactNode, useState } from 'react';
+import { type ReactNode, useState, useMemo, memo, useCallback } from 'react';
 import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 
 export interface Column<T> {
   key: keyof T;
   header: string;
   sortable?: boolean;
-  render?: (value: any, row: T) => ReactNode;
+  render?: (value: T[keyof T], row: T) => ReactNode;
   width?: string;
+  sortFunction?: (a: T, b: T, direction: 'asc' | 'desc') => number;
 }
 
 interface DataTableProps<T> {
@@ -21,7 +22,7 @@ type SortConfig<T> = {
   direction: 'asc' | 'desc';
 } | null;
 
-export default function DataTable<T extends { id: string }>({ 
+function DataTable<T extends { id: string }>({ 
   data, 
   columns, 
   loading = false,
@@ -29,18 +30,31 @@ export default function DataTable<T extends { id: string }>({
 }: DataTableProps<T>) {
   const [sortConfig, setSortConfig] = useState<SortConfig<T>>(null);
 
-  const sortedData = [...data].sort((a, b) => {
-    if (!sortConfig) return 0;
+  // Memoize sorted data to avoid re-sorting on every render
+  const sortedData = useMemo(() => {
+    if (!sortConfig) return data;
     
-    const aValue = a[sortConfig.key];
-    const bValue = b[sortConfig.key];
-    
-    if (aValue < bValue) return sortConfig.direction === 'asc' ? -1 : 1;
-    if (aValue > bValue) return sortConfig.direction === 'asc' ? 1 : -1;
-    return 0;
-  });
+    return [...data].sort((a, b) => {
+      // Find the column configuration for custom sorting
+      const column = columns.find(col => col.key === sortConfig.key);
+      
+      // Use custom sort function if available
+      if (column?.sortFunction) {
+        return column.sortFunction(a, b, sortConfig.direction);
+      }
+      
+      // Default sorting
+      const aValue = a[sortConfig.key];
+      const bValue = b[sortConfig.key];
+      
+      if (aValue < bValue) return sortConfig.direction === 'asc' ? -1 : 1;
+      if (aValue > bValue) return sortConfig.direction === 'asc' ? 1 : -1;
+      return 0;
+    });
+  }, [data, sortConfig, columns]);
 
-  const handleSort = (key: keyof T) => {
+  // Memoize sort handler to avoid re-creating on every render
+  const handleSort = useCallback((key: keyof T) => {
     setSortConfig(current => {
       if (current?.key === key) {
         return {
@@ -50,7 +64,7 @@ export default function DataTable<T extends { id: string }>({
       }
       return { key, direction: 'asc' };
     });
-  };
+  }, []);
 
   if (loading) {
     return <TableSkeleton />;
@@ -130,7 +144,8 @@ export default function DataTable<T extends { id: string }>({
   );
 }
 
-function TableSkeleton() {
+// Memoize the table skeleton to avoid recreating arrays
+const TableSkeleton = memo(() => {
   return (
     <div className="animate-pulse p-6">
       <div className="h-12 bg-gray-200 dark:bg-gray-700 mb-4"></div>
@@ -139,4 +154,8 @@ function TableSkeleton() {
       ))}
     </div>
   );
-}
+});
+TableSkeleton.displayName = 'TableSkeleton';
+
+// Export memoized component
+export default memo(DataTable) as <T extends { id: string }>(props: DataTableProps<T>) => JSX.Element;

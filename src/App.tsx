@@ -1,48 +1,122 @@
-import { useEffect } from 'react';
+import { useEffect, lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { ThemeProvider } from './store/themeStore';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+
 import AppLayout from './components/layout/AppLayout';
 import Overview from './pages/Overview';
-import Analytics from './pages/Analytics';
-import Sales from './pages/Sales';
-import Customers from './pages/Customers';
-import Inventory from './pages/Inventory';
-import Support from './pages/Support';
-import Returns from './pages/Returns';
-import Settings from './pages/Settings';
+import PageLoader from './components/ui/PageLoader';
+import ErrorBoundary from './components/error/ErrorBoundary';
+import PageErrorBoundary from './components/layout/PageErrorBoundary';
+import { useAppStore } from './store/useAppStore';
+import { useThemeStore } from './store/useThemeStore';
+import { queryClient } from './lib/queryClient';
+
+// Lazy load heavy pages
+const Analytics = lazy(() => import('./pages/AnalyticsModern'));
+const Sales = lazy(() => import('./pages/Sales'));
+const Customers = lazy(() => import('./pages/Customers'));
+const Inventory = lazy(() => import('./pages/Inventory'));
+const Support = lazy(() => import('./pages/Support'));
+const Returns = lazy(() => import('./pages/Returns'));
+const Settings = lazy(() => import('./pages/Settings'));
 
 export default function App() {
-  // Uygulama başlatıldığında kaydedilmiş ayarları yükle
+  const { settings } = useAppStore();
+  const { theme } = useThemeStore();
+  
+  // Initialize app settings from localStorage and apply to DOM
   useEffect(() => {
-    // Kompakt görünüm ayarını yükle
-    const compactView = localStorage.getItem('compactView') === 'true';
-    if (compactView) {
+    // Apply compact view
+    if (settings.compactView) {
       document.body.classList.add('compact-view');
+    } else {
+      document.body.classList.remove('compact-view');
     }
     
-    // Animasyon ayarını yükle
-    const animations = localStorage.getItem('animations');
-    if (animations === 'false') {
+    // Apply animations setting
+    if (!settings.animations) {
       document.body.classList.add('no-animations');
+    } else {
+      document.body.classList.remove('no-animations');
     }
-  }, []);
+  }, [settings.compactView, settings.animations]);
+  
+  // Initialize theme
+  useEffect(() => {
+    const root = document.documentElement;
+    if (theme === 'dark') {
+      root.classList.add('dark');
+    } else {
+      root.classList.remove('dark');
+    }
+  }, [theme]);
 
   return (
-    <ThemeProvider>
-      <BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <ErrorBoundary>
+        <BrowserRouter>
         <Routes>
           <Route path="/" element={<AppLayout />}>
-            <Route index element={<Overview />} />
-            <Route path="analytics" element={<Analytics />} />
-            <Route path="sales" element={<Sales />} />
-            <Route path="customers" element={<Customers />} />
-            <Route path="inventory" element={<Inventory />} />
-            <Route path="support" element={<Support />} />
-            <Route path="returns" element={<Returns />} />
-            <Route path="settings" element={<Settings />} />
+            <Route index element={
+              <PageErrorBoundary>
+                <Overview />
+              </PageErrorBoundary>
+            } />
+            <Route path="analytics" element={
+              <PageErrorBoundary>
+                <Suspense fallback={<PageLoader />}>
+                  <Analytics />
+                </Suspense>
+              </PageErrorBoundary>
+            } />
+            <Route path="sales" element={
+              <PageErrorBoundary>
+                <Suspense fallback={<PageLoader />}>
+                  <Sales />
+                </Suspense>
+              </PageErrorBoundary>
+            } />
+            <Route path="customers" element={
+              <PageErrorBoundary>
+                <Suspense fallback={<PageLoader />}>
+                  <Customers />
+                </Suspense>
+              </PageErrorBoundary>
+            } />
+            <Route path="inventory" element={
+              <PageErrorBoundary>
+                <Suspense fallback={<PageLoader />}>
+                  <Inventory />
+                </Suspense>
+              </PageErrorBoundary>
+            } />
+            <Route path="support" element={
+              <PageErrorBoundary>
+                <Suspense fallback={<PageLoader />}>
+                  <Support />
+                </Suspense>
+              </PageErrorBoundary>
+            } />
+            <Route path="returns" element={
+              <PageErrorBoundary>
+                <Suspense fallback={<PageLoader />}>
+                  <Returns />
+                </Suspense>
+              </PageErrorBoundary>
+            } />
+            <Route path="settings" element={
+              <PageErrorBoundary>
+                <Suspense fallback={<PageLoader />}>
+                  <Settings />
+                </Suspense>
+              </PageErrorBoundary>
+            } />
           </Route>
         </Routes>
-      </BrowserRouter>
-    </ThemeProvider>
+        </BrowserRouter>
+      </ErrorBoundary>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 }

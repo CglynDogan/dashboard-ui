@@ -8,12 +8,13 @@ import returnsData from '../data/returns.json';
 import customersData from '../data/customers.json';
 import activitiesData from '../data/activities.json';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import type { ReturnItem } from '../types/returns';
 
 export default function Overview() {
   const { t } = useTranslation();
   // KPI hesaplamaları (iadeler dahil)
-  const completedReturns = returnsData.filter((returnItem: any) => returnItem.status === 'Tamamlandı');
-  const totalReturns = completedReturns.reduce((sum: number, returnItem: any) => sum + returnItem.refundAmount, 0);
+  const completedReturns = (returnsData as ReturnItem[]).filter((returnItem: ReturnItem) => returnItem.status === 'Tamamlandı');
+  const totalReturns = completedReturns.reduce((sum: number, returnItem: ReturnItem) => sum + returnItem.refundAmount, 0);
   const totalRevenue = salesData.reduce((sum, sale) => sum + sale.revenue, 0) - totalReturns;
   const totalCustomers = customersData.length;
   const totalOrders = salesData.length;
@@ -26,14 +27,14 @@ export default function Overview() {
   })).sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{t('overview.title')}</h1>
-        <p className="text-gray-600 dark:text-gray-400">{t('overview.subtitle')}</p>
+    <div className="space-y-4 sm:space-y-6 max-w-full">
+      <div className="px-1 sm:px-0">
+        <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white">{t('overview.title')}</h1>
+        <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mt-1">{t('overview.subtitle')}</p>
       </div>
 
-      {/* KPI Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {/* KPI Cards - Mobile optimized */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
         <KpiStat
           title={t('overview.totalRevenue')}
           value={totalRevenue}
@@ -68,13 +69,13 @@ export default function Overview() {
         />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         {/* Revenue Chart */}
-        <Card>
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+        <Card className="p-4 sm:p-6">
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-4">
             {t('overview.revenueChart')}
           </h3>
-          <div className="h-64">
+          <div className="h-48 sm:h-64">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={chartData}>
                 <CartesianGrid strokeDasharray="3 3" />
@@ -98,8 +99,8 @@ export default function Overview() {
         </Card>
 
         {/* Recent Activities */}
-        <Card>
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+        <Card className="p-4 sm:p-6">
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-4">
             {t('overview.recentActivities')}
           </h3>
           <div className="space-y-3">

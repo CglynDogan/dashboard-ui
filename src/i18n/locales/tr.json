@@ -19,7 +19,14 @@
     "avgOrderValue": "Ortalama Sipariş Değeri",
     "revenueChart": "Gelir Trendi",
     "recentActivities": "Son Aktiviteler",
-    "vsLastWeek": "vs geçen hafta"
+    "vsLastWeek": "vs geçen hafta",
+    "lastUpdate": "Son güncelleme",
+    "activeUsers": "Aktif Kullanıcı",
+    "conversionRate": "Dönüşüm Oranı",
+    "loadingDashboard": "Dashboard verileri yükleniyor...",
+    "errorLoadingDashboard": "Dashboard verileri yüklenemedi",
+    "systemUpdated": "Sistem güncellendi",
+    "activity": "Aktivite"
   },
   "sales": {
     "title": "Satışlar",
@@ -238,9 +245,39 @@
     "conversionFunnel": "Dönüşüm Hunisi",
     "customerAcquisition": "Müşteri Kazanımı",
     "revenueByHour": "Saatlik Gelir Analizi",
+    "hourlyRevenueSubtitle": "Son 24 saatlik gelir dağılımı ve trend analizi",
+    "timeRanges": {
+      "24h": "Son 24 Saat",
+      "7d": "Son 7 Gün",
+      "30d": "Son 30 Gün",
+      "90d": "Son 3 Ay"
+    },
     "productPerformance": "Ürün Performansı",
+    "productPerformanceSubtitle": "Ürün bazında detaylı performans analizi",
+    "productPerformanceGrowthRate": "Büyüme Oranı",
+    "table": "Tablo",
     "geographicAnalysis": "Coğrafi Analiz",
-    "timeBasedAnalysis": "Zaman Bazlı Analiz"
+    "geographicAnalysisSubtitle": "Ülkelere göre gelir ve müşteri dağılımı",
+    "timeBasedAnalysis": "Zaman Bazlı Analiz",
+    "metrics": {
+      "totalRevenue": "Toplam Gelir",
+      "totalCustomers": "Toplam Müşteri", 
+      "avgHourlyRevenue": "Saatlik Ort. Gelir",
+      "last24Hours": "Son 24 saat",
+      "topProduct": "En İyi Ürün",
+      "last30Days": "Son 30 gün",
+      "today": "Bugün",
+      "hour": "Saat",
+      "revenue": "Gelir",
+      "units": "Adet",
+      "avgPrice": "Ort. Fiyat",
+      "margin": "Kar Marjı",
+      "country": "Ülke",
+      "totalCountries": "Toplam Ülke",
+      "globalRevenue": "Global Gelir",
+      "globalCustomers": "Global Müşteri",
+      "topPerformance": "En İyi Performans"
+    }
   },
   "inventory": {
     "title": "Envanter Yönetimi",
@@ -275,7 +312,7 @@
     "statuses": {
       "Stokta": "Stokta",
       "Düşük Stok": "Düşük Stok",
-      "Kritik Düşük": "Kritik Düşük",
+      "Kritik Düşük": "Kritik Seviye",
       "Stok Yok": "Stok Yok",
       "Fazla Stok": "Fazla Stok"
     },
@@ -290,6 +327,17 @@
       "outOfStock": "Stok Tükendi",
       "overStock": "Fazla Stok",
       "reorderNeeded": "Yeniden Sipariş Gerekli"
+    },
+    "metrics": {
+      "totalProducts": "Toplam Ürün",
+      "lowStockAlert": "Düşük Stok Uyarısı", 
+      "outOfStock": "Stok Tükendi",
+      "totalStockValue": "Toplam Stok Değeri"
+    },
+    "labels": {
+      "sku": "SKU",
+      "min": "Min",
+      "max": "Max"
     }
   },
   "pagination": {
@@ -297,5 +345,47 @@
     "results": "sonuç",
     "showing": "Gösterilen",
     "of": "/"
+  },
+  "errors": {
+    "somethingWentWrong": "Bir şeyler yanlış gitti",
+    "unexpectedError": "Üzgünüz, beklenmeyen bir hata oluştu. Sayfayı yeniden yüklemeyi deneyin.",
+    "errorDetails": "Hata detayları (geliştirme modunda)",
+    "refreshPage": "Sayfayı Yenile"
+  },
+  "customerAcquisition": {
+    "title": "Müşteri Kazanımı",
+    "subtitle": "Kaynağa göre detaylı müşteri analizi",
+    "cards": "Kartlar",
+    "chart": "Grafik",
+    "customers": "müşteri",
+    "totalCustomers": "Toplam Müşteri",
+    "avgCAC": "Ortalama CAC",
+    "bestSource": "En İyi Kaynak",
+    "mostEfficient": "En Verimli",
+    "free": "Ücretsiz",
+    "metrics": "Müşteri Kazanım Metrikleri",
+    "acquired": "Kazanılan Müşteri",
+    "share": "pay",
+    "customerCount": "Müşteri Sayısı",
+    "acquisitionCost": "Müşteri Kazanım Maliyeti",
+    "shareOfTotal": "Toplam İçindeki Pay",
+    "totalCost": "Toplam Maliyet",
+    "efficiencyScore": "Verimlilik Skoru",
+    "excellent": "Mükemmel",
+    "good": "İyi",
+    "average": "Orta",
+    "poor": "Kötü",
+    "recommendedAction": "Önerilen Aksiyon",
+    "increaseInvestment": "Yatırımı artır",
+    "increaseBudget": "Bütçeyi artır",
+    "optimize": "Optimize et",
+    "reevaluate": "Yeniden değerlendir",
+    "summaryStats": "Özet İstatistikler",
+    "totalAcquired": "Toplam Kazanılan Müşteri",
+    "totalSpent": "Toplam Harcama"
+  },
+  "charts": {
+    "updating": "Güncelleniyor...",
+    "liveDataError": "Canlı veri hatası"
   }
 }

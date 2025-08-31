@@ -30,10 +30,10 @@ export default function Support() {
   ];
 
   const priorityOptions = [
-    { value: 'Düşük', label: t('support.priorities.Düşük') },
-    { value: 'Orta', label: t('support.priorities.Orta') },
+    { value: 'Kritik', label: t('support.priorities.Kritik') },
     { value: 'Yüksek', label: t('support.priorities.Yüksek') },
-    { value: 'Kritik', label: t('support.priorities.Kritik') }
+    { value: 'Orta', label: t('support.priorities.Orta') },
+    { value: 'Düşük', label: t('support.priorities.Düşük') }
   ];
 
   const categoryOptions = useMemo(() => {
@@ -140,6 +140,19 @@ export default function Support() {
     return t(`support.statuses.${status}`, status);
   };
 
+  // Priority sorting function - Kritik > Yüksek > Orta > Düşük
+  const prioritySortFunction = (a: SupportTicket, b: SupportTicket, direction: 'asc' | 'desc') => {
+    const priorityOrder = { 'Kritik': 4, 'Yüksek': 3, 'Orta': 2, 'Düşük': 1 };
+    const aValue = priorityOrder[a.priority as keyof typeof priorityOrder] || 0;
+    const bValue = priorityOrder[b.priority as keyof typeof priorityOrder] || 0;
+    
+    if (direction === 'asc') {
+      return bValue - aValue; // Highest priority first when ascending
+    } else {
+      return aValue - bValue; // Lowest priority first when descending
+    }
+  };
+
   const columns: Column<SupportTicket>[] = [
     {
       key: 'id',
@@ -181,6 +194,7 @@ export default function Support() {
       key: 'priority',
       header: t('support.columns.priority'),
       sortable: true,
+      sortFunction: prioritySortFunction,
       render: (value) => (
         <Badge variant={getPriorityVariant(value)}>
           {getPriorityLabel(value)}

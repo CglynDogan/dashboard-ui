@@ -31,7 +31,7 @@ export default function StockLevelIndicator({ product }: StockLevelIndicatorProp
   };
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-2 min-w-0">
       {/* Stock Bar */}
       <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
         <div 
@@ -41,45 +41,45 @@ export default function StockLevelIndicator({ product }: StockLevelIndicatorProp
       </div>
       
       {/* Stock Details */}
-      <div className="grid grid-cols-2 gap-2 text-xs">
-        <div>
-          <span className="text-gray-500 dark:text-gray-400">
+      <div className="space-y-1 text-xs">
+        <div className="flex justify-between items-center">
+          <span className="text-gray-500 dark:text-gray-400 truncate">
             {t('inventory.stockLevels.current')}:
           </span>
-          <span className={`ml-1 font-medium ${getTextColor()}`}>
+          <span className={`font-medium ${getTextColor()} ml-2`}>
             {product.currentStock}
           </span>
         </div>
-        <div>
-          <span className="text-gray-500 dark:text-gray-400">
+        <div className="flex justify-between items-center">
+          <span className="text-gray-500 dark:text-gray-400 truncate">
             {t('inventory.stockLevels.available')}:
           </span>
-          <span className="ml-1 font-medium text-gray-900 dark:text-white">
+          <span className="font-medium text-gray-900 dark:text-white ml-2">
             {product.available}
           </span>
         </div>
-        <div>
-          <span className="text-gray-500 dark:text-gray-400">
+        <div className="flex justify-between items-center">
+          <span className="text-gray-500 dark:text-gray-400 truncate">
             {t('inventory.stockLevels.reserved')}:
           </span>
-          <span className="ml-1 font-medium text-gray-900 dark:text-white">
+          <span className="font-medium text-gray-900 dark:text-white ml-2">
             {product.reserved}
           </span>
         </div>
-        <div>
-          <span className="text-gray-500 dark:text-gray-400">
+        <div className="flex justify-between items-center">
+          <span className="text-gray-500 dark:text-gray-400 truncate">
             {t('inventory.stockLevels.onOrder')}:
           </span>
-          <span className="ml-1 font-medium text-blue-600 dark:text-blue-400">
+          <span className="font-medium text-blue-600 dark:text-blue-400 ml-2">
             {product.onOrder}
           </span>
         </div>
       </div>
       
       {/* Min/Max Indicators */}
-      <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400">
-        <span>Min: {product.minStock}</span>
-        <span>Max: {product.maxStock}</span>
+      <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400 pt-1 border-t border-gray-200 dark:border-gray-600">
+        <span className="truncate">Min: {product.minStock}</span>
+        <span className="truncate ml-2">Max: {product.maxStock}</span>
       </div>
     </div>
   );

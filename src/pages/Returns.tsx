@@ -30,10 +30,10 @@ export default function Returns() {
   ];
 
   const priorityOptions = [
-    { value: 'Düşük', label: t('returns.priorities.Düşük') },
-    { value: 'Orta', label: t('returns.priorities.Orta') },
+    { value: 'Kritik', label: t('returns.priorities.Kritik') },
     { value: 'Yüksek', label: t('returns.priorities.Yüksek') },
-    { value: 'Kritik', label: t('returns.priorities.Kritik') }
+    { value: 'Orta', label: t('returns.priorities.Orta') },
+    { value: 'Düşük', label: t('returns.priorities.Düşük') }
   ];
 
   const reasonCategoryOptions = [
@@ -145,6 +145,19 @@ export default function Returns() {
     return t(`returns.statuses.${status}`, status);
   };
 
+  // Priority sorting function - Kritik > Yüksek > Orta > Düşük
+  const prioritySortFunction = (a: ReturnRequest, b: ReturnRequest, direction: 'asc' | 'desc') => {
+    const priorityOrder = { 'Kritik': 4, 'Yüksek': 3, 'Orta': 2, 'Düşük': 1 };
+    const aValue = priorityOrder[a.priority as keyof typeof priorityOrder] || 0;
+    const bValue = priorityOrder[b.priority as keyof typeof priorityOrder] || 0;
+    
+    if (direction === 'asc') {
+      return bValue - aValue; // Highest priority first when ascending
+    } else {
+      return aValue - bValue; // Lowest priority first when descending
+    }
+  };
+
   const columns: Column<ReturnRequest>[] = [
     {
       key: 'id',
@@ -214,6 +227,7 @@ export default function Returns() {
       key: 'priority',
       header: t('returns.columns.priority'),
       sortable: true,
+      sortFunction: prioritySortFunction,
       render: (value) => (
         <Badge variant={getPriorityVariant(value)}>
           {getPriorityLabel(value)}
