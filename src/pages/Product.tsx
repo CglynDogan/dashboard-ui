@@ -1,5 +1,4 @@
 import { useState, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 import { 
   CubeIcon,
   PlusIcon,
@@ -8,13 +7,12 @@ import {
   TrashIcon,
   EyeIcon,
   TagIcon,
-  ChartBarIcon,
-  PhotoIcon
+  ChartBarIcon
 } from '@heroicons/react/24/outline';
 import Card from '../components/ui/Card';
 import Badge from '../components/ui/Badge';
 import DataTable, { type Column } from '../components/ui/DataTable';
-import { formatCurrency, formatDate } from '../lib/format';
+import { formatCurrency } from '../lib/format';
 
 // Mock product data
 const products = [
@@ -102,10 +100,9 @@ interface Product {
 }
 
 export default function Product() {
-  const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
-  const [selectedStatus, setSelectedStatus] = useState<string[]>([]);
+  const [selectedStatus] = useState<string[]>([]);
 
   // Filter products
   const filteredProducts = useMemo(() => {
@@ -158,20 +155,20 @@ export default function Product() {
   const productColumns: Column<Product>[] = [
     {
       header: 'Product',
-      accessorKey: 'name',
-      cell: ({ row }) => (
+      key: 'name',
+      render: (value, row) => (
         <div className="flex items-center space-x-3">
           <div className="flex-shrink-0">
             <div className="w-10 h-10 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center text-lg">
-              {row.original.image}
+              {row.image}
             </div>
           </div>
           <div className="min-w-0">
             <div className="font-medium text-gray-900 dark:text-white truncate">
-              {row.original.name}
+              {row.name}
             </div>
             <div className="text-sm text-gray-500 dark:text-gray-400 truncate">
-              {row.original.id}
+              {row.id}
             </div>
           </div>
         </div>
@@ -179,52 +176,52 @@ export default function Product() {
     },
     {
       header: 'Category',
-      accessorKey: 'category',
-      cell: ({ row }) => (
-        <Badge variant="secondary">{row.original.category}</Badge>
+      key: 'category',
+      render: (value, row) => (
+        <Badge variant="secondary">{row.category}</Badge>
       ),
     },
     {
       header: 'Price',
-      accessorKey: 'price',
-      cell: ({ row }) => (
+      key: 'price',
+      render: (value, row) => (
         <div className="font-semibold text-gray-900 dark:text-white">
-          {formatCurrency(row.original.price)}
+          {formatCurrency(row.price)}
         </div>
       ),
     },
     {
       header: 'Stock',
-      accessorKey: 'stock',
-      cell: ({ row }) => getStockIndicator(row.original.stock, row.original.status),
+      key: 'stock',
+      render: (value, row) => getStockIndicator(row.stock, row.status),
     },
     {
       header: 'Sales',
-      accessorKey: 'sales',
-      cell: ({ row }) => (
+      key: 'sales',
+      render: (value, row) => (
         <div className="text-gray-900 dark:text-white">
-          {row.original.sales.toLocaleString()}
+          {row.sales.toLocaleString()}
         </div>
       ),
     },
     {
       header: 'Revenue',
-      accessorKey: 'revenue',
-      cell: ({ row }) => (
+      key: 'revenue',
+      render: (value, row) => (
         <div className="font-semibold text-gray-900 dark:text-white">
-          {formatCurrency(row.original.revenue)}
+          {formatCurrency(row.revenue)}
         </div>
       ),
     },
     {
       header: 'Status',
-      accessorKey: 'status',
-      cell: ({ row }) => getStatusBadge(row.original.status),
+      key: 'status',
+      render: (value, row) => getStatusBadge(row.status),
     },
     {
       header: 'Actions',
-      id: 'actions',
-      cell: ({ row }) => (
+      key: 'id',
+      render: () => (
         <div className="flex items-center space-x-2">
           <button className="p-1 text-gray-400 hover:text-nexus-info">
             <EyeIcon className="w-4 h-4" />
@@ -410,9 +407,6 @@ export default function Product() {
           <DataTable
             data={filteredProducts}
             columns={productColumns}
-            searchTerm={searchTerm}
-            onSearchChange={setSearchTerm}
-            pageSize={10}
           />
         </Card>
       </div>

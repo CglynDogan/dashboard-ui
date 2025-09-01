@@ -7,11 +7,8 @@ import {
   PlusIcon,
   PaperAirplaneIcon,
   PhoneIcon,
-  VideoCameraIcon,
-  UserIcon,
-  StarIcon
+  VideoCameraIcon
 } from '@heroicons/react/24/outline';
-import Card from '../components/ui/Card';
 import Badge from '../components/ui/Badge';
 
 const conversations = [
@@ -101,7 +98,6 @@ const messages = [
 ];
 
 export default function Messages() {
-  const { t } = useTranslation();
   const [selectedConversation, setSelectedConversation] = useState(1);
   const [newMessage, setNewMessage] = useState('');
   const [searchTerm, setSearchTerm] = useState('');

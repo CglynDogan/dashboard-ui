@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { 
   ShieldCheckIcon,
   KeyIcon,
@@ -7,13 +6,9 @@ import {
   EyeSlashIcon,
   DevicePhoneMobileIcon,
   ComputerDesktopIcon,
-  GlobeAltIcon,
   ExclamationTriangleIcon,
   CheckCircleIcon,
   ClockIcon,
-  EllipsisHorizontalIcon,
-  LockClosedIcon,
-  UserIcon,
   CogIcon
 } from '@heroicons/react/24/outline';
 import Card from '../components/ui/Card';
@@ -136,7 +131,6 @@ const securitySettings = [
 ];
 
 export default function Security() {
-  const { t } = useTranslation();
   const [selectedTab, setSelectedTab] = useState<'overview' | 'sessions' | 'settings'>('overview');
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
