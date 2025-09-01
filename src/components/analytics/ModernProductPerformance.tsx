@@ -199,7 +199,7 @@ function ModernProductPerformance({ data, className = '' }: ModernProductPerform
                   </span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600 dark:text-gray-400">Büyüme:</span>
+                  <span className="text-gray-600 dark:text-gray-400">Growth:</span>
                   <span className="font-medium text-green-600 dark:text-green-400">+12.5%</span>
                 </div>
               </div>
@@ -251,7 +251,7 @@ function ModernProductPerformance({ data, className = '' }: ModernProductPerform
                   </span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600 dark:text-gray-400">Büyüme:</span>
+                  <span className="text-gray-600 dark:text-gray-400">Growth:</span>
                   <span className="font-medium text-green-600 dark:text-green-400">+8.3%</span>
                 </div>
               </div>
@@ -463,13 +463,13 @@ function ModernProductPerformance({ data, className = '' }: ModernProductPerform
                   {isSelected && (
                     <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700 space-y-3">
                       <div className="flex justify-between text-sm">
-                        <span className="text-gray-600 dark:text-gray-400">Ortalama Fiyat:</span>
+                        <span className="text-gray-600 dark:text-gray-400">Average Price:</span>
                         <span className="font-medium text-gray-900 dark:text-white">
                           {formatCurrency(product.avgPrice)}
                         </span>
                       </div>
                       <div className="flex justify-between text-sm">
-                        <span className="text-gray-600 dark:text-gray-400">Kar Marjı:</span>
+                        <span className="text-gray-600 dark:text-gray-400">Profit Margin:</span>
                         <span
                           className={`font-medium ${
                             product.margin >= 60
@@ -483,7 +483,7 @@ function ModernProductPerformance({ data, className = '' }: ModernProductPerform
                         </span>
                       </div>
                       <div className="flex justify-between text-sm">
-                        <span className="text-gray-600 dark:text-gray-400">Büyüme Durumu:</span>
+                        <span className="text-gray-600 dark:text-gray-400">Growth State:</span>
                         <span
                           className={`font-medium ${
                             product.growth > 0
@@ -496,13 +496,15 @@ function ModernProductPerformance({ data, className = '' }: ModernProductPerform
                         </span>
                       </div>
                       <div className="flex justify-between text-sm">
-                        <span className="text-gray-600 dark:text-gray-400">Önerilen Aksiyon:</span>
+                        <span className="text-gray-600 dark:text-gray-400">
+                          Recommended Action:
+                        </span>
                         <span className="font-medium text-blue-600 dark:text-blue-400 text-xs">
                           {product.growth > 10
-                            ? 'Üretimi artır'
+                            ? 'increase production'
                             : product.growth > 0
-                              ? 'Pazarlama artır'
-                              : 'Strateji gözden geçir'}
+                              ? 'Increase marketing'
+                              : 'Review the strategy'}
                         </span>
                       </div>
                     </div>
@@ -577,7 +579,7 @@ function ModernProductPerformance({ data, className = '' }: ModernProductPerform
                               {product.product}
                             </div>
                             <div className="text-xs text-gray-500 dark:text-gray-400">
-                              {formatCurrency(product.avgPrice)} ortalama fiyat
+                              {formatCurrency(product.avgPrice)} average price
                             </div>
                           </div>
                         </div>
@@ -673,7 +675,7 @@ function ModernProductPerformance({ data, className = '' }: ModernProductPerform
                           : 'text-red-600 dark:text-red-400'
                       }
                     >
-                      Büyüme: {product.growth > 0 ? '+' : ''}
+                      Growth: {product.growth > 0 ? '+' : ''}
                       {product.growth}%
                     </span>
                   </div>

@@ -143,52 +143,6 @@ export default function Payment() {
     }
   };
 
-  const transactionColumns: Column<Transaction>[] = [
-    {
-      header: 'Transaction ID',
-      accessorKey: 'id',
-      cell: ({ row }) => (
-        <div className="font-medium text-nexus-primary">{row.original.id}</div>
-      ),
-    },
-    {
-      header: 'Amount',
-      accessorKey: 'amount',
-      cell: ({ row }) => (
-        <div className="font-semibold">
-          {formatCurrency(row.original.amount)}
-        </div>
-      ),
-    },
-    {
-      header: 'Customer',
-      accessorKey: 'customer',
-      cell: ({ row }) => (
-        <div className="text-gray-900 dark:text-white">{row.original.customer}</div>
-      ),
-    },
-    {
-      header: 'Method',
-      accessorKey: 'method',
-      cell: ({ row }) => (
-        <div className="text-gray-600 dark:text-gray-400">{row.original.method}</div>
-      ),
-    },
-    {
-      header: 'Status',
-      accessorKey: 'status',
-      cell: ({ row }) => getStatusBadge(row.original.status),
-    },
-    {
-      header: 'Date',
-      accessorKey: 'date',
-      cell: ({ row }) => (
-        <div className="text-gray-600 dark:text-gray-400">
-          {formatDate(row.original.date)}
-        </div>
-      ),
-    },
-  ];
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
