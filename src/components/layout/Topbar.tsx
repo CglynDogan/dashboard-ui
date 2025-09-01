@@ -1,6 +1,5 @@
 import { MoonIcon, SunIcon, Bars3Icon } from '@heroicons/react/24/outline';
 import { useThemeStore } from '../../store/useThemeStore';
-import LanguageToggle from '../ui/LanguageToggle';
 
 interface TopbarProps {
   onMenuClick?: () => void;
@@ -33,7 +32,6 @@ export default function Topbar({ onMenuClick }: TopbarProps) {
         </div>
         
         <div className="flex items-center space-x-1 sm:space-x-2">
-          <LanguageToggle />
           <button
             onClick={toggleTheme}
             className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"

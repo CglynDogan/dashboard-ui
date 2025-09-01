@@ -5,6 +5,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import AppLayout from './components/layout/AppLayout';
 import Overview from './pages/Overview';
+import Dashboard from './pages/Dashboard';
 import PageLoader from './components/ui/PageLoader';
 import ErrorBoundary from './components/error/ErrorBoundary';
 import PageErrorBoundary from './components/layout/PageErrorBoundary';
@@ -20,6 +21,13 @@ const Inventory = lazy(() => import('./pages/Inventory'));
 const Support = lazy(() => import('./pages/Support'));
 const Returns = lazy(() => import('./pages/Returns'));
 const Settings = lazy(() => import('./pages/Settings'));
+const Product = lazy(() => import('./pages/Product'));
+const Security = lazy(() => import('./pages/Security'));
+const Help = lazy(() => import('./pages/Help'));
+const Invoice = lazy(() => import('./pages/Invoice'));
+const Automation = lazy(() => import('./pages/Automation'));
+const Payment = lazy(() => import('./pages/Payment'));
+const Messages = lazy(() => import('./pages/Messages'));
 
 export default function App() {
   const { settings } = useAppStore();
@@ -52,6 +60,11 @@ export default function App() {
         <Routes>
           <Route path="/" element={<AppLayout />}>
             <Route index element={
+              <PageErrorBoundary>
+                <Dashboard />
+              </PageErrorBoundary>
+            } />
+            <Route path="overview" element={
               <PageErrorBoundary>
                 <Overview />
               </PageErrorBoundary>
@@ -102,6 +115,55 @@ export default function App() {
               <PageErrorBoundary>
                 <Suspense fallback={<PageLoader />}>
                   <Settings />
+                </Suspense>
+              </PageErrorBoundary>
+            } />
+            <Route path="product" element={
+              <PageErrorBoundary>
+                <Suspense fallback={<PageLoader />}>
+                  <Product />
+                </Suspense>
+              </PageErrorBoundary>
+            } />
+            <Route path="security" element={
+              <PageErrorBoundary>
+                <Suspense fallback={<PageLoader />}>
+                  <Security />
+                </Suspense>
+              </PageErrorBoundary>
+            } />
+            <Route path="help" element={
+              <PageErrorBoundary>
+                <Suspense fallback={<PageLoader />}>
+                  <Help />
+                </Suspense>
+              </PageErrorBoundary>
+            } />
+            <Route path="invoice" element={
+              <PageErrorBoundary>
+                <Suspense fallback={<PageLoader />}>
+                  <Invoice />
+                </Suspense>
+              </PageErrorBoundary>
+            } />
+            <Route path="automation" element={
+              <PageErrorBoundary>
+                <Suspense fallback={<PageLoader />}>
+                  <Automation />
+                </Suspense>
+              </PageErrorBoundary>
+            } />
+            <Route path="payment" element={
+              <PageErrorBoundary>
+                <Suspense fallback={<PageLoader />}>
+                  <Payment />
+                </Suspense>
+              </PageErrorBoundary>
+            } />
+            <Route path="messages" element={
+              <PageErrorBoundary>
+                <Suspense fallback={<PageLoader />}>
+                  <Messages />
                 </Suspense>
               </PageErrorBoundary>
             } />

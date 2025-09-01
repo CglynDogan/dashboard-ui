@@ -215,7 +215,8 @@ export default function Sales() {
               setSelectedChannels([]);
               setSelectedProducts([]);
             }}
-            className="text-sm text-primary-600 hover:text-primary-700"
+            className="text-sm hover:underline"
+            style={{color: '#5347CE'}}
           >
             {t('sales.clearFilters')}
           </button>

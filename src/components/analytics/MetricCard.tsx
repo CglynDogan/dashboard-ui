@@ -28,42 +28,48 @@ function MetricCard({
       border: 'border-blue-100 dark:border-blue-800',
       iconBg: 'bg-blue-100 dark:bg-blue-900',
       iconColor: 'text-blue-600 dark:text-blue-400',
-      trendColor: 'text-blue-600 dark:text-blue-400'
+      trendColor: 'text-blue-600 dark:text-blue-400',
+      customStyle: { backgroundColor: '#4896FE20' }
     },
     green: {
       bg: 'bg-green-50 dark:bg-green-900/20',
       border: 'border-green-100 dark:border-green-800',
       iconBg: 'bg-green-100 dark:bg-green-900',
       iconColor: 'text-green-600 dark:text-green-400',
-      trendColor: 'text-green-600 dark:text-green-400'
+      trendColor: 'text-green-600 dark:text-green-400',
+      customStyle: { backgroundColor: '#16C8C720' }
     },
     purple: {
       bg: 'bg-purple-50 dark:bg-purple-900/20',
       border: 'border-purple-100 dark:border-purple-800',
       iconBg: 'bg-purple-100 dark:bg-purple-900',
       iconColor: 'text-purple-600 dark:text-purple-400',
-      trendColor: 'text-purple-600 dark:text-purple-400'
+      trendColor: 'text-purple-600 dark:text-purple-400',
+      customStyle: { backgroundColor: '#5347CE20' }
     },
     orange: {
       bg: 'bg-orange-50 dark:bg-orange-900/20',
       border: 'border-orange-100 dark:border-orange-800',
       iconBg: 'bg-orange-100 dark:bg-orange-900',
       iconColor: 'text-orange-600 dark:text-orange-400',
-      trendColor: 'text-orange-600 dark:text-orange-400'
+      trendColor: 'text-orange-600 dark:text-orange-400',
+      customStyle: { backgroundColor: '#F59E0B20' }
     },
     red: {
       bg: 'bg-red-50 dark:bg-red-900/20',
       border: 'border-red-100 dark:border-red-800',
       iconBg: 'bg-red-100 dark:bg-red-900',
       iconColor: 'text-red-600 dark:text-red-400',
-      trendColor: 'text-red-600 dark:text-red-400'
+      trendColor: 'text-red-600 dark:text-red-400',
+      customStyle: { backgroundColor: '#EF444420' }
     },
     yellow: {
       bg: 'bg-yellow-50 dark:bg-yellow-900/20',
       border: 'border-yellow-100 dark:border-yellow-800',
       iconBg: 'bg-yellow-100 dark:bg-yellow-900',
       iconColor: 'text-yellow-600 dark:text-yellow-400',
-      trendColor: 'text-yellow-600 dark:text-yellow-400'
+      trendColor: 'text-yellow-600 dark:text-yellow-400',
+      customStyle: { backgroundColor: '#F59E0B20' }
     }
   };
 
@@ -97,11 +103,14 @@ function MetricCard({
   }
 
   return (
-    <div className={`
-      bg-white dark:bg-gray-800 rounded-2xl shadow-sm border hover:shadow-md 
-      transition-all duration-200 p-6 group cursor-pointer
-      ${currentColors.bg} ${currentColors.border}
-    `}>
+    <div 
+      className={`
+        bg-white dark:bg-gray-800 rounded-2xl shadow-sm border hover:shadow-md 
+        transition-all duration-200 p-6 group cursor-pointer
+        ${currentColors.border}
+      `}
+      style={currentColors.customStyle}
+    >
       <div className="flex items-start justify-between">
         <div className="flex-1 min-w-0">
           <p className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2 truncate">

@@ -1,17 +1,19 @@
 import { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { 
-  ChartBarIcon,
-  ArrowTrendingUpIcon,
+
+import {
   ArrowTrendingDownIcon,
+  ArrowTrendingUpIcon,
+  BanknotesIcon,
+  ChartBarIcon,
+  ChevronRightIcon,
+  ListBulletIcon,
   ShoppingCartIcon,
+  Squares2X2Icon,
   StarIcon,
   TrophyIcon,
-  Squares2X2Icon,
-  ListBulletIcon,
-  ChevronRightIcon,
-  BanknotesIcon
 } from '@heroicons/react/24/outline';
+
 import { formatCurrency } from '../../lib/format';
 
 interface ProductPerformanceData {
@@ -39,10 +41,10 @@ function ModernProductPerformance({ data, className = '' }: ModernProductPerform
   const totalRevenue = data.reduce((sum, item) => sum + item.revenue, 0);
   const totalUnits = data.reduce((sum, item) => sum + item.units, 0);
   // const avgMargin = data.reduce((sum, item) => sum + item.margin, 0) / data.length;
-  const bestPerformer = data.reduce((best, current) => 
+  const bestPerformer = data.reduce((best, current) =>
     current.revenue > best.revenue ? current : best
   );
-  const fastestGrowing = data.reduce((best, current) => 
+  const fastestGrowing = data.reduce((best, current) =>
     current.growth > best.growth ? current : best
   );
 
@@ -53,11 +55,35 @@ function ModernProductPerformance({ data, className = '' }: ModernProductPerform
   });
 
   const getPerformanceStatus = (growth: number) => {
-    if (growth >= 15) return { status: 'excellent', color: 'text-green-600 dark:text-green-400', bg: 'bg-green-50 dark:bg-green-900/20' };
-    if (growth >= 8) return { status: 'good', color: 'text-blue-600 dark:text-blue-400', bg: 'bg-blue-50 dark:bg-blue-900/20' };
-    if (growth >= 2) return { status: 'average', color: 'text-yellow-600 dark:text-yellow-400', bg: 'bg-yellow-50 dark:bg-yellow-900/20' };
-    if (growth >= 0) return { status: 'below-average', color: 'text-orange-600 dark:text-orange-400', bg: 'bg-orange-50 dark:bg-orange-900/20' };
-    return { status: 'poor', color: 'text-red-600 dark:text-red-400', bg: 'bg-red-50 dark:bg-red-900/20' };
+    if (growth >= 15)
+      return {
+        status: 'excellent',
+        color: 'text-green-600 dark:text-green-400',
+        bg: 'bg-green-50 dark:bg-green-900/20',
+      };
+    if (growth >= 8)
+      return {
+        status: 'good',
+        color: 'text-blue-600 dark:text-blue-400',
+        bg: 'bg-blue-50 dark:bg-blue-900/20',
+      };
+    if (growth >= 2)
+      return {
+        status: 'average',
+        color: 'text-yellow-600 dark:text-yellow-400',
+        bg: 'bg-yellow-50 dark:bg-yellow-900/20',
+      };
+    if (growth >= 0)
+      return {
+        status: 'below-average',
+        color: 'text-orange-600 dark:text-orange-400',
+        bg: 'bg-orange-50 dark:bg-orange-900/20',
+      };
+    return {
+      status: 'poor',
+      color: 'text-red-600 dark:text-red-400',
+      bg: 'bg-red-50 dark:bg-red-900/20',
+    };
   };
 
   const getMarginStatus = (margin: number) => {
@@ -87,7 +113,7 @@ function ModernProductPerformance({ data, className = '' }: ModernProductPerform
             {t('analytics.productPerformanceSubtitle')}
           </p>
         </div>
-        
+
         {/* View Mode Toggle */}
         <div className="flex bg-gray-100 dark:bg-gray-700 rounded-xl p-1">
           <button
@@ -128,16 +154,13 @@ function ModernProductPerformance({ data, className = '' }: ModernProductPerform
 
       {/* Key Metrics Overview - Customer Acquisition Style */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div 
+        <div
           className={`bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 cursor-pointer transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl ${
             selectedCard === 'revenue' ? 'ring-2 ring-blue-500 shadow-xl' : ''
           }`}
           onClick={() => setSelectedCard(selectedCard === 'revenue' ? null : 'revenue')}
         >
-          <div 
-            className="p-4 text-white rounded-t-2xl"
-            style={{ backgroundColor: '#8b5cf6' }}
-          >
+          <div className="p-4 text-white rounded-t-2xl" style={{ backgroundColor: '#8b5cf6' }}>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="p-2 bg-white/20 rounded-lg backdrop-blur-sm">
@@ -146,11 +169,12 @@ function ModernProductPerformance({ data, className = '' }: ModernProductPerform
                 <div>
                   <h4 className="font-semibold text-lg">{t('analytics.metrics.totalRevenue')}</h4>
                   <p className="text-white/80 text-sm">
-                    %{((totalRevenue / (totalRevenue + 50000)) * 100).toFixed(1)} {t('analytics.target')}
+                    %{((totalRevenue / (totalRevenue + 50000)) * 100).toFixed(1)}{' '}
+                    {t('analytics.target')}
                   </p>
                 </div>
               </div>
-              <ChevronRightIcon 
+              <ChevronRightIcon
                 className={`w-5 h-5 text-white/80 transform transition-transform ${
                   selectedCard === 'revenue' ? 'rotate-90' : ''
                 }`}
@@ -169,32 +193,27 @@ function ModernProductPerformance({ data, className = '' }: ModernProductPerform
             {selectedCard === 'revenue' && (
               <div className="pt-4 border-t border-gray-200 dark:border-gray-700 space-y-2">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600 dark:text-gray-400">Günlük Ortalama:</span>
+                  <span className="text-gray-600 dark:text-gray-400">Average Per Day:</span>
                   <span className="font-medium text-gray-900 dark:text-white">
                     {formatCurrency(totalRevenue / 30)}
                   </span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-600 dark:text-gray-400">Büyüme:</span>
-                  <span className="font-medium text-green-600 dark:text-green-400">
-                    +12.5%
-                  </span>
+                  <span className="font-medium text-green-600 dark:text-green-400">+12.5%</span>
                 </div>
               </div>
             )}
           </div>
         </div>
 
-        <div 
+        <div
           className={`bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 cursor-pointer transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl ${
             selectedCard === 'sales' ? 'ring-2 ring-blue-500 shadow-xl' : ''
           }`}
           onClick={() => setSelectedCard(selectedCard === 'sales' ? null : 'sales')}
         >
-          <div 
-            className="p-4 text-white rounded-t-2xl"
-            style={{ backgroundColor: '#3b82f6' }}
-          >
+          <div className="p-4 text-white rounded-t-2xl" style={{ backgroundColor: '#3b82f6' }}>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="p-2 bg-white/20 rounded-lg backdrop-blur-sm">
@@ -207,7 +226,7 @@ function ModernProductPerformance({ data, className = '' }: ModernProductPerform
                   </p>
                 </div>
               </div>
-              <ChevronRightIcon 
+              <ChevronRightIcon
                 className={`w-5 h-5 text-white/80 transform transition-transform ${
                   selectedCard === 'sales' ? 'rotate-90' : ''
                 }`}
@@ -226,45 +245,42 @@ function ModernProductPerformance({ data, className = '' }: ModernProductPerform
             {selectedCard === 'sales' && (
               <div className="pt-4 border-t border-gray-200 dark:border-gray-700 space-y-2">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600 dark:text-gray-400">Günlük Ortalama:</span>
+                  <span className="text-gray-600 dark:text-gray-400">Average Per Day:</span>
                   <span className="font-medium text-gray-900 dark:text-white">
                     {Math.round(totalUnits / 30)} {t('analytics.units')}
                   </span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-600 dark:text-gray-400">Büyüme:</span>
-                  <span className="font-medium text-green-600 dark:text-green-400">
-                    +8.3%
-                  </span>
+                  <span className="font-medium text-green-600 dark:text-green-400">+8.3%</span>
                 </div>
               </div>
             )}
           </div>
         </div>
 
-        <div 
+        <div
           className={`bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 cursor-pointer transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl ${
             selectedCard === 'best' ? 'ring-2 ring-blue-500 shadow-xl' : ''
           }`}
           onClick={() => setSelectedCard(selectedCard === 'best' ? null : 'best')}
         >
-          <div 
-            className="p-4 text-white rounded-t-2xl"
-            style={{ backgroundColor: '#10b981' }}
-          >
+          <div className="p-4 text-white rounded-t-2xl" style={{ backgroundColor: '#10b981' }}>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="p-2 bg-white/20 rounded-lg backdrop-blur-sm">
                   <TrophyIcon className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-lg">{t('analytics.bestProduct', 'Best Product')}</h4>
+                  <h4 className="font-semibold text-lg">
+                    {t('analytics.bestProduct', 'Best Product')}
+                  </h4>
                   <p className="text-white/80 text-sm">
                     {t(`products.${bestPerformer.product}`, bestPerformer.product)}
                   </p>
                 </div>
               </div>
-              <ChevronRightIcon 
+              <ChevronRightIcon
                 className={`w-5 h-5 text-white/80 transform transition-transform ${
                   selectedCard === 'best' ? 'rotate-90' : ''
                 }`}
@@ -283,13 +299,17 @@ function ModernProductPerformance({ data, className = '' }: ModernProductPerform
             {selectedCard === 'best' && (
               <div className="pt-4 border-t border-gray-200 dark:border-gray-700 space-y-2">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600 dark:text-gray-400">{t('analytics.productUnitSales')}:</span>
+                  <span className="text-gray-600 dark:text-gray-400">
+                    {t('analytics.productUnitSales')}:
+                  </span>
                   <span className="font-medium text-gray-900 dark:text-white">
                     {bestPerformer.units.toLocaleString()}
                   </span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600 dark:text-gray-400">{t('analytics.productMarketShare')}:</span>
+                  <span className="text-gray-600 dark:text-gray-400">
+                    {t('analytics.productMarketShare')}:
+                  </span>
                   <span className="font-medium text-green-600 dark:text-green-400">
                     %{((bestPerformer.revenue / totalRevenue) * 100).toFixed(1)}
                   </span>
@@ -299,29 +319,28 @@ function ModernProductPerformance({ data, className = '' }: ModernProductPerform
           </div>
         </div>
 
-        <div 
+        <div
           className={`bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 cursor-pointer transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl ${
             selectedCard === 'fastest' ? 'ring-2 ring-blue-500 shadow-xl' : ''
           }`}
           onClick={() => setSelectedCard(selectedCard === 'fastest' ? null : 'fastest')}
         >
-          <div 
-            className="p-4 text-white rounded-t-2xl"
-            style={{ backgroundColor: '#f59e0b' }}
-          >
+          <div className="p-4 text-white rounded-t-2xl" style={{ backgroundColor: '#f59e0b' }}>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="p-2 bg-white/20 rounded-lg backdrop-blur-sm">
                   <ArrowTrendingUpIcon className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-lg">{t('analytics.fastestGrowing', 'Fastest Growing')}</h4>
+                  <h4 className="font-semibold text-lg">
+                    {t('analytics.fastestGrowing', 'Fastest Growing')}
+                  </h4>
                   <p className="text-white/80 text-sm">
                     {t(`products.${fastestGrowing.product}`, fastestGrowing.product)}
                   </p>
                 </div>
               </div>
-              <ChevronRightIcon 
+              <ChevronRightIcon
                 className={`w-5 h-5 text-white/80 transform transition-transform ${
                   selectedCard === 'fastest' ? 'rotate-90' : ''
                 }`}
@@ -340,7 +359,9 @@ function ModernProductPerformance({ data, className = '' }: ModernProductPerform
             {selectedCard === 'fastest' && (
               <div className="pt-4 border-t border-gray-200 dark:border-gray-700 space-y-2">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600 dark:text-gray-400">{t('analytics.metrics.revenue')}:</span>
+                  <span className="text-gray-600 dark:text-gray-400">
+                    {t('analytics.metrics.revenue')}:
+                  </span>
                   <span className="font-medium text-gray-900 dark:text-white">
                     {formatCurrency(fastestGrowing.revenue)}
                   </span>
@@ -363,7 +384,7 @@ function ModernProductPerformance({ data, className = '' }: ModernProductPerform
           {sortedData.map((product, index) => {
             const color = productColors[index % productColors.length];
             const isSelected = selectedCard === product.product;
-            
+
             return (
               <div
                 key={product.product}
@@ -373,23 +394,22 @@ function ModernProductPerformance({ data, className = '' }: ModernProductPerform
                 onClick={() => setSelectedCard(isSelected ? null : product.product)}
               >
                 {/* Header */}
-                <div 
-                  className="p-4 text-white rounded-t-2xl"
-                  style={{ backgroundColor: color }}
-                >
+                <div className="p-4 text-white rounded-t-2xl" style={{ backgroundColor: color }}>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
                       <div className="p-2 bg-white/20 rounded-lg backdrop-blur-sm">
                         <StarIcon className="w-5 h-5 text-white" />
                       </div>
                       <div>
-                        <h4 className="font-semibold text-lg">{t(`products.${product.product}`, product.product)}</h4>
+                        <h4 className="font-semibold text-lg">
+                          {t(`products.${product.product}`, product.product)}
+                        </h4>
                         <p className="text-white/80 text-sm">
                           {((product.revenue / totalRevenue) * 100).toFixed(1)}% pay
                         </p>
                       </div>
                     </div>
-                    <ChevronRightIcon 
+                    <ChevronRightIcon
                       className={`w-5 h-5 text-white/80 transform transition-transform ${
                         isSelected ? 'rotate-90' : ''
                       }`}
@@ -429,11 +449,11 @@ function ModernProductPerformance({ data, className = '' }: ModernProductPerform
                       </span>
                     </div>
                     <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                      <div 
+                      <div
                         className="h-2 rounded-full transition-all duration-500"
-                        style={{ 
+                        style={{
                           backgroundColor: color,
-                          width: `${(product.revenue / totalRevenue) * 100}%`
+                          width: `${(product.revenue / totalRevenue) * 100}%`,
                         }}
                       />
                     </div>
@@ -450,29 +470,39 @@ function ModernProductPerformance({ data, className = '' }: ModernProductPerform
                       </div>
                       <div className="flex justify-between text-sm">
                         <span className="text-gray-600 dark:text-gray-400">Kar Marjı:</span>
-                        <span className={`font-medium ${
-                          product.margin >= 60 ? 'text-green-600 dark:text-green-400' :
-                          product.margin >= 40 ? 'text-yellow-600 dark:text-yellow-400' :
-                          'text-red-600 dark:text-red-400'
-                        }`}>
+                        <span
+                          className={`font-medium ${
+                            product.margin >= 60
+                              ? 'text-green-600 dark:text-green-400'
+                              : product.margin >= 40
+                                ? 'text-yellow-600 dark:text-yellow-400'
+                                : 'text-red-600 dark:text-red-400'
+                          }`}
+                        >
                           %{product.margin} ({getMarginStatus(product.margin)})
                         </span>
                       </div>
                       <div className="flex justify-between text-sm">
                         <span className="text-gray-600 dark:text-gray-400">Büyüme Durumu:</span>
-                        <span className={`font-medium ${
-                          product.growth > 0 ? 'text-green-600 dark:text-green-400' :
-                          'text-red-600 dark:text-red-400'
-                        }`}>
-                          {product.growth > 0 ? '+' : ''}{product.growth}%
+                        <span
+                          className={`font-medium ${
+                            product.growth > 0
+                              ? 'text-green-600 dark:text-green-400'
+                              : 'text-red-600 dark:text-red-400'
+                          }`}
+                        >
+                          {product.growth > 0 ? '+' : ''}
+                          {product.growth}%
                         </span>
                       </div>
                       <div className="flex justify-between text-sm">
                         <span className="text-gray-600 dark:text-gray-400">Önerilen Aksiyon:</span>
                         <span className="font-medium text-blue-600 dark:text-blue-400 text-xs">
-                          {product.growth > 10 ? 'Üretimi artır' :
-                           product.growth > 0 ? 'Pazarlama artır' :
-                           'Strateji gözden geçir'}
+                          {product.growth > 10
+                            ? 'Üretimi artır'
+                            : product.growth > 0
+                              ? 'Pazarlama artır'
+                              : 'Strateji gözden geçir'}
                         </span>
                       </div>
                     </div>
@@ -495,7 +525,7 @@ function ModernProductPerformance({ data, className = '' }: ModernProductPerform
                     Ürün
                   </th>
                   {(['revenue', 'units', 'margin', 'growth'] as const).map(key => (
-                    <th 
+                    <th
                       key={key}
                       className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer hover:text-gray-700 dark:hover:text-gray-300"
                       onClick={() => {
@@ -508,14 +538,19 @@ function ModernProductPerformance({ data, className = '' }: ModernProductPerform
                       }}
                     >
                       <div className="flex items-center gap-1">
-                        {key === 'revenue' ? t('analytics.metrics.revenue') :
-                         key === 'units' ? t('analytics.productSales', 'Sales') :
-                         key === 'margin' ? t('analytics.productMargin', 'Margin') : t('analytics.productGrowth', 'Growth')}
-                        {sortBy === key && (
-                          sortOrder === 'desc' ? 
-                            <ArrowTrendingDownIcon className="w-3 h-3" /> : 
+                        {key === 'revenue'
+                          ? t('analytics.metrics.revenue')
+                          : key === 'units'
+                            ? t('analytics.productSales', 'Sales')
+                            : key === 'margin'
+                              ? t('analytics.productMargin', 'Margin')
+                              : t('analytics.productGrowth', 'Growth')}
+                        {sortBy === key &&
+                          (sortOrder === 'desc' ? (
+                            <ArrowTrendingDownIcon className="w-3 h-3" />
+                          ) : (
                             <ArrowTrendingUpIcon className="w-3 h-3" />
-                        )}
+                          ))}
                       </div>
                     </th>
                   ))}
@@ -525,12 +560,15 @@ function ModernProductPerformance({ data, className = '' }: ModernProductPerform
                 {sortedData.map((product, index) => {
                   const color = productColors[index % productColors.length];
                   const performance = getPerformanceStatus(product.growth);
-                  
+
                   return (
-                    <tr key={product.product} className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                    <tr
+                      key={product.product}
+                      className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+                    >
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center gap-3">
-                          <div 
+                          <div
                             className="w-3 h-3 rounded-full"
                             style={{ backgroundColor: color }}
                           />
@@ -551,19 +589,28 @@ function ModernProductPerformance({ data, className = '' }: ModernProductPerform
                         {product.units.toLocaleString()} {t('analytics.units')}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                          product.margin >= 75 ? 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400' :
-                          product.margin >= 60 ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-400' :
-                          product.margin >= 40 ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400' :
-                          product.margin >= 20 ? 'bg-orange-100 text-orange-800 dark:bg-orange-900/20 dark:text-orange-400' :
-                          'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-400'
-                        }`}>
+                        <span
+                          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                            product.margin >= 75
+                              ? 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400'
+                              : product.margin >= 60
+                                ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-400'
+                                : product.margin >= 40
+                                  ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400'
+                                  : product.margin >= 20
+                                    ? 'bg-orange-100 text-orange-800 dark:bg-orange-900/20 dark:text-orange-400'
+                                    : 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-400'
+                          }`}
+                        >
                           {getMarginStatus(product.margin)}
                         </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${performance.bg} ${performance.color}`}>
-                          {product.growth > 0 ? '+' : ''}{product.growth}%
+                        <span
+                          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${performance.bg} ${performance.color}`}
+                        >
+                          {product.growth > 0 ? '+' : ''}
+                          {product.growth}%
                         </span>
                       </td>
                     </tr>
@@ -583,15 +630,12 @@ function ModernProductPerformance({ data, className = '' }: ModernProductPerform
               const color = productColors[index % productColors.length];
               const maxRevenue = Math.max(...data.map(p => p.revenue));
               const widthPercentage = (product.revenue / maxRevenue) * 100;
-              
+
               return (
                 <div key={product.product} className="space-y-2">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div 
-                        className="w-4 h-4 rounded-full"
-                        style={{ backgroundColor: color }}
-                      />
+                      <div className="w-4 h-4 rounded-full" style={{ backgroundColor: color }} />
                       <span className="font-medium text-gray-900 dark:text-white">
                         {product.product}
                       </span>
@@ -606,11 +650,11 @@ function ModernProductPerformance({ data, className = '' }: ModernProductPerform
                     </div>
                   </div>
                   <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4">
-                    <div 
+                    <div
                       className="h-4 rounded-full transition-all duration-700 flex items-center justify-end pr-2"
-                      style={{ 
+                      style={{
                         backgroundColor: color,
-                        width: `${widthPercentage}%`
+                        width: `${widthPercentage}%`,
                       }}
                     >
                       {widthPercentage > 30 && (
@@ -622,8 +666,15 @@ function ModernProductPerformance({ data, className = '' }: ModernProductPerform
                   </div>
                   <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
                     <span>Marj: %{product.margin}</span>
-                    <span className={product.growth > 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}>
-                      Büyüme: {product.growth > 0 ? '+' : ''}{product.growth}%
+                    <span
+                      className={
+                        product.growth > 0
+                          ? 'text-green-600 dark:text-green-400'
+                          : 'text-red-600 dark:text-red-400'
+                      }
+                    >
+                      Büyüme: {product.growth > 0 ? '+' : ''}
+                      {product.growth}%
                     </span>
                   </div>
                 </div>

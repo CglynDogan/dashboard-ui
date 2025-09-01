@@ -1,31 +1,31 @@
 {
   "conversionFunnel": [
     {
-      "stage": "Ziyaretçiler",
+      "stage": "Visitors",
       "value": 10000,
       "percentage": 100,
       "color": "#3b82f6"
     },
     {
-      "stage": "Ürün Görüntüleme",
+      "stage": "Product Views",
       "value": 6500,
       "percentage": 65,
       "color": "#10b981"
     },
     {
-      "stage": "Sepete Ekleme",
+      "stage": "Add to Cart",
       "value": 2800,
       "percentage": 28,
       "color": "#f59e0b"
     },
     {
-      "stage": "Ödeme Sayfası",
+      "stage": "Checkout Page",
       "value": 1200,
       "percentage": 12,
       "color": "#ef4444"
     },
     {
-      "stage": "Satın Alma",
+      "stage": "Purchase",
       "value": 850,
       "percentage": 8.5,
       "color": "#8b5cf6"
@@ -96,7 +96,7 @@
   ],
   "productPerformance": [
     {
-      "product": "Pro Planı",
+      "product": "Pro Plan",
       "revenue": 45600,
       "units": 152,
       "avgPrice": 300,

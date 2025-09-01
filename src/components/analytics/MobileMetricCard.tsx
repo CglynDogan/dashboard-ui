@@ -10,16 +10,19 @@ interface MobileMetricCardProps {
 
 function MobileMetricCard({ title, value, change, icon, color = 'blue' }: MobileMetricCardProps) {
   const colorClasses = {
-    blue: 'from-blue-500 to-blue-600',
-    green: 'from-green-500 to-green-600',
-    purple: 'from-purple-500 to-purple-600',
-    orange: 'from-orange-500 to-orange-600'
+    blue: '#4896FE',
+    green: '#16C8C7', 
+    purple: '#5347CE',
+    orange: '#F59E0B'
   };
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-sm border border-gray-200 dark:border-gray-700">
       <div className="flex items-center gap-3">
-        <div className={`p-2 rounded-xl bg-gradient-to-br ${colorClasses[color]} flex-shrink-0`}>
+        <div 
+          className="p-2 rounded-xl flex-shrink-0" 
+          style={{ backgroundColor: colorClasses[color] }}
+        >
           <div className="w-5 h-5 text-white">
             {icon}
           </div>

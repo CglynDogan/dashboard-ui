@@ -32,7 +32,7 @@ export default function OverviewWithQuery() {
     return (
       <QueryStatus 
         isLoading={true} 
-        loadingText="Dashboard verileri yükleniyor..." 
+        loadingText="Loading dashboard data..." 
       />
     );
   }
@@ -44,7 +44,7 @@ export default function OverviewWithQuery() {
         isError={true}
         error={salesErrorData}
         onRetry={() => refetchSales()}
-        errorText="Dashboard verileri yüklenemedi"
+        errorText="Failed to load dashboard data"
       />
     );
   }
@@ -75,7 +75,7 @@ export default function OverviewWithQuery() {
         </p>
         {realtimeMetrics && (
           <p className="text-sm text-green-600 dark:text-green-400 mt-1">
-            Son güncelleme: {new Date(realtimeMetrics.timestamp).toLocaleTimeString('tr-TR')}
+            Last updated: {new Date(realtimeMetrics.timestamp).toLocaleTimeString('en-US')}
           </p>
         )}
       </div>
@@ -91,7 +91,7 @@ export default function OverviewWithQuery() {
           icon={<CurrencyDollarIcon className="w-8 h-8" />}
         />
         <KpiStat
-          title="Aktif Kullanıcı"
+          title="Active Users"
           value={realtimeMetrics?.activeUsers || 1250}
           format="number"
           change={8.2}
@@ -107,7 +107,7 @@ export default function OverviewWithQuery() {
           icon={<ShoppingCartIcon className="w-8 h-8" />}
         />
         <KpiStat
-          title="Dönüşüm Oranı"
+          title="Conversion Rate"
           value={realtimeMetrics?.conversionRate ? parseFloat(realtimeMetrics.conversionRate) : 3.2}
           format="percentage"
           change={5.7}
@@ -125,12 +125,12 @@ export default function OverviewWithQuery() {
             </h3>
             {metricsLoading && (
               <div className="text-xs text-blue-600 dark:text-blue-400">
-                Güncelleniyor...
+                Updating...
               </div>
             )}
             {metricsError && (
               <div className="text-xs text-red-600 dark:text-red-400">
-                Canlı veri hatası
+                Live data error
               </div>
             )}
           </div>
@@ -151,7 +151,7 @@ export default function OverviewWithQuery() {
                   labelFormatter={(value) => `${t('chart.date')}: ${formatDate(value)}`}
                   formatter={(value) => [formatCurrency(Number(value)), t('chart.revenue')]}
                 />
-                <Line type="monotone" dataKey="revenue" stroke="#3b82f6" strokeWidth={2} />
+                <Line type="monotone" dataKey="revenue" stroke="var(--nexus-primary)" strokeWidth={2} />
               </LineChart>
             </ResponsiveContainer>
           </div>
@@ -171,7 +171,7 @@ export default function OverviewWithQuery() {
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm text-gray-900 dark:text-white">
-                    Aktivite {index + 1} - Sistem güncellendi
+                    Activity {index + 1} - System updated
                   </p>
                   <p className="text-xs text-gray-500 dark:text-gray-400">
                     {formatRelativeDate(new Date().toISOString())}

@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
-import LanguageToggle from '../components/ui/LanguageToggle';
 import { useThemeStore } from '../store/useThemeStore';
 import { useAppStore } from '../store/useAppStore';
 
@@ -40,17 +39,6 @@ export default function Settings() {
               >
                 {theme === 'dark' ? t('settings.on') : t('settings.off')}
               </Button>
-            </div>
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-900 dark:text-white">
-                  {t('settings.language')}
-                </p>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
-                  {t('settings.languageDesc')}
-                </p>
-              </div>
-              <LanguageToggle />
             </div>
           </div>
         </Card>

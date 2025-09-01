@@ -258,7 +258,7 @@ export default function Inventory() {
                 {summaryStats.totalProducts}
               </p>
             </div>
-            <CubeIcon className="w-8 h-8 text-blue-500" />
+            <CubeIcon className="w-8 h-8 text-nexus-info" />
           </div>
         </Card>
 
@@ -282,11 +282,11 @@ export default function Inventory() {
               <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
                 {t('inventory.metrics.outOfStock')}
               </p>
-              <p className="text-2xl font-bold text-red-600">
+              <p className="text-2xl font-bold text-nexus-error">
                 {summaryStats.outOfStockProducts}
               </p>
             </div>
-            <XCircleIcon className="w-8 h-8 text-red-500" />
+            <XCircleIcon className="w-8 h-8 text-nexus-error" />
           </div>
         </Card>
 
@@ -296,11 +296,11 @@ export default function Inventory() {
               <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
                 {t('inventory.metrics.totalStockValue')}
               </p>
-              <p className="text-2xl font-bold text-green-600">
+              <p className="text-2xl font-bold text-nexus-success">
                 {formatCurrency(summaryStats.totalValue)}
               </p>
             </div>
-            <CheckCircleIcon className="w-8 h-8 text-green-500" />
+            <CheckCircleIcon className="w-8 h-8 text-nexus-success" />
           </div>
         </Card>
       </div>

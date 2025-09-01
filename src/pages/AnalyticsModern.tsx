@@ -111,11 +111,11 @@ export default function AnalyticsModern() {
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
             <div>
               <div className="flex items-center gap-3 sm:gap-4 mb-4">
-                <div className="p-2 sm:p-3 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl sm:rounded-2xl shadow-lg">
+                <div className="p-2 sm:p-3 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-xl sm:rounded-2xl shadow-lg" style={{background: 'linear-gradient(135deg, #5347CE 0%, #887CFD 100%)'}}>
                   <ChartBarIcon className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                 </div>
                 <div>
-                  <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-purple-800 dark:from-white dark:via-blue-200 dark:to-purple-200 bg-clip-text text-transparent">
+                  <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-gray-900 via-purple-800 to-indigo-800 dark:from-white dark:via-purple-200 dark:to-indigo-200 bg-clip-text text-transparent">
                     {t('analytics.title')}
                   </h1>
                   <p className="text-sm sm:text-base lg:text-lg text-gray-600 dark:text-gray-300 mt-1">
@@ -133,10 +133,11 @@ export default function AnalyticsModern() {
                     className={`
                       px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200
                       ${selectedTimeRange === range.value
-                        ? 'bg-blue-500 text-white shadow-lg shadow-blue-500/25'
+                        ? 'text-white shadow-lg' 
                         : 'bg-white/50 dark:bg-gray-700/50 text-gray-600 dark:text-gray-300 hover:bg-white/80 dark:hover:bg-gray-600/80'
                       }
                     `}
+                    style={selectedTimeRange === range.value ? {background: '#5347CE'} : {}}
                   >
                     {range.label}
                   </button>
@@ -258,7 +259,7 @@ export default function AnalyticsModern() {
             subtitle={t('analytics.hourlyRevenueSubtitle')}
             xKey="hour"
             yKey="revenue"
-            color="#3b82f6"
+            color="#4896FE"
             height={350}
             formatValue={formatCurrency}
             className="h-full"
@@ -309,7 +310,7 @@ export default function AnalyticsModern() {
               title=""
               xKey="country"
               yKey="revenue"
-              color="#8b5cf6"
+              color="#5347CE"
               height={400}
               type="bar"
               formatValue={formatCurrency}

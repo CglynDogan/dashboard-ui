@@ -92,7 +92,7 @@ export default function Overview() {
                   labelFormatter={(value) => `${t('chart.date')}: ${formatDate(value)}`}
                   formatter={(value) => [formatCurrency(Number(value)), t('chart.revenue')]}
                 />
-                <Line type="monotone" dataKey="revenue" stroke="#3b82f6" strokeWidth={2} />
+                <Line type="monotone" dataKey="revenue" stroke="#5347CE" strokeWidth={2} />
               </LineChart>
             </ResponsiveContainer>
           </div>
@@ -107,7 +107,7 @@ export default function Overview() {
             {activitiesData.slice(0, 5).map((activity) => (
               <div key={activity.id} className="flex items-start space-x-3">
                 <div className="flex-shrink-0">
-                  <div className="w-2 h-2 bg-primary-500 rounded-full mt-2"></div>
+                  <div className="w-2 h-2 rounded-full mt-2" style={{backgroundColor: '#5347CE'}}></div>
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm text-gray-900 dark:text-white">

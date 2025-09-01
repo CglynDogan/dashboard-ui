@@ -14,20 +14,20 @@ export default function StockLevelIndicator({ product }: StockLevelIndicatorProp
 
   const getStockColor = () => {
     const percentage = getStockPercentage();
-    if (percentage <= 10) return 'bg-red-500';
-    if (percentage <= 25) return 'bg-orange-500';
-    if (percentage <= 50) return 'bg-yellow-500';
-    if (percentage >= 90) return 'bg-purple-500';
-    return 'bg-green-500';
+    if (percentage <= 10) return 'bg-nexus-error';
+    if (percentage <= 25) return 'bg-nexus-warning';
+    if (percentage <= 50) return 'bg-nexus-warning';
+    if (percentage >= 90) return 'bg-nexus-purple';
+    return 'bg-nexus-success';
   };
 
   const getTextColor = () => {
     const percentage = getStockPercentage();
-    if (percentage <= 10) return 'text-red-600 dark:text-red-400';
-    if (percentage <= 25) return 'text-orange-600 dark:text-orange-400';
-    if (percentage <= 50) return 'text-yellow-600 dark:text-yellow-400';
-    if (percentage >= 90) return 'text-purple-600 dark:text-purple-400';
-    return 'text-green-600 dark:text-green-400';
+    if (percentage <= 10) return 'text-nexus-error';
+    if (percentage <= 25) return 'text-nexus-warning';
+    if (percentage <= 50) return 'text-nexus-warning';
+    if (percentage >= 90) return 'text-nexus-purple';
+    return 'text-nexus-success';
   };
 
   return (
@@ -70,7 +70,7 @@ export default function StockLevelIndicator({ product }: StockLevelIndicatorProp
           <span className="text-gray-500 dark:text-gray-400 truncate">
             {t('inventory.stockLevels.onOrder')}:
           </span>
-          <span className="font-medium text-blue-600 dark:text-blue-400 ml-2">
+          <span className="font-medium text-nexus-info ml-2">
             {product.onOrder}
           </span>
         </div>
