@@ -429,7 +429,7 @@ export default function Automation() {
                             <StarIcon className="w-4 h-4 text-yellow-500 fill-current" />
                           )}
                         </div>
-                        <Badge variant="secondary" className="mt-1">{template.category}</Badge>
+                        <Badge variant="secondary">{template.category}</Badge>
                       </div>
                     </div>
                   </div>

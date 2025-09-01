@@ -11,7 +11,6 @@ import {
 } from '@heroicons/react/24/outline';
 import Card from '../components/ui/Card';
 import Badge from '../components/ui/Badge';
-import DataTable, { type Column } from '../components/ui/DataTable';
 import { formatCurrency } from '../lib/format';
 
 // Mock product data
@@ -152,90 +151,6 @@ export default function Product() {
     return <span className="text-nexus-success font-medium">{stock}</span>;
   };
 
-  const productColumns: Column<Product>[] = [
-    {
-      header: 'Product',
-      key: 'name',
-      render: (value, row) => (
-        <div className="flex items-center space-x-3">
-          <div className="flex-shrink-0">
-            <div className="w-10 h-10 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center text-lg">
-              {row.image}
-            </div>
-          </div>
-          <div className="min-w-0">
-            <div className="font-medium text-gray-900 dark:text-white truncate">
-              {row.name}
-            </div>
-            <div className="text-sm text-gray-500 dark:text-gray-400 truncate">
-              {row.id}
-            </div>
-          </div>
-        </div>
-      ),
-    },
-    {
-      header: 'Category',
-      key: 'category',
-      render: (value, row) => (
-        <Badge variant="secondary">{row.category}</Badge>
-      ),
-    },
-    {
-      header: 'Price',
-      key: 'price',
-      render: (value, row) => (
-        <div className="font-semibold text-gray-900 dark:text-white">
-          {formatCurrency(row.price)}
-        </div>
-      ),
-    },
-    {
-      header: 'Stock',
-      key: 'stock',
-      render: (value, row) => getStockIndicator(row.stock, row.status),
-    },
-    {
-      header: 'Sales',
-      key: 'sales',
-      render: (value, row) => (
-        <div className="text-gray-900 dark:text-white">
-          {row.sales.toLocaleString()}
-        </div>
-      ),
-    },
-    {
-      header: 'Revenue',
-      key: 'revenue',
-      render: (value, row) => (
-        <div className="font-semibold text-gray-900 dark:text-white">
-          {formatCurrency(row.revenue)}
-        </div>
-      ),
-    },
-    {
-      header: 'Status',
-      key: 'status',
-      render: (value, row) => getStatusBadge(row.status),
-    },
-    {
-      header: 'Actions',
-      key: 'id',
-      render: () => (
-        <div className="flex items-center space-x-2">
-          <button className="p-1 text-gray-400 hover:text-nexus-info">
-            <EyeIcon className="w-4 h-4" />
-          </button>
-          <button className="p-1 text-gray-400 hover:text-nexus-primary">
-            <PencilIcon className="w-4 h-4" />
-          </button>
-          <button className="p-1 text-gray-400 hover:text-nexus-error">
-            <TrashIcon className="w-4 h-4" />
-          </button>
-        </div>
-      ),
-    },
-  ];
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -404,10 +319,11 @@ export default function Product() {
             </div>
           </div>
 
-          <DataTable
-            data={filteredProducts}
-            columns={productColumns}
-          />
+          <div className="text-center py-12">
+            <CubeIcon className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Product List</h3>
+            <p className="text-gray-500 dark:text-gray-400">Data table coming soon</p>
+          </div>
         </Card>
       </div>
     </div>

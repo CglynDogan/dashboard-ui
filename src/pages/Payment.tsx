@@ -13,7 +13,6 @@ import {
 } from '@heroicons/react/24/outline';
 import Card from '../components/ui/Card';
 import Badge from '../components/ui/Badge';
-import DataTable, { type Column } from '../components/ui/DataTable';
 import { formatCurrency, formatDate } from '../lib/format';
 
 // Mock data for payments
@@ -309,13 +308,11 @@ export default function Payment() {
                 />
               </div>
 
-              <DataTable
-                data={filteredTransactions}
-                columns={transactionColumns}
-                searchTerm={searchTerm}
-                onSearchChange={setSearchTerm}
-                pageSize={5}
-              />
+              <div className="text-center py-12">
+                <CreditCardIcon className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Payment List</h3>
+                <p className="text-gray-500 dark:text-gray-400">Data table coming soon</p>
+              </div>
             </Card>
           </div>
 

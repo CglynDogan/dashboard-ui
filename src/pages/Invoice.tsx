@@ -14,7 +14,6 @@ import {
 } from '@heroicons/react/24/outline';
 import Card from '../components/ui/Card';
 import Badge from '../components/ui/Badge';
-import DataTable, { type Column } from '../components/ui/DataTable';
 import { formatCurrency, formatDate } from '../lib/format';
 
 // Mock invoice data
@@ -381,13 +380,11 @@ export default function Invoice() {
             />
           </div>
 
-          <DataTable
-            data={filteredInvoices}
-            columns={invoiceColumns}
-            searchTerm={searchTerm}
-            onSearchChange={setSearchTerm}
-            pageSize={10}
-          />
+          <div className="text-center py-12">
+            <DocumentTextIcon className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Invoice List</h3>
+            <p className="text-gray-500 dark:text-gray-400">Data table coming soon</p>
+          </div>
         </Card>
 
         {/* Quick Actions */}
