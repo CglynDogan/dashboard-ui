@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useState } from 'react';
 import { 
   EyeIcon, 
   CurrencyDollarIcon, 
@@ -80,6 +80,7 @@ const integrations = [
 
 const Dashboard = memo(() => {
   // const { t } = useTranslation();
+  const [showTableFallbacks, setShowTableFallbacks] = useState(false);
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -229,17 +230,32 @@ const Dashboard = memo(() => {
               </div>
             </div>
             <div className="h-64">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={salesOverviewData} barGap={10}>
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Bar dataKey="China" stackId="a" fill="#5347CE" radius={[0, 0, 0, 0]} />
-                  <Bar dataKey="UE" stackId="a" fill="#4896FE" radius={[0, 0, 0, 0]} />
-                  <Bar dataKey="USA" stackId="a" fill="#887CFD" radius={[0, 0, 0, 0]} />
-                  <Bar dataKey="Canada" stackId="a" fill="#16C8C7" radius={[0, 0, 0, 0]} />
-                  <Bar dataKey="Other" stackId="a" fill="#94A3B8" radius={[4, 4, 0, 0]} />
-                </BarChart>
-              </ResponsiveContainer>
+              <div id="sales-overview-title" className="sr-only">Sales Overview Bar Chart</div>
+              <div id="sales-overview-desc" className="sr-only">
+                Stacked bar chart showing sales data for China, EU, USA, Canada and Other regions across October, November and December. 
+                October: China $2,988.20, EU $2,200, USA $1,800, Canada $1,500, Other $1,200. 
+                November: China $1,765.09, EU $1,600, USA $1,400, Canada $1,200, Other $1,000. 
+                December: China $4,005.65, EU $3,200, USA $2,800, Canada $2,400, Other $2,000.
+              </div>
+              <div 
+                role="img" 
+                aria-labelledby="sales-overview-title"
+                aria-describedby="sales-overview-desc"
+                tabIndex={0}
+                className="focus:outline-none focus:ring-2 focus:ring-nexus-primary focus:ring-offset-2 rounded-lg h-full w-full"
+              >
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={salesOverviewData} barGap={10}>
+                    <XAxis dataKey="name" />
+                    <YAxis />
+                    <Bar dataKey="China" stackId="a" fill="#5347CE" radius={[0, 0, 0, 0]} />
+                    <Bar dataKey="UE" stackId="a" fill="#4896FE" radius={[0, 0, 0, 0]} />
+                    <Bar dataKey="USA" stackId="a" fill="#887CFD" radius={[0, 0, 0, 0]} />
+                    <Bar dataKey="Canada" stackId="a" fill="#16C8C7" radius={[0, 0, 0, 0]} />
+                    <Bar dataKey="Other" stackId="a" fill="#94A3B8" radius={[4, 4, 0, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
             </div>
             <div className="flex items-center justify-center mt-4 space-x-6">
               <div className="flex items-center space-x-2">
@@ -290,28 +306,42 @@ const Dashboard = memo(() => {
             </div>
             {/* Weekly bar chart */}
             <div className="space-y-4">
-              <div className="flex items-end justify-between h-32 px-4">
-                {[
-                  {day: 'Sun', height: 20, label: 'Sun'},
-                  {day: 'Mon', height: 35, label: 'Mon'},
-                  {day: 'Tue', height: 45, label: 'Tue'},
-                  {day: 'Wed', height: 25, label: 'Wed'},
-                  {day: 'Thu', height: 80, label: 'Thu'},
-                  {day: 'Fri', height: 30, label: 'Fri'},
-                  {day: 'Sat', height: 15, label: 'Sat'}
-                ].map((item, index) => (
-                  <div key={index} className="flex flex-col items-center space-y-2">
-                    <div 
-                      className="w-6 rounded-t-lg" 
-                      style={{ 
-                        backgroundColor: '#5347CE', 
-                        height: `${item.height}px`,
-                        minHeight: '8px'
-                      }}
-                    ></div>
-                    <span className="text-xs text-gray-500">{item.label}</span>
-                  </div>
-                ))}
+              <div 
+                role="img" 
+                aria-labelledby="subscriber-chart-title"
+                aria-describedby="subscriber-chart-desc"
+                tabIndex={0}
+                className="focus:outline-none focus:ring-2 focus:ring-nexus-primary focus:ring-offset-2 rounded-lg p-2"
+              >
+                <div id="subscriber-chart-title" className="sr-only">Weekly Subscriber Growth Chart</div>
+                <div id="subscriber-chart-desc" className="sr-only">
+                  Bar chart showing weekly subscriber data: Sunday 500 subscribers, Monday 875, Tuesday 1125, Wednesday 625, Thursday 2000, Friday 750, Saturday 375. Total current week: 3,874 subscribers.
+                </div>
+                <div className="flex items-end justify-between h-32 px-4">
+                  {[
+                    {day: 'Sun', height: 20, label: 'Sun', value: 500},
+                    {day: 'Mon', height: 35, label: 'Mon', value: 875},
+                    {day: 'Tue', height: 45, label: 'Tue', value: 1125},
+                    {day: 'Wed', height: 25, label: 'Wed', value: 625},
+                    {day: 'Thu', height: 80, label: 'Thu', value: 2000},
+                    {day: 'Fri', height: 30, label: 'Fri', value: 750},
+                    {day: 'Sat', height: 15, label: 'Sat', value: 375}
+                  ].map((item, index) => (
+                    <div key={index} className="flex flex-col items-center space-y-2">
+                      <div 
+                        className="w-6 rounded-t-lg" 
+                        style={{ 
+                          backgroundColor: '#5347CE', 
+                          height: `${item.height}px`,
+                          minHeight: '8px'
+                        }}
+                        aria-label={`${item.day}: ${item.value} subscribers`}
+                        title={`${item.day}: ${item.value} subscribers`}
+                      ></div>
+                      <span className="text-xs text-gray-500">{item.label}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
               <div className="text-center text-lg font-semibold text-gray-900 dark:text-white">
                 3,874
@@ -366,23 +396,35 @@ const Dashboard = memo(() => {
                 </div>
               </div>
               <div className="w-32 h-32">
-                <ResponsiveContainer width="100%" height="100%">
-                  <PieChart>
-                    <Pie
-                      data={salesDistributionData}
-                      cx="50%"
-                      cy="50%"
-                      innerRadius={25}
-                      outerRadius={60}
-                      paddingAngle={2}
-                      dataKey="value"
-                    >
-                      {salesDistributionData.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={entry.color} />
-                      ))}
-                    </Pie>
-                  </PieChart>
-                </ResponsiveContainer>
+                <div id="distribution-chart-title" className="sr-only">Sales Distribution Pie Chart</div>
+                <div id="distribution-chart-desc" className="sr-only">
+                  Pie chart showing sales distribution: Website $374.82 (45%), Mobile App $241.60 (29%), Other $213.42 (26%). Total sales: $829.84.
+                </div>
+                <div 
+                  role="img" 
+                  aria-labelledby="distribution-chart-title"
+                  aria-describedby="distribution-chart-desc"
+                  tabIndex={0}
+                  className="focus:outline-none focus:ring-2 focus:ring-nexus-primary focus:ring-offset-2 rounded-lg h-full w-full"
+                >
+                  <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                      <Pie
+                        data={salesDistributionData}
+                        cx="50%"
+                        cy="50%"
+                        innerRadius={25}
+                        outerRadius={60}
+                        paddingAngle={2}
+                        dataKey="value"
+                      >
+                        {salesDistributionData.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={entry.color} />
+                        ))}
+                      </Pie>
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
               </div>
             </div>
           </Card>
@@ -449,6 +491,202 @@ const Dashboard = memo(() => {
             </div>
           </Card>
         </div>
+
+        {/* Accessibility: Chart Data Tables Toggle */}
+        <div className="mt-8 text-center">
+          <button
+            onClick={() => setShowTableFallbacks(!showTableFallbacks)}
+            className="px-4 py-2 text-sm bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-nexus-primary"
+            aria-expanded={showTableFallbacks}
+          >
+            {showTableFallbacks ? 'Hide' : 'Show'} Chart Data Tables
+          </button>
+        </div>
+
+        {/* Chart Data Tables - Alternative representation for screen readers */}
+        {showTableFallbacks && (
+          <div className="mt-8 space-y-8" role="region" aria-label="Chart data in table format">
+            {/* Sales Overview Data Table */}
+            <Card className="p-6">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                Sales Overview Data
+              </h3>
+              <div className="overflow-x-auto">
+                <table className="min-w-full border-collapse border border-gray-200 dark:border-gray-700">
+                  <caption className="sr-only">
+                    Sales data by region across three months: October, November, December
+                  </caption>
+                  <thead className="bg-gray-50 dark:bg-gray-800">
+                    <tr>
+                      <th className="border border-gray-200 dark:border-gray-700 px-4 py-2 text-left font-medium text-gray-900 dark:text-white">
+                        Month
+                      </th>
+                      <th className="border border-gray-200 dark:border-gray-700 px-4 py-2 text-right font-medium text-gray-900 dark:text-white">
+                        China
+                      </th>
+                      <th className="border border-gray-200 dark:border-gray-700 px-4 py-2 text-right font-medium text-gray-900 dark:text-white">
+                        EU
+                      </th>
+                      <th className="border border-gray-200 dark:border-gray-700 px-4 py-2 text-right font-medium text-gray-900 dark:text-white">
+                        USA
+                      </th>
+                      <th className="border border-gray-200 dark:border-gray-700 px-4 py-2 text-right font-medium text-gray-900 dark:text-white">
+                        Canada
+                      </th>
+                      <th className="border border-gray-200 dark:border-gray-700 px-4 py-2 text-right font-medium text-gray-900 dark:text-white">
+                        Other
+                      </th>
+                      <th className="border border-gray-200 dark:border-gray-700 px-4 py-2 text-right font-medium text-gray-900 dark:text-white">
+                        Total
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {salesOverviewData.map((row, index) => {
+                      const total = row.China + row.UE + row.USA + row.Canada + row.Other;
+                      return (
+                        <tr key={index} className={index % 2 === 0 ? 'bg-white dark:bg-gray-900' : 'bg-gray-50 dark:bg-gray-800'}>
+                          <td className="border border-gray-200 dark:border-gray-700 px-4 py-2 font-medium text-gray-900 dark:text-white">
+                            {row.name}
+                          </td>
+                          <td className="border border-gray-200 dark:border-gray-700 px-4 py-2 text-right text-gray-900 dark:text-white">
+                            {formatCurrency(row.China)}
+                          </td>
+                          <td className="border border-gray-200 dark:border-gray-700 px-4 py-2 text-right text-gray-900 dark:text-white">
+                            {formatCurrency(row.UE)}
+                          </td>
+                          <td className="border border-gray-200 dark:border-gray-700 px-4 py-2 text-right text-gray-900 dark:text-white">
+                            {formatCurrency(row.USA)}
+                          </td>
+                          <td className="border border-gray-200 dark:border-gray-700 px-4 py-2 text-right text-gray-900 dark:text-white">
+                            {formatCurrency(row.Canada)}
+                          </td>
+                          <td className="border border-gray-200 dark:border-gray-700 px-4 py-2 text-right text-gray-900 dark:text-white">
+                            {formatCurrency(row.Other)}
+                          </td>
+                          <td className="border border-gray-200 dark:border-gray-700 px-4 py-2 text-right font-medium text-gray-900 dark:text-white">
+                            {formatCurrency(total)}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </Card>
+
+            {/* Weekly Subscriber Data Table */}
+            <Card className="p-6">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                Weekly Subscriber Data
+              </h3>
+              <div className="overflow-x-auto">
+                <table className="min-w-full border-collapse border border-gray-200 dark:border-gray-700">
+                  <caption className="sr-only">
+                    Weekly subscriber counts for each day of the week
+                  </caption>
+                  <thead className="bg-gray-50 dark:bg-gray-800">
+                    <tr>
+                      <th className="border border-gray-200 dark:border-gray-700 px-4 py-2 text-left font-medium text-gray-900 dark:text-white">
+                        Day
+                      </th>
+                      <th className="border border-gray-200 dark:border-gray-700 px-4 py-2 text-right font-medium text-gray-900 dark:text-white">
+                        Subscribers
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[
+                      {day: 'Sunday', value: 500},
+                      {day: 'Monday', value: 875},
+                      {day: 'Tuesday', value: 1125},
+                      {day: 'Wednesday', value: 625},
+                      {day: 'Thursday', value: 2000},
+                      {day: 'Friday', value: 750},
+                      {day: 'Saturday', value: 375}
+                    ].map((row, index) => (
+                      <tr key={index} className={index % 2 === 0 ? 'bg-white dark:bg-gray-900' : 'bg-gray-50 dark:bg-gray-800'}>
+                        <td className="border border-gray-200 dark:border-gray-700 px-4 py-2 font-medium text-gray-900 dark:text-white">
+                          {row.day}
+                        </td>
+                        <td className="border border-gray-200 dark:border-gray-700 px-4 py-2 text-right text-gray-900 dark:text-white">
+                          {formatNumber(row.value)}
+                        </td>
+                      </tr>
+                    ))}
+                    <tr className="bg-gray-100 dark:bg-gray-700 font-medium">
+                      <td className="border border-gray-200 dark:border-gray-700 px-4 py-2 font-semibold text-gray-900 dark:text-white">
+                        Weekly Total
+                      </td>
+                      <td className="border border-gray-200 dark:border-gray-700 px-4 py-2 text-right font-semibold text-gray-900 dark:text-white">
+                        3,874
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </Card>
+
+            {/* Sales Distribution Data Table */}
+            <Card className="p-6">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                Sales Distribution Data
+              </h3>
+              <div className="overflow-x-auto">
+                <table className="min-w-full border-collapse border border-gray-200 dark:border-gray-700">
+                  <caption className="sr-only">
+                    Sales distribution across different channels with values and percentages
+                  </caption>
+                  <thead className="bg-gray-50 dark:bg-gray-800">
+                    <tr>
+                      <th className="border border-gray-200 dark:border-gray-700 px-4 py-2 text-left font-medium text-gray-900 dark:text-white">
+                        Channel
+                      </th>
+                      <th className="border border-gray-200 dark:border-gray-700 px-4 py-2 text-right font-medium text-gray-900 dark:text-white">
+                        Sales Amount
+                      </th>
+                      <th className="border border-gray-200 dark:border-gray-700 px-4 py-2 text-right font-medium text-gray-900 dark:text-white">
+                        Percentage
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {(() => {
+                      const total = salesDistributionData.reduce((sum, item) => sum + item.value, 0);
+                      return salesDistributionData.map((row, index) => {
+                        const percentage = ((row.value / total) * 100).toFixed(1);
+                        return (
+                          <tr key={index} className={index % 2 === 0 ? 'bg-white dark:bg-gray-900' : 'bg-gray-50 dark:bg-gray-800'}>
+                            <td className="border border-gray-200 dark:border-gray-700 px-4 py-2 font-medium text-gray-900 dark:text-white">
+                              {row.name}
+                            </td>
+                            <td className="border border-gray-200 dark:border-gray-700 px-4 py-2 text-right text-gray-900 dark:text-white">
+                              {formatCurrency(row.value)}
+                            </td>
+                            <td className="border border-gray-200 dark:border-gray-700 px-4 py-2 text-right text-gray-900 dark:text-white">
+                              {percentage}%
+                            </td>
+                          </tr>
+                        );
+                      });
+                    })()}
+                    <tr className="bg-gray-100 dark:bg-gray-700 font-medium">
+                      <td className="border border-gray-200 dark:border-gray-700 px-4 py-2 font-semibold text-gray-900 dark:text-white">
+                        Total
+                      </td>
+                      <td className="border border-gray-200 dark:border-gray-700 px-4 py-2 text-right font-semibold text-gray-900 dark:text-white">
+                        {formatCurrency(salesDistributionData.reduce((sum, item) => sum + item.value, 0))}
+                      </td>
+                      <td className="border border-gray-200 dark:border-gray-700 px-4 py-2 text-right font-semibold text-gray-900 dark:text-white">
+                        100.0%
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </Card>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -418,7 +418,8 @@ export default function Automation() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {templates.map((template) => (
-                <Card key={template.id} className="p-6 hover:shadow-lg transition-shadow cursor-pointer">
+                <button key={template.id} type="button" className="text-left w-full">
+                  <Card className="p-6 hover:shadow-lg transition-shadow cursor-pointer">
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-center space-x-3">
                       <div className="text-2xl">{template.icon}</div>
@@ -448,7 +449,8 @@ export default function Automation() {
                       <ArrowRightIcon className="w-4 h-4" />
                     </button>
                   </div>
-                </Card>
+                  </Card>
+                </button>
               ))}
             </div>
           </div>

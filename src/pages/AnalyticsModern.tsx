@@ -206,7 +206,7 @@ export default function AnalyticsModern() {
 
       {/* Desktop Metrics Grid */}
       <div className="hidden sm:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <div onClick={() => openDrillDown('Gelir', analyticsData.revenueByHour, 'hourly', 'revenue')} className="cursor-pointer">
+        <button type="button" onClick={() => openDrillDown('Gelir', analyticsData.revenueByHour, 'hourly', 'revenue')} className="cursor-pointer text-left w-full">
           <MetricCard
             title={t('analytics.metrics.totalRevenue')}
             value={formatCurrency(metrics.totalRevenue)}
@@ -217,7 +217,7 @@ export default function AnalyticsModern() {
             color="blue"
             loading={loading}
           />
-        </div>
+        </button>
         <MetricCard
           title={t('overview.activeCustomers')}
           value={metrics.totalCustomers}

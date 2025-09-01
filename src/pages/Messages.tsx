@@ -161,10 +161,11 @@ export default function Messages() {
           {/* Conversations List */}
           <div className="flex-1 overflow-y-auto">
             {filteredConversations.map((conversation) => (
-              <div
+              <button
                 key={conversation.id}
+                type="button"
                 onClick={() => setSelectedConversation(conversation.id)}
-                className={`p-4 border-b border-gray-100 dark:border-gray-700 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 ${
+                className={`p-4 border-b border-gray-100 dark:border-gray-700 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 text-left w-full ${
                   selectedConversation === conversation.id ? 'bg-nexus-primary/10 border-r-2 border-r-nexus-primary' : ''
                 }`}
               >
@@ -194,7 +195,7 @@ export default function Messages() {
                     </p>
                   </div>
                 </div>
-              </div>
+              </button>
             ))}
           </div>
         </div>

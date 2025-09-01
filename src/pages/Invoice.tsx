@@ -311,7 +311,8 @@ export default function Invoice() {
 
         {/* Quick Actions */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-          <Card className="p-6 hover:shadow-lg transition-shadow cursor-pointer">
+          <button type="button" className="text-left w-full">
+            <Card className="p-6 hover:shadow-lg transition-shadow cursor-pointer">
             <div className="flex items-center space-x-4">
               <div className="p-3 bg-nexus-primary rounded-lg">
                 <PlusIcon className="w-6 h-6 text-white" />
@@ -321,9 +322,11 @@ export default function Invoice() {
                 <p className="text-sm text-gray-500 dark:text-gray-400">Generate a new invoice</p>
               </div>
             </div>
-          </Card>
+            </Card>
+          </button>
 
-          <Card className="p-6 hover:shadow-lg transition-shadow cursor-pointer">
+          <button type="button" className="text-left w-full">
+            <Card className="p-6 hover:shadow-lg transition-shadow cursor-pointer">
             <div className="flex items-center space-x-4">
               <div className="p-3 bg-nexus-teal rounded-lg">
                 <ArrowDownTrayIcon className="w-6 h-6 text-white" />
@@ -333,9 +336,11 @@ export default function Invoice() {
                 <p className="text-sm text-gray-500 dark:text-gray-400">Download invoice reports</p>
               </div>
             </div>
-          </Card>
+            </Card>
+          </button>
 
-          <Card className="p-6 hover:shadow-lg transition-shadow cursor-pointer">
+          <button type="button" className="text-left w-full">
+            <Card className="p-6 hover:shadow-lg transition-shadow cursor-pointer">
             <div className="flex items-center space-x-4">
               <div className="p-3 bg-nexus-info rounded-lg">
                 <PaperAirplaneIcon className="w-6 h-6 text-white" />
@@ -345,7 +350,8 @@ export default function Invoice() {
                 <p className="text-sm text-gray-500 dark:text-gray-400">Send overdue reminders</p>
               </div>
             </div>
-          </Card>
+            </Card>
+          </button>
         </div>
       </div>
     </div>

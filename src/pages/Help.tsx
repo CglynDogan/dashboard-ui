@@ -244,10 +244,12 @@ export default function Help() {
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Get Support</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {quickActions.map(action => (
-              <Card
+              <button
                 key={action.id}
-                className="p-6 hover:shadow-lg transition-shadow cursor-pointer"
+                type="button"
+                className="text-left w-full"
               >
+                <Card className="p-6 hover:shadow-lg transition-shadow cursor-pointer">
                 <div className="flex items-center space-x-4 mb-3">
                   <div className={`p-3 ${action.color} rounded-lg`}>
                     <action.icon className="w-6 h-6 text-white" />
@@ -269,7 +271,8 @@ export default function Help() {
                     {action.response}
                   </span>
                 </div>
-              </Card>
+                </Card>
+              </button>
             ))}
           </div>
         </div>
@@ -307,9 +310,10 @@ export default function Help() {
                     </div>
                     <div className="space-y-2 ml-11">
                       {category.questions.slice(0, 4).map(question => (
-                        <div
+                        <button
                           key={question.id}
-                          className="flex items-center justify-between p-3 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg cursor-pointer"
+                          type="button"
+                          className="flex items-center justify-between p-3 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg cursor-pointer w-full text-left"
                         >
                           <div className="flex items-center space-x-3">
                             <QuestionMarkCircleIcon className="w-5 h-5 text-gray-400" />
@@ -323,7 +327,7 @@ export default function Help() {
                             </span>
                             <ArrowRightIcon className="w-4 h-4 text-gray-400" />
                           </div>
-                        </div>
+                        </button>
                       ))}
                     </div>
                   </div>
@@ -341,9 +345,10 @@ export default function Help() {
               </h3>
               <div className="space-y-4">
                 {resources.map(resource => (
-                  <div
+                  <button
                     key={resource.id}
-                    className="flex items-center space-x-3 p-3 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg cursor-pointer"
+                    type="button"
+                    className="flex items-center space-x-3 p-3 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg cursor-pointer w-full text-left"
                   >
                     <resource.icon className="w-5 h-5 text-nexus-primary" />
                     <div className="flex-1">
@@ -355,7 +360,7 @@ export default function Help() {
                       </div>
                     </div>
                     <ArrowRightIcon className="w-4 h-4 text-gray-400" />
-                  </div>
+                  </button>
                 ))}
               </div>
             </Card>
