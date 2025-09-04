@@ -1,36 +1,39 @@
-import { useState, useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import {
-  ChartBarIcon,
-  UsersIcon,
-  CurrencyDollarIcon,
-  ShoppingCartIcon,
-  GlobeAltIcon,
   ArrowTrendingUpIcon,
-  SparklesIcon
+  ChartBarIcon,
+  CurrencyDollarIcon,
+  GlobeAltIcon,
+  ShoppingCartIcon,
+  SparklesIcon,
+  UsersIcon,
 } from '@heroicons/react/24/outline';
 
-import MetricCard from '../components/analytics/MetricCard';
-import MobileMetricCard from '../components/analytics/MobileMetricCard';
-import InteractiveChart from '../components/analytics/InteractiveChart';
 import AnalyticsFilters from '../components/analytics/AnalyticsFilters';
 import DataInsights from '../components/analytics/DataInsights';
 import DrillDownModal from '../components/analytics/DrillDownModal';
+import InteractiveChart from '../components/analytics/InteractiveChart';
+import MetricCard from '../components/analytics/MetricCard';
+import MobileMetricCard from '../components/analytics/MobileMetricCard';
 import ModernCustomerAcquisition from '../components/analytics/ModernCustomerAcquisition';
 import ModernProductPerformance from '../components/analytics/ModernProductPerformance';
 import ExportButton from '../components/export/ExportButton';
-import { formatCurrency } from '../lib/format';
 import analyticsData from '../data/analytics.json';
+import { formatCurrency } from '../lib/format';
+
+type GenericRecord = Record<string, unknown>;
 
 export default function AnalyticsModern() {
   const { t } = useTranslation();
-  const [, setFilters] = useState<any>({});
+  const [, setFilters] = useState<GenericRecord>({});
   const [loading, setLoading] = useState(false);
   const [selectedTimeRange, setSelectedTimeRange] = useState('7d');
   const [drillDownModal, setDrillDownModal] = useState<{
     isOpen: boolean;
     title: string;
-    data: any[];
+    data: GenericRecord[];
     type: 'hourly' | 'daily' | 'weekly' | 'monthly';
     metric: string;
   }>({
@@ -38,16 +41,21 @@ export default function AnalyticsModern() {
     title: '',
     data: [],
     type: 'daily',
-    metric: 'revenue'
+    metric: 'revenue',
   });
 
-  const openDrillDown = (title: string, data: any[], type: 'hourly' | 'daily' | 'weekly' | 'monthly', metric: string) => {
+  const openDrillDown = (
+    title: string,
+    data: GenericRecord[],
+    type: 'hourly' | 'daily' | 'weekly' | 'monthly',
+    metric: string
+  ) => {
     setDrillDownModal({
       isOpen: true,
       title,
       data,
       type,
-      metric
+      metric,
     });
   };
 
@@ -56,7 +64,7 @@ export default function AnalyticsModern() {
     { value: '24h', label: t('analytics.timeRanges.24h') },
     { value: '7d', label: t('analytics.timeRanges.7d') },
     { value: '30d', label: t('analytics.timeRanges.30d') },
-    { value: '90d', label: t('analytics.timeRanges.90d') }
+    { value: '90d', label: t('analytics.timeRanges.90d') },
   ];
 
   // Calculate metrics with memo for performance
@@ -70,7 +78,8 @@ export default function AnalyticsModern() {
     const totalCustomers = geoData.reduce((sum, item) => sum + item.customers, 0);
     const totalOrders = productData.reduce((sum, item) => sum + item.units, 0);
     const avgOrderValue = totalRevenue / totalOrders;
-    const avgRevenuePerHour = hourlyData.reduce((sum, item) => sum + item.revenue, 0) / hourlyData.length;
+    const avgRevenuePerHour =
+      hourlyData.reduce((sum, item) => sum + item.revenue, 0) / hourlyData.length;
 
     // Calculate growth rates (simulated)
     const revenueGrowth = 12.5;
@@ -80,18 +89,18 @@ export default function AnalyticsModern() {
 
     return {
       totalRevenue,
-      totalCustomers, 
+      totalCustomers,
       totalOrders,
       avgOrderValue,
       avgRevenuePerHour,
       revenueGrowth,
       customerGrowth,
       orderGrowth,
-      aovGrowth
+      aovGrowth,
     };
   }, []);
 
-  const handleFiltersChange = (newFilters: any) => {
+  const handleFiltersChange = (newFilters: GenericRecord) => {
     setLoading(true);
     setFilters(newFilters);
     // Simulate API call
@@ -111,7 +120,10 @@ export default function AnalyticsModern() {
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
             <div>
               <div className="flex items-center gap-3 sm:gap-4 mb-4">
-                <div className="p-2 sm:p-3 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-xl sm:rounded-2xl shadow-lg" style={{background: 'linear-gradient(135deg, #5347CE 0%, #887CFD 100%)'}}>
+                <div
+                  className="p-2 sm:p-3 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-xl sm:rounded-2xl shadow-lg"
+                  style={{ background: 'linear-gradient(135deg, #5347CE 0%, #887CFD 100%)' }}
+                >
                   <ChartBarIcon className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                 </div>
                 <div>
@@ -119,25 +131,27 @@ export default function AnalyticsModern() {
                     {t('analytics.title')}
                   </h1>
                   <p className="text-sm sm:text-base lg:text-lg text-gray-600 dark:text-gray-300 mt-1">
-                    {t('analytics.subtitle')} • {t('overview.lastUpdate')}: {new Date().toLocaleTimeString()}
+                    {t('analytics.subtitle')} • {t('overview.lastUpdate')}:{' '}
+                    {new Date().toLocaleTimeString()}
                   </p>
                 </div>
               </div>
-              
+
               {/* Quick Time Range Selector */}
               <div className="flex gap-2">
-                {timeRanges.map((range) => (
+                {timeRanges.map(range => (
                   <button
                     key={range.value}
                     onClick={() => setSelectedTimeRange(range.value)}
                     className={`
                       px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200
-                      ${selectedTimeRange === range.value
-                        ? 'text-white shadow-lg' 
-                        : 'bg-white/50 dark:bg-gray-700/50 text-gray-600 dark:text-gray-300 hover:bg-white/80 dark:hover:bg-gray-600/80'
+                      ${
+                        selectedTimeRange === range.value
+                          ? 'text-white shadow-lg'
+                          : 'bg-white/50 dark:bg-gray-700/50 text-gray-600 dark:text-gray-300 hover:bg-white/80 dark:hover:bg-gray-600/80'
                       }
                     `}
-                    style={selectedTimeRange === range.value ? {background: '#5347CE'} : {}}
+                    style={selectedTimeRange === range.value ? { background: '#5347CE' } : {}}
                   >
                     {range.label}
                   </button>
@@ -206,7 +220,11 @@ export default function AnalyticsModern() {
 
       {/* Desktop Metrics Grid */}
       <div className="hidden sm:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <button type="button" onClick={() => openDrillDown('Gelir', analyticsData.revenueByHour, 'hourly', 'revenue')} className="cursor-pointer text-left w-full">
+        <button
+          type="button"
+          onClick={() => openDrillDown('Gelir', analyticsData.revenueByHour, 'hourly', 'revenue')}
+          className="cursor-pointer text-left w-full"
+        >
           <MetricCard
             title={t('analytics.metrics.totalRevenue')}
             value={formatCurrency(metrics.totalRevenue)}
@@ -262,12 +280,12 @@ export default function AnalyticsModern() {
             color="#4896FE"
             height={350}
             formatValue={formatCurrency}
+            allowPie={false}
             className="h-full"
           />
         </div>
         <DataInsights data={analyticsData} className="h-fit" />
       </div>
-
 
       {/* Charts Grid - Fully Responsive Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 mb-6 sm:mb-8">
@@ -305,7 +323,7 @@ export default function AnalyticsModern() {
             <InteractiveChart
               data={analyticsData.geographicData.map(item => ({
                 ...item,
-                country: t(`countries.${item.country}`, item.country)
+                country: t(`countries.${item.country}`, item.country),
               }))}
               title=""
               xKey="country"
@@ -317,13 +335,15 @@ export default function AnalyticsModern() {
               showTypeSelector={true}
             />
           </div>
-          
+
           {/* Geographic Summary Cards */}
           <div className="space-y-4">
             <div className="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 rounded-2xl p-6 border border-blue-200 dark:border-blue-800">
               <div className="flex items-center gap-3 mb-2">
                 <GlobeAltIcon className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-                <span className="text-sm font-medium text-blue-600 dark:text-blue-400">{t('analytics.metrics.totalCountries', 'Total Countries')}</span>
+                <span className="text-sm font-medium text-blue-600 dark:text-blue-400">
+                  {t('analytics.metrics.totalCountries', 'Total Countries')}
+                </span>
               </div>
               <div className="text-3xl font-bold text-blue-700 dark:text-blue-300">
                 {analyticsData.geographicData.length}
@@ -333,20 +353,28 @@ export default function AnalyticsModern() {
             <div className="bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 rounded-2xl p-6 border border-green-200 dark:border-green-800">
               <div className="flex items-center gap-3 mb-2">
                 <CurrencyDollarIcon className="w-5 h-5 text-green-600 dark:text-green-400" />
-                <span className="text-sm font-medium text-green-600 dark:text-green-400">{t('analytics.metrics.globalRevenue', 'Global Revenue')}</span>
+                <span className="text-sm font-medium text-green-600 dark:text-green-400">
+                  {t('analytics.metrics.globalRevenue', 'Global Revenue')}
+                </span>
               </div>
               <div className="text-2xl font-bold text-green-700 dark:text-green-300">
-                {formatCurrency(analyticsData.geographicData.reduce((sum, item) => sum + item.revenue, 0))}
+                {formatCurrency(
+                  analyticsData.geographicData.reduce((sum, item) => sum + item.revenue, 0)
+                )}
               </div>
             </div>
 
             <div className="bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20 rounded-2xl p-6 border border-purple-200 dark:border-purple-800">
               <div className="flex items-center gap-3 mb-2">
                 <UsersIcon className="w-5 h-5 text-purple-600 dark:text-purple-400" />
-                <span className="text-sm font-medium text-purple-600 dark:text-purple-400">{t('analytics.metrics.globalCustomers', 'Global Customers')}</span>
+                <span className="text-sm font-medium text-purple-600 dark:text-purple-400">
+                  {t('analytics.metrics.globalCustomers', 'Global Customers')}
+                </span>
               </div>
               <div className="text-2xl font-bold text-purple-700 dark:text-purple-300">
-                {analyticsData.geographicData.reduce((sum, item) => sum + item.customers, 0).toLocaleString()}
+                {analyticsData.geographicData
+                  .reduce((sum, item) => sum + item.customers, 0)
+                  .toLocaleString()}
               </div>
             </div>
 
@@ -354,13 +382,20 @@ export default function AnalyticsModern() {
             <div className="bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-900/20 dark:to-orange-800/20 rounded-2xl p-6 border border-orange-200 dark:border-orange-800">
               <div className="flex items-center gap-3 mb-2">
                 <SparklesIcon className="w-5 h-5 text-orange-600 dark:text-orange-400" />
-                <span className="text-sm font-medium text-orange-600 dark:text-orange-400">{t('analytics.metrics.topPerformance')}</span>
+                <span className="text-sm font-medium text-orange-600 dark:text-orange-400">
+                  {t('analytics.metrics.topPerformance')}
+                </span>
               </div>
               <div className="text-lg font-bold text-orange-700 dark:text-orange-300">
-                {t(`countries.${[...analyticsData.geographicData].sort((a, b) => b.revenue - a.revenue)[0].country}`, [...analyticsData.geographicData].sort((a, b) => b.revenue - a.revenue)[0].country)}
+                {t(
+                  `countries.${[...analyticsData.geographicData].sort((a, b) => b.revenue - a.revenue)[0].country}`,
+                  [...analyticsData.geographicData].sort((a, b) => b.revenue - a.revenue)[0].country
+                )}
               </div>
               <div className="text-sm text-orange-600 dark:text-orange-400">
-                {formatCurrency([...analyticsData.geographicData].sort((a, b) => b.revenue - a.revenue)[0].revenue)}
+                {formatCurrency(
+                  [...analyticsData.geographicData].sort((a, b) => b.revenue - a.revenue)[0].revenue
+                )}
               </div>
             </div>
           </div>

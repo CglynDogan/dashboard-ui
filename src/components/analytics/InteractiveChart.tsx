@@ -1,32 +1,35 @@
-import { memo, useState, useMemo } from 'react';
+import { memo, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import {
-  LineChart,
+  ChartBarIcon,
+  ChartPieIcon,
+  EyeIcon,
+  PresentationChartLineIcon,
+} from '@heroicons/react/24/outline';
+import {
+  Area,
+  AreaChart,
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Cell,
   Line,
+  LineChart,
+  Pie,
+  PieChart,
+  ResponsiveContainer,
+  Tooltip,
   XAxis,
   YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  AreaChart,
-  Area,
-  BarChart,
-  Bar,
-  PieChart,
-  Pie,
-  Cell
 } from 'recharts';
-import { 
-  EyeIcon, 
-  ChartBarIcon, 
-  PresentationChartLineIcon,
-  ChartPieIcon
-} from '@heroicons/react/24/outline';
 
 export type ChartType = 'line' | 'area' | 'bar' | 'pie';
 
+type DataRecord = Record<string, number | string>;
+
 interface InteractiveChartProps {
-  data: any[];
+  data: DataRecord[];
   title: string;
   subtitle?: string;
   type?: ChartType;
@@ -35,8 +38,9 @@ interface InteractiveChartProps {
   color?: string;
   height?: number;
   showTypeSelector?: boolean;
-  formatValue?: (value: any) => string;
+  formatValue?: (value: number | string) => string;
   className?: string;
+  allowPie?: boolean;
 }
 
 const COLORS = ['#3b82f6', '#10b981', '#8b5cf6', '#f59e0b', '#ef4444', '#06b6d4'];
@@ -51,19 +55,21 @@ function InteractiveChart({
   color = '#3b82f6',
   height = 300,
   showTypeSelector = true,
-  formatValue = (value) => value.toString(),
-  className = ''
+  formatValue = value => value.toString(),
+  className = '',
+  allowPie = true,
 }: InteractiveChartProps) {
   const { t } = useTranslation();
   const [selectedType, setSelectedType] = useState<ChartType>(type);
   const [, setHoveredIndex] = useState<number | null>(null);
 
   const chartTypes = [
-    { type: 'line' as ChartType, icon: PresentationChartLineIcon, label: 'Çizgi' },
-    { type: 'area' as ChartType, icon: EyeIcon, label: 'Alan' },
-    { type: 'bar' as ChartType, icon: ChartBarIcon, label: 'Sütun' },
-    { type: 'pie' as ChartType, icon: ChartPieIcon, label: 'Pasta' },
+    { type: 'line' as ChartType, icon: PresentationChartLineIcon, label: 'Line' },
+    { type: 'area' as ChartType, icon: EyeIcon, label: 'Area' },
+    { type: 'bar' as ChartType, icon: ChartBarIcon, label: 'Column' },
+    { type: 'pie' as ChartType, icon: ChartPieIcon, label: 'Pie' },
   ];
+  const visibleChartTypes = allowPie ? chartTypes : chartTypes.filter(ct => ct.type !== 'pie');
 
   // Calculate summary stats
   const summaryStats = useMemo(() => {
@@ -80,7 +86,7 @@ function InteractiveChart({
 
   const renderChart = () => {
     const commonProps = {
-      data
+      data,
     };
 
     const tooltipStyle = {
@@ -89,7 +95,7 @@ function InteractiveChart({
       border: 'none',
       borderRadius: '12px',
       boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
-      color: '#374151'
+      color: '#374151',
     };
 
     switch (selectedType) {
@@ -103,20 +109,21 @@ function InteractiveChart({
               </linearGradient>
             </defs>
             <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" opacity={0.5} />
-            <XAxis 
-              dataKey={xKey} 
+            <XAxis
+              dataKey={xKey}
               tick={{ fontSize: 12, fill: '#6b7280' }}
               axisLine={{ stroke: '#d1d5db', strokeWidth: 1 }}
               tickLine={false}
             />
-            <YAxis 
+            <YAxis
               tick={{ fontSize: 12, fill: '#6b7280' }}
               axisLine={{ stroke: '#d1d5db', strokeWidth: 1 }}
               tickLine={false}
             />
-            <Tooltip 
+            <Tooltip
+              cursor={{ fill: 'transparent' }}
               contentStyle={tooltipStyle}
-              formatter={(value) => [formatValue(value), title]}
+              formatter={value => [formatValue(value), title]}
             />
             <Area
               type="monotone"
@@ -133,25 +140,27 @@ function InteractiveChart({
         return (
           <BarChart {...commonProps}>
             <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" opacity={0.5} />
-            <XAxis 
-              dataKey={xKey} 
+            <XAxis
+              dataKey={xKey}
               tick={{ fontSize: 12, fill: '#6b7280' }}
               axisLine={{ stroke: '#d1d5db' }}
               tickLine={false}
             />
-            <YAxis 
+            <YAxis
               tick={{ fontSize: 12, fill: '#6b7280' }}
               axisLine={{ stroke: '#d1d5db' }}
               tickLine={false}
             />
-            <Tooltip 
+            <Tooltip
+              cursor={{ fill: 'transparent' }}
               contentStyle={tooltipStyle}
-              formatter={(value) => [formatValue(value), title]}
+              formatter={value => [formatValue(value), title]}
             />
-            <Bar 
-              dataKey={yKey} 
+            <Bar
+              dataKey={yKey}
               fill={color}
               radius={[4, 4, 0, 0]}
+              activeBar={false}
               onMouseEnter={(_, index) => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
             />
@@ -167,19 +176,19 @@ function InteractiveChart({
               cy="50%"
               outerRadius={Math.min(height * 0.35, 120)}
               dataKey={yKey}
-              label={(entry) => entry[xKey]}
+              label={entry => entry[xKey]}
               labelLine={false}
             >
               {data.map((_, index) => (
-                <Cell 
-                  key={`cell-${index}`} 
+                <Cell
+                  key={`cell-${index}`}
                   fill={COLORS[index % COLORS.length]}
                   stroke="rgba(255, 255, 255, 0.8)"
                   strokeWidth={2}
                 />
               ))}
             </Pie>
-            <Tooltip formatter={(value) => [formatValue(value), title]} />
+            <Tooltip formatter={value => [formatValue(value), title]} />
           </PieChart>
         );
 
@@ -187,20 +196,21 @@ function InteractiveChart({
         return (
           <LineChart {...commonProps}>
             <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" opacity={0.5} />
-            <XAxis 
-              dataKey={xKey} 
+            <XAxis
+              dataKey={xKey}
               tick={{ fontSize: 12, fill: '#6b7280' }}
               axisLine={{ stroke: '#d1d5db' }}
               tickLine={false}
             />
-            <YAxis 
+            <YAxis
               tick={{ fontSize: 12, fill: '#6b7280' }}
               axisLine={{ stroke: '#d1d5db' }}
               tickLine={false}
             />
-            <Tooltip 
+            <Tooltip
+              cursor={{ stroke: 'transparent' }}
               contentStyle={tooltipStyle}
-              formatter={(value) => [formatValue(value), title]}
+              formatter={value => [formatValue(value), title]}
             />
             <Line
               type="monotone"
@@ -216,32 +226,29 @@ function InteractiveChart({
   };
 
   return (
-    <div className={`bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden ${className}`}>
+    <div
+      className={`bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden ${className}`}
+    >
       {/* Header */}
       <div className="p-6 pb-2">
         <div className="flex items-start justify-between mb-4">
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
-              {title}
-            </h3>
-            {subtitle && (
-              <p className="text-sm text-gray-500 dark:text-gray-400">
-                {subtitle}
-              </p>
-            )}
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">{title}</h3>
+            {subtitle && <p className="text-sm text-gray-500 dark:text-gray-400">{subtitle}</p>}
           </div>
-          
+
           {showTypeSelector && (
             <div className="flex bg-gray-100 dark:bg-gray-700 rounded-lg p-1">
-              {chartTypes.map(({ type: chartType, icon: Icon, label }) => (
+              {visibleChartTypes.map(({ type: chartType, icon: Icon, label }) => (
                 <button
                   key={chartType}
                   onClick={() => setSelectedType(chartType)}
                   className={`
                     p-2 rounded-md transition-all duration-200 text-xs font-medium
-                    ${selectedType === chartType
-                      ? 'bg-white dark:bg-gray-600 text-gray-900 dark:text-white shadow-sm'
-                      : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                    ${
+                      selectedType === chartType
+                        ? 'bg-white dark:bg-gray-600 text-gray-900 dark:text-white shadow-sm'
+                        : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
                     }
                   `}
                   title={label}
@@ -257,25 +264,33 @@ function InteractiveChart({
         {summaryStats && selectedType !== 'pie' && (
           <div className="grid grid-cols-4 gap-4 mb-4">
             <div className="text-center">
-              <div className="text-xs text-gray-500 dark:text-gray-400">{t('analytics.statsTotal')}</div>
+              <div className="text-xs text-gray-500 dark:text-gray-400">
+                {t('analytics.statsTotal')}
+              </div>
               <div className="text-sm font-semibold text-gray-900 dark:text-white">
                 {formatValue(summaryStats.total)}
               </div>
             </div>
             <div className="text-center">
-              <div className="text-xs text-gray-500 dark:text-gray-400">{t('analytics.statsAverage')}</div>
+              <div className="text-xs text-gray-500 dark:text-gray-400">
+                {t('analytics.statsAverage')}
+              </div>
               <div className="text-sm font-semibold text-gray-900 dark:text-white">
                 {formatValue(summaryStats.average)}
               </div>
             </div>
             <div className="text-center">
-              <div className="text-xs text-gray-500 dark:text-gray-400">{t('analytics.statsMax')}</div>
+              <div className="text-xs text-gray-500 dark:text-gray-400">
+                {t('analytics.statsMax')}
+              </div>
               <div className="text-sm font-semibold text-gray-900 dark:text-white">
                 {formatValue(summaryStats.max)}
               </div>
             </div>
             <div className="text-center">
-              <div className="text-xs text-gray-500 dark:text-gray-400">{t('analytics.statsMin')}</div>
+              <div className="text-xs text-gray-500 dark:text-gray-400">
+                {t('analytics.statsMin')}
+              </div>
               <div className="text-sm font-semibold text-gray-900 dark:text-white">
                 {formatValue(summaryStats.min)}
               </div>

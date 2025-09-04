@@ -11,17 +11,7 @@ import {
   GlobeAltIcon,
   UsersIcon,
 } from '@heroicons/react/24/outline';
-import {
-  Bar,
-  BarChart,
-  CartesianGrid,
-  Line,
-  LineChart,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from 'recharts';
+import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 import CustomerAcquisitionChart from '../components/charts/CustomerAcquisitionChart';
 import analyticsData from '../data/analytics.json';
@@ -190,7 +180,7 @@ export default function Analytics() {
           <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-lg p-4">
             <div className="h-80">
               <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={hourlyData}>
+                <BarChart data={hourlyData}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
                   <XAxis
                     dataKey="hour"
@@ -203,12 +193,12 @@ export default function Analytics() {
                     axisLine={{ stroke: '#d1d5db' }}
                   />
                   <Tooltip
+                    cursor={false}
                     contentStyle={{
-                      backgroundColor: '#ffffff',
-                      border: '1px solid #e5e7eb',
-                      borderRadius: '12px',
-                      boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
-                      color: '#374151',
+                      backgroundColor: 'var(--tooltip-bg)',
+                      border: '1px solid var(--tooltip-border)',
+                      borderRadius: '8px',
+                      color: 'var(--tooltip-text)',
                     }}
                     labelFormatter={value => `${t('analytics.metrics.hour')}: ${value}`}
                     formatter={value => [
@@ -216,15 +206,8 @@ export default function Analytics() {
                       t('analytics.metrics.revenue'),
                     ]}
                   />
-                  <Line
-                    type="monotone"
-                    dataKey="revenue"
-                    stroke="#10b981"
-                    strokeWidth={3}
-                    dot={{ fill: '#10b981', strokeWidth: 2, r: 5 }}
-                    activeDot={{ r: 7, fill: '#059669' }}
-                  />
-                </LineChart>
+                  <Bar dataKey="revenue" fill="#10b981" radius={[4, 4, 0, 0]} activeBar={false} />
+                </BarChart>
               </ResponsiveContainer>
             </div>
           </div>
