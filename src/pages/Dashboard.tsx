@@ -1,22 +1,24 @@
 import { memo, useState } from 'react';
-import { 
-  EyeIcon, 
-  CurrencyDollarIcon, 
+
+import {
   ArrowTopRightOnSquareIcon,
-  UserGroupIcon,
-  FunnelIcon,
   ChevronDownIcon,
-  EllipsisHorizontalIcon
+  CurrencyDollarIcon,
+  EllipsisHorizontalIcon,
+  EyeIcon,
+  FunnelIcon,
+  UserGroupIcon,
 } from '@heroicons/react/24/outline';
-import { 
-  BarChart, 
-  Bar, 
-  XAxis, 
-  YAxis, 
-  ResponsiveContainer,
-  PieChart,
+import {
+  Bar,
+  BarChart,
+  Cell,
   Pie,
-  Cell
+  PieChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
 } from 'recharts';
 
 import Card from '../components/ui/Card';
@@ -24,15 +26,25 @@ import { formatCurrency, formatNumber } from '../lib/format';
 
 // Chart data based on the design
 const salesOverviewData = [
-  { name: 'Oct', China: 2988.20, UE: 2200, USA: 1800, Canada: 1500, Other: 1200 },
+  { name: 'Oct', China: 2988.2, UE: 2200, USA: 1800, Canada: 1500, Other: 1200 },
   { name: 'Nov', China: 1765.09, UE: 1600, USA: 1400, Canada: 1200, Other: 1000 },
-  { name: 'Dec', China: 4005.65, UE: 3200, USA: 2800, Canada: 2400, Other: 2000 }
+  { name: 'Dec', China: 4005.65, UE: 3200, USA: 2800, Canada: 2400, Other: 2000 },
 ];
 
 const salesDistributionData = [
   { name: 'Website', value: 374.82, color: '#5347CE' },
-  { name: 'Mobile App', value: 241.60, color: '#16C8C7' },
-  { name: 'Other', value: 213.42, color: '#887CFD' }
+  { name: 'Mobile App', value: 241.6, color: '#16C8C7' },
+  { name: 'Other', value: 213.42, color: '#887CFD' },
+];
+
+const weeklySubscribersData = [
+  { day: 'Sun', subscribers: 500 },
+  { day: 'Mon', subscribers: 875 },
+  { day: 'Tue', subscribers: 1125 },
+  { day: 'Wed', subscribers: 625 },
+  { day: 'Thu', subscribers: 2000 },
+  { day: 'Fri', subscribers: 750 },
+  { day: 'Sat', subscribers: 375 },
 ];
 
 const integrations = [
@@ -41,20 +53,20 @@ const integrations = [
     name: 'Stripe',
     type: 'Finance',
     rate: 40,
-    profit: 650.00,
+    profit: 650.0,
     icon: 'S',
     iconColor: '#635BFF',
-    color: '#5347CE'
+    color: '#5347CE',
   },
   {
     id: 2,
     name: 'Zapier',
     type: 'CRM',
     rate: 80,
-    profit: 720.50,
+    profit: 720.5,
     icon: '⚡',
     iconColor: '#FF4A00',
-    color: '#5347CE'
+    color: '#5347CE',
   },
   {
     id: 3,
@@ -64,23 +76,25 @@ const integrations = [
     profit: 432.25,
     icon: 'S',
     iconColor: '#95BF47',
-    color: '#887CFD'
+    color: '#887CFD',
   },
   {
     id: 4,
     name: 'Zoom',
     type: 'Technology',
     rate: 60,
-    profit: 650.00,
+    profit: 650.0,
     icon: 'Z',
     iconColor: '#2D8CFF',
-    color: '#5347CE'
-  }
+    color: '#5347CE',
+  },
 ];
 
 const Dashboard = memo(() => {
   // const { t } = useTranslation();
   const [showTableFallbacks, setShowTableFallbacks] = useState(false);
+  const [hoveredBar, setHoveredBar] = useState<number | null>(null);
+  const maxSubscribers = Math.max(...weeklySubscribersData.map(i => i.subscribers));
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -122,13 +136,15 @@ const Dashboard = memo(() => {
                 <div className="p-2 bg-gray-50 dark:bg-gray-700 rounded-lg">
                   <EyeIcon className="w-5 h-5 text-gray-600 dark:text-gray-400" />
                 </div>
-                <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Page Views</span>
+                <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                  Page Views
+                </span>
               </div>
               <button className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                  <circle cx="10" cy="5" r="1.5"/>
-                  <circle cx="10" cy="10" r="1.5"/>
-                  <circle cx="10" cy="15" r="1.5"/>
+                  <circle cx="10" cy="5" r="1.5" />
+                  <circle cx="10" cy="10" r="1.5" />
+                  <circle cx="10" cy="15" r="1.5" />
                 </svg>
               </button>
             </div>
@@ -149,13 +165,15 @@ const Dashboard = memo(() => {
                 <div className="p-2 bg-gray-50 dark:bg-gray-700 rounded-lg">
                   <CurrencyDollarIcon className="w-5 h-5 text-gray-600 dark:text-gray-400" />
                 </div>
-                <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Revenue</span>
+                <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                  Total Revenue
+                </span>
               </div>
               <button className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                  <circle cx="10" cy="5" r="1.5"/>
-                  <circle cx="10" cy="10" r="1.5"/>
-                  <circle cx="10" cy="15" r="1.5"/>
+                  <circle cx="10" cy="5" r="1.5" />
+                  <circle cx="10" cy="10" r="1.5" />
+                  <circle cx="10" cy="15" r="1.5" />
                 </svg>
               </button>
             </div>
@@ -176,13 +194,15 @@ const Dashboard = memo(() => {
                 <div className="p-2 bg-gray-50 dark:bg-gray-700 rounded-lg">
                   <ArrowTopRightOnSquareIcon className="w-5 h-5 text-gray-600 dark:text-gray-400" />
                 </div>
-                <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Bounce Rate</span>
+                <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                  Bounce Rate
+                </span>
               </div>
               <button className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                  <circle cx="10" cy="5" r="1.5"/>
-                  <circle cx="10" cy="10" r="1.5"/>
-                  <circle cx="10" cy="15" r="1.5"/>
+                  <circle cx="10" cy="5" r="1.5" />
+                  <circle cx="10" cy="10" r="1.5" />
+                  <circle cx="10" cy="15" r="1.5" />
                 </svg>
               </button>
             </div>
@@ -204,7 +224,9 @@ const Dashboard = memo(() => {
                 <div className="p-2 bg-gray-100 dark:bg-gray-700 rounded-lg">
                   <CurrencyDollarIcon className="w-5 h-5 text-gray-600 dark:text-gray-400" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Sales Overview</h3>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                  Sales Overview
+                </h3>
               </div>
               <div className="flex items-center space-x-4">
                 <button className="flex items-center space-x-1 px-3 py-1 text-sm border border-gray-300 dark:border-gray-600 rounded-lg">
@@ -230,15 +252,18 @@ const Dashboard = memo(() => {
               </div>
             </div>
             <div className="h-64">
-              <div id="sales-overview-title" className="sr-only">Sales Overview Bar Chart</div>
-              <div id="sales-overview-desc" className="sr-only">
-                Stacked bar chart showing sales data for China, EU, USA, Canada and Other regions across October, November and December. 
-                October: China $2,988.20, EU $2,200, USA $1,800, Canada $1,500, Other $1,200. 
-                November: China $1,765.09, EU $1,600, USA $1,400, Canada $1,200, Other $1,000. 
-                December: China $4,005.65, EU $3,200, USA $2,800, Canada $2,400, Other $2,000.
+              <div id="sales-overview-title" className="sr-only">
+                Sales Overview Bar Chart
               </div>
-              <div 
-                role="img" 
+              <div id="sales-overview-desc" className="sr-only">
+                Stacked bar chart showing sales data for China, EU, USA, Canada and Other regions
+                across October, November and December. October: China $2,988.20, EU $2,200, USA
+                $1,800, Canada $1,500, Other $1,200. November: China $1,765.09, EU $1,600, USA
+                $1,400, Canada $1,200, Other $1,000. December: China $4,005.65, EU $3,200, USA
+                $2,800, Canada $2,400, Other $2,000.
+              </div>
+              <div
+                role="img"
                 aria-labelledby="sales-overview-title"
                 aria-describedby="sales-overview-desc"
                 tabIndex={0}
@@ -248,6 +273,19 @@ const Dashboard = memo(() => {
                   <BarChart data={salesOverviewData} barGap={10}>
                     <XAxis dataKey="name" />
                     <YAxis />
+                    <Tooltip
+                      cursor={{ fill: 'transparent' }}
+                      contentStyle={{
+                        backgroundColor: 'var(--tooltip-bg)',
+                        border: '1px solid var(--tooltip-border)',
+                        borderRadius: '8px',
+                        color: 'var(--tooltip-text)',
+                      }}
+                      formatter={(value: unknown, name) => [
+                        formatCurrency(Number(value)),
+                        String(name),
+                      ]}
+                    />
                     <Bar dataKey="China" stackId="a" fill="#5347CE" radius={[0, 0, 0, 0]} />
                     <Bar dataKey="UE" stackId="a" fill="#4896FE" radius={[0, 0, 0, 0]} />
                     <Bar dataKey="USA" stackId="a" fill="#887CFD" radius={[0, 0, 0, 0]} />
@@ -259,23 +297,23 @@ const Dashboard = memo(() => {
             </div>
             <div className="flex items-center justify-center mt-4 space-x-6">
               <div className="flex items-center space-x-2">
-                <div className="w-3 h-3 rounded-full" style={{backgroundColor: '#5347CE'}}></div>
+                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#5347CE' }}></div>
                 <span className="text-sm text-gray-600 dark:text-gray-400">China</span>
               </div>
               <div className="flex items-center space-x-2">
-                <div className="w-3 h-3 rounded-full" style={{backgroundColor: '#4896FE'}}></div>
+                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#4896FE' }}></div>
                 <span className="text-sm text-gray-600 dark:text-gray-400">UE</span>
               </div>
               <div className="flex items-center space-x-2">
-                <div className="w-3 h-3 rounded-full" style={{backgroundColor: '#887CFD'}}></div>
+                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#887CFD' }}></div>
                 <span className="text-sm text-gray-600 dark:text-gray-400">USA</span>
               </div>
               <div className="flex items-center space-x-2">
-                <div className="w-3 h-3 rounded-full" style={{backgroundColor: '#16C8C7'}}></div>
+                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#16C8C7' }}></div>
                 <span className="text-sm text-gray-600 dark:text-gray-400">Canada</span>
               </div>
               <div className="flex items-center space-x-2">
-                <div className="w-3 h-3 rounded-full" style={{backgroundColor: '#94A3B8'}}></div>
+                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#94A3B8' }}></div>
                 <span className="text-sm text-gray-600 dark:text-gray-400">Other</span>
               </div>
             </div>
@@ -304,47 +342,49 @@ const Dashboard = memo(() => {
                 <span className="text-sm text-gray-500">+749 increased</span>
               </div>
             </div>
-            {/* Weekly bar chart */}
+            {/* Weekly bar chart - original shape with better hover readability */}
             <div className="space-y-4">
-              <div 
-                role="img" 
+              <div
+                role="img"
                 aria-labelledby="subscriber-chart-title"
                 aria-describedby="subscriber-chart-desc"
                 tabIndex={0}
                 className="focus:outline-none focus:ring-2 focus:ring-nexus-primary focus:ring-offset-2 rounded-lg p-2"
               >
-                <div id="subscriber-chart-title" className="sr-only">Weekly Subscriber Growth Chart</div>
-                <div id="subscriber-chart-desc" className="sr-only">
-                  Bar chart showing weekly subscriber data: Sunday 500 subscribers, Monday 875, Tuesday 1125, Wednesday 625, Thursday 2000, Friday 750, Saturday 375. Total current week: 3,874 subscribers.
+                <div id="subscriber-chart-title" className="sr-only">
+                  Weekly Subscriber Growth Chart
                 </div>
-                <div className="flex items-end justify-between h-32 px-4">
-                  {[
-                    {day: 'Sun', height: 20, label: 'Sun', value: 500},
-                    {day: 'Mon', height: 35, label: 'Mon', value: 875},
-                    {day: 'Tue', height: 45, label: 'Tue', value: 1125},
-                    {day: 'Wed', height: 25, label: 'Wed', value: 625},
-                    {day: 'Thu', height: 80, label: 'Thu', value: 2000},
-                    {day: 'Fri', height: 30, label: 'Fri', value: 750},
-                    {day: 'Sat', height: 15, label: 'Sat', value: 375}
-                  ].map((item, index) => (
-                    <div key={index} className="flex flex-col items-center space-y-2">
-                      <div 
-                        className="w-6 rounded-t-lg" 
-                        style={{ 
-                          backgroundColor: '#5347CE', 
-                          height: `${item.height}px`,
-                          minHeight: '8px'
-                        }}
-                        aria-label={`${item.day}: ${item.value} subscribers`}
-                        title={`${item.day}: ${item.value} subscribers`}
-                      ></div>
-                      <span className="text-xs text-gray-500">{item.label}</span>
-                    </div>
-                  ))}
+                <div id="subscriber-chart-desc" className="sr-only">
+                  Bar chart showing weekly subscriber data: Sunday 500, Monday 875, Tuesday 1125,
+                  Wednesday 625, Thursday 2000, Friday 750, Saturday 375.
+                </div>
+                <div className="relative flex items-end justify-between h-32 px-4">
+                  {weeklySubscribersData.map((item, index) => {
+                    const h = Math.max(8, Math.round((item.subscribers / maxSubscribers) * 96));
+                    return (
+                      <div key={index} className="flex flex-col items-center space-y-2">
+                        <div className="relative">
+                          <div
+                            className="w-6 rounded-t-lg bg-nexus-purple transition-transform duration-150 hover:-translate-y-0.5"
+                            style={{ height: `${h}px` }}
+                            aria-label={`${item.day}: ${item.subscribers} subscribers`}
+                            onMouseEnter={() => setHoveredBar(index)}
+                            onMouseLeave={() => setHoveredBar(null)}
+                          />
+                          {hoveredBar === index && (
+                            <div className="absolute -top-8 left-1/2 -translate-x-1/2 z-10 whitespace-nowrap text-xs px-2 py-1 rounded border shadow bg-white text-gray-900 border-gray-200 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700">
+                              {formatNumber(item.subscribers)}
+                            </div>
+                          )}
+                        </div>
+                        <span className="text-xs text-gray-500">{item.day}</span>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
               <div className="text-center text-lg font-semibold text-gray-900 dark:text-white">
-                3,874
+                {formatNumber(weeklySubscribersData.reduce((sum, i) => sum + i.subscribers, 0))}
               </div>
             </div>
           </Card>
@@ -359,7 +399,9 @@ const Dashboard = memo(() => {
                 <div className="p-2 bg-gray-100 dark:bg-gray-700 rounded-lg">
                   <CurrencyDollarIcon className="w-5 h-5 text-gray-600 dark:text-gray-400" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Sales Distribution</h3>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                  Sales Distribution
+                </h3>
               </div>
               <div className="flex items-center space-x-2">
                 <span className="text-sm text-gray-500">Monthly</span>
@@ -382,7 +424,7 @@ const Dashboard = memo(() => {
                       <span className="text-sm text-gray-600 dark:text-gray-400">Mobile App</span>
                     </div>
                     <div className="text-2xl font-semibold text-gray-900 dark:text-white">
-                      {formatCurrency(241.60)}
+                      {formatCurrency(241.6)}
                     </div>
                   </div>
                   <div>
@@ -396,12 +438,15 @@ const Dashboard = memo(() => {
                 </div>
               </div>
               <div className="w-32 h-32">
-                <div id="distribution-chart-title" className="sr-only">Sales Distribution Pie Chart</div>
-                <div id="distribution-chart-desc" className="sr-only">
-                  Pie chart showing sales distribution: Website $374.82 (45%), Mobile App $241.60 (29%), Other $213.42 (26%). Total sales: $829.84.
+                <div id="distribution-chart-title" className="sr-only">
+                  Sales Distribution Pie Chart
                 </div>
-                <div 
-                  role="img" 
+                <div id="distribution-chart-desc" className="sr-only">
+                  Pie chart showing sales distribution: Website $374.82 (45%), Mobile App $241.60
+                  (29%), Other $213.42 (26%). Total sales: $829.84.
+                </div>
+                <div
+                  role="img"
                   aria-labelledby="distribution-chart-title"
                   aria-describedby="distribution-chart-desc"
                   tabIndex={0}
@@ -422,6 +467,20 @@ const Dashboard = memo(() => {
                           <Cell key={`cell-${index}`} fill={entry.color} />
                         ))}
                       </Pie>
+                      <Tooltip
+                        contentStyle={{
+                          backgroundColor: 'var(--tooltip-bg)',
+                          border: '1px solid var(--tooltip-border)',
+                          borderRadius: '8px',
+                          color: 'var(--tooltip-text)',
+                        }}
+                        formatter={(value: unknown, name) => {
+                          const total = salesDistributionData.reduce((s, i) => s + i.value, 0);
+                          const v = Number(value);
+                          const pct = total > 0 ? ((v / total) * 100).toFixed(1) : '0.0';
+                          return [`${formatCurrency(v)} (${pct}%)`, String(name)];
+                        }}
+                      />
                     </PieChart>
                   </ResponsiveContainer>
                 </div>
@@ -436,13 +495,13 @@ const Dashboard = memo(() => {
                 <div className="p-2 bg-gray-100 dark:bg-gray-700 rounded-lg">
                   <ArrowTopRightOnSquareIcon className="w-5 h-5 text-gray-600 dark:text-gray-400" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">List of Integration</h3>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                  List of Integration
+                </h3>
               </div>
-              <button className="text-sm text-nexus-info hover:underline">
-                See All
-              </button>
+              <button className="text-sm text-nexus-info hover:underline">See All</button>
             </div>
-            
+
             <div className="space-y-1">
               <div className="grid grid-cols-4 gap-4 text-xs font-medium text-gray-500 dark:text-gray-400 pb-3 border-b border-gray-200 dark:border-gray-700">
                 <span>APPLICATION</span>
@@ -450,12 +509,18 @@ const Dashboard = memo(() => {
                 <span>RATE</span>
                 <span>PROFIT</span>
               </div>
-              {integrations.map((integration) => (
-                <div key={integration.id} className="grid grid-cols-4 gap-4 py-3 items-center hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg">
+              {integrations.map(integration => (
+                <div
+                  key={integration.id}
+                  className="grid grid-cols-4 gap-4 py-3 items-center hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg"
+                >
                   <div className="flex items-center space-x-3">
-                    <input type="checkbox" className="w-4 h-4 text-nexus-primary border-gray-300 rounded" />
+                    <input
+                      type="checkbox"
+                      className="w-4 h-4 text-nexus-primary border-gray-300 rounded"
+                    />
                     <div className="flex items-center space-x-3">
-                      <div 
+                      <div
                         className="w-8 h-8 rounded-lg flex items-center justify-center text-white font-semibold text-sm"
                         style={{ backgroundColor: integration.iconColor }}
                       >
@@ -471,11 +536,11 @@ const Dashboard = memo(() => {
                   </span>
                   <div className="flex items-center space-x-2">
                     <div className="flex-1 bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                      <div 
-                        className="h-2 rounded-full" 
-                        style={{ 
+                      <div
+                        className="h-2 rounded-full"
+                        style={{
                           width: `${integration.rate}%`,
-                          backgroundColor: integration.color 
+                          backgroundColor: integration.color,
                         }}
                       ></div>
                     </div>
@@ -545,7 +610,14 @@ const Dashboard = memo(() => {
                     {salesOverviewData.map((row, index) => {
                       const total = row.China + row.UE + row.USA + row.Canada + row.Other;
                       return (
-                        <tr key={index} className={index % 2 === 0 ? 'bg-white dark:bg-gray-900' : 'bg-gray-50 dark:bg-gray-800'}>
+                        <tr
+                          key={index}
+                          className={
+                            index % 2 === 0
+                              ? 'bg-white dark:bg-gray-900'
+                              : 'bg-gray-50 dark:bg-gray-800'
+                          }
+                        >
                           <td className="border border-gray-200 dark:border-gray-700 px-4 py-2 font-medium text-gray-900 dark:text-white">
                             {row.name}
                           </td>
@@ -597,15 +669,22 @@ const Dashboard = memo(() => {
                   </thead>
                   <tbody>
                     {[
-                      {day: 'Sunday', value: 500},
-                      {day: 'Monday', value: 875},
-                      {day: 'Tuesday', value: 1125},
-                      {day: 'Wednesday', value: 625},
-                      {day: 'Thursday', value: 2000},
-                      {day: 'Friday', value: 750},
-                      {day: 'Saturday', value: 375}
+                      { day: 'Sunday', value: 500 },
+                      { day: 'Monday', value: 875 },
+                      { day: 'Tuesday', value: 1125 },
+                      { day: 'Wednesday', value: 625 },
+                      { day: 'Thursday', value: 2000 },
+                      { day: 'Friday', value: 750 },
+                      { day: 'Saturday', value: 375 },
                     ].map((row, index) => (
-                      <tr key={index} className={index % 2 === 0 ? 'bg-white dark:bg-gray-900' : 'bg-gray-50 dark:bg-gray-800'}>
+                      <tr
+                        key={index}
+                        className={
+                          index % 2 === 0
+                            ? 'bg-white dark:bg-gray-900'
+                            : 'bg-gray-50 dark:bg-gray-800'
+                        }
+                      >
                         <td className="border border-gray-200 dark:border-gray-700 px-4 py-2 font-medium text-gray-900 dark:text-white">
                           {row.day}
                         </td>
@@ -652,11 +731,21 @@ const Dashboard = memo(() => {
                   </thead>
                   <tbody>
                     {(() => {
-                      const total = salesDistributionData.reduce((sum, item) => sum + item.value, 0);
+                      const total = salesDistributionData.reduce(
+                        (sum, item) => sum + item.value,
+                        0
+                      );
                       return salesDistributionData.map((row, index) => {
                         const percentage = ((row.value / total) * 100).toFixed(1);
                         return (
-                          <tr key={index} className={index % 2 === 0 ? 'bg-white dark:bg-gray-900' : 'bg-gray-50 dark:bg-gray-800'}>
+                          <tr
+                            key={index}
+                            className={
+                              index % 2 === 0
+                                ? 'bg-white dark:bg-gray-900'
+                                : 'bg-gray-50 dark:bg-gray-800'
+                            }
+                          >
                             <td className="border border-gray-200 dark:border-gray-700 px-4 py-2 font-medium text-gray-900 dark:text-white">
                               {row.name}
                             </td>
@@ -675,7 +764,9 @@ const Dashboard = memo(() => {
                         Total
                       </td>
                       <td className="border border-gray-200 dark:border-gray-700 px-4 py-2 text-right font-semibold text-gray-900 dark:text-white">
-                        {formatCurrency(salesDistributionData.reduce((sum, item) => sum + item.value, 0))}
+                        {formatCurrency(
+                          salesDistributionData.reduce((sum, item) => sum + item.value, 0)
+                        )}
                       </td>
                       <td className="border border-gray-200 dark:border-gray-700 px-4 py-2 text-right font-semibold text-gray-900 dark:text-white">
                         100.0%
