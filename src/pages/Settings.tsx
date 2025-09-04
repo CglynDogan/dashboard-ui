@@ -1,12 +1,11 @@
 import { useTranslation } from 'react-i18next';
-import Card from '../components/ui/Card';
+
 import Button from '../components/ui/Button';
-import { useThemeStore } from '../store/useThemeStore';
+import Card from '../components/ui/Card';
 import { useAppStore } from '../store/useAppStore';
 
 export default function Settings() {
   const { t } = useTranslation();
-  const { theme, toggleTheme } = useThemeStore();
   const { settings, updateSettings } = useAppStore();
 
   return (
@@ -17,32 +16,6 @@ export default function Settings() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Theme Settings */}
-        <Card>
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-            {t('settings.themeSettings')}
-          </h3>
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-900 dark:text-white">
-                  {t('settings.darkMode')}
-                </p>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
-                  {t('settings.darkModeDesc')}
-                </p>
-              </div>
-              <Button
-                variant={theme === 'dark' ? 'primary' : 'secondary'}
-                size="sm"
-                onClick={toggleTheme}
-              >
-                {theme === 'dark' ? t('settings.on') : t('settings.off')}
-              </Button>
-            </div>
-          </div>
-        </Card>
-
         {/* Display Settings */}
         <Card>
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
@@ -65,8 +38,8 @@ export default function Settings() {
                   {t('settings.animationsDesc')}
                 </p>
               </div>
-              <Button 
-                variant={settings.animations ? 'primary' : 'secondary'} 
+              <Button
+                variant={settings.animations ? 'primary' : 'secondary'}
                 size="sm"
                 onClick={() => updateSettings({ animations: !settings.animations })}
               >

@@ -1,17 +1,17 @@
-import { useEffect, lazy, Suspense } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Suspense, lazy, useEffect } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
-import AppLayout from './components/layout/AppLayout';
-import Overview from './pages/Overview';
-import Dashboard from './pages/Dashboard';
-import PageLoader from './components/ui/PageLoader';
 import ErrorBoundary from './components/error/ErrorBoundary';
+import AppLayout from './components/layout/AppLayout';
 import PageErrorBoundary from './components/layout/PageErrorBoundary';
-import { useAppStore } from './store/useAppStore';
-import { useThemeStore } from './store/useThemeStore';
+import PageLoader from './components/ui/PageLoader';
 import { queryClient } from './lib/queryClient';
+import Dashboard from './pages/Dashboard';
+import Overview from './pages/Overview';
+import { useAppStore } from './store/useAppStore';
 
 // Lazy load heavy pages
 const Analytics = lazy(() => import('./pages/AnalyticsModern'));
@@ -31,8 +31,7 @@ const Messages = lazy(() => import('./pages/Messages'));
 
 export default function App() {
   const { settings } = useAppStore();
-  const { theme } = useThemeStore();
-  
+
   // Initialize app settings from localStorage and apply to DOM
   useEffect(() => {
     // Apply animations setting
@@ -42,133 +41,173 @@ export default function App() {
       document.body.classList.remove('no-animations');
     }
   }, [settings.animations]);
-  
-  // Initialize theme
-  useEffect(() => {
-    const root = document.documentElement;
-    if (theme === 'dark') {
-      root.classList.add('dark');
-    } else {
-      root.classList.remove('dark');
-    }
-  }, [theme]);
+
+  // Dark mode removed from project: do not toggle root class
 
   return (
     <QueryClientProvider client={queryClient}>
       <ErrorBoundary>
         <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<AppLayout />}>
-            <Route index element={
-              <PageErrorBoundary>
-                <Dashboard />
-              </PageErrorBoundary>
-            } />
-            <Route path="overview" element={
-              <PageErrorBoundary>
-                <Overview />
-              </PageErrorBoundary>
-            } />
-            <Route path="analytics" element={
-              <PageErrorBoundary>
-                <Suspense fallback={<PageLoader />}>
-                  <Analytics />
-                </Suspense>
-              </PageErrorBoundary>
-            } />
-            <Route path="sales" element={
-              <PageErrorBoundary>
-                <Suspense fallback={<PageLoader />}>
-                  <Sales />
-                </Suspense>
-              </PageErrorBoundary>
-            } />
-            <Route path="customers" element={
-              <PageErrorBoundary>
-                <Suspense fallback={<PageLoader />}>
-                  <Customers />
-                </Suspense>
-              </PageErrorBoundary>
-            } />
-            <Route path="inventory" element={
-              <PageErrorBoundary>
-                <Suspense fallback={<PageLoader />}>
-                  <Inventory />
-                </Suspense>
-              </PageErrorBoundary>
-            } />
-            <Route path="support" element={
-              <PageErrorBoundary>
-                <Suspense fallback={<PageLoader />}>
-                  <Support />
-                </Suspense>
-              </PageErrorBoundary>
-            } />
-            <Route path="returns" element={
-              <PageErrorBoundary>
-                <Suspense fallback={<PageLoader />}>
-                  <Returns />
-                </Suspense>
-              </PageErrorBoundary>
-            } />
-            <Route path="settings" element={
-              <PageErrorBoundary>
-                <Suspense fallback={<PageLoader />}>
-                  <Settings />
-                </Suspense>
-              </PageErrorBoundary>
-            } />
-            <Route path="product" element={
-              <PageErrorBoundary>
-                <Suspense fallback={<PageLoader />}>
-                  <Product />
-                </Suspense>
-              </PageErrorBoundary>
-            } />
-            <Route path="security" element={
-              <PageErrorBoundary>
-                <Suspense fallback={<PageLoader />}>
-                  <Security />
-                </Suspense>
-              </PageErrorBoundary>
-            } />
-            <Route path="help" element={
-              <PageErrorBoundary>
-                <Suspense fallback={<PageLoader />}>
-                  <Help />
-                </Suspense>
-              </PageErrorBoundary>
-            } />
-            <Route path="invoice" element={
-              <PageErrorBoundary>
-                <Suspense fallback={<PageLoader />}>
-                  <Invoice />
-                </Suspense>
-              </PageErrorBoundary>
-            } />
-            <Route path="automation" element={
-              <PageErrorBoundary>
-                <Suspense fallback={<PageLoader />}>
-                  <Automation />
-                </Suspense>
-              </PageErrorBoundary>
-            } />
-            <Route path="payment" element={
-              <PageErrorBoundary>
-                <Suspense fallback={<PageLoader />}>
-                  <Payment />
-                </Suspense>
-              </PageErrorBoundary>
-            } />
-            <Route path="messages" element={
-              <PageErrorBoundary>
-                <Suspense fallback={<PageLoader />}>
-                  <Messages />
-                </Suspense>
-              </PageErrorBoundary>
-            } />
-          </Route>
-        </Routes>
+          <Routes>
+            <Route path="/" element={<AppLayout />}>
+              <Route
+                index
+                element={
+                  <PageErrorBoundary>
+                    <Dashboard />
+                  </PageErrorBoundary>
+                }
+              />
+              <Route
+                path="overview"
+                element={
+                  <PageErrorBoundary>
+                    <Overview />
+                  </PageErrorBoundary>
+                }
+              />
+              <Route
+                path="analytics"
+                element={
+                  <PageErrorBoundary>
+                    <Suspense fallback={<PageLoader />}>
+                      <Analytics />
+                    </Suspense>
+                  </PageErrorBoundary>
+                }
+              />
+              <Route
+                path="sales"
+                element={
+                  <PageErrorBoundary>
+                    <Suspense fallback={<PageLoader />}>
+                      <Sales />
+                    </Suspense>
+                  </PageErrorBoundary>
+                }
+              />
+              <Route
+                path="customers"
+                element={
+                  <PageErrorBoundary>
+                    <Suspense fallback={<PageLoader />}>
+                      <Customers />
+                    </Suspense>
+                  </PageErrorBoundary>
+                }
+              />
+              <Route
+                path="inventory"
+                element={
+                  <PageErrorBoundary>
+                    <Suspense fallback={<PageLoader />}>
+                      <Inventory />
+                    </Suspense>
+                  </PageErrorBoundary>
+                }
+              />
+              <Route
+                path="support"
+                element={
+                  <PageErrorBoundary>
+                    <Suspense fallback={<PageLoader />}>
+                      <Support />
+                    </Suspense>
+                  </PageErrorBoundary>
+                }
+              />
+              <Route
+                path="returns"
+                element={
+                  <PageErrorBoundary>
+                    <Suspense fallback={<PageLoader />}>
+                      <Returns />
+                    </Suspense>
+                  </PageErrorBoundary>
+                }
+              />
+              <Route
+                path="settings"
+                element={
+                  <PageErrorBoundary>
+                    <Suspense fallback={<PageLoader />}>
+                      <Settings />
+                    </Suspense>
+                  </PageErrorBoundary>
+                }
+              />
+              <Route
+                path="product"
+                element={
+                  <PageErrorBoundary>
+                    <Suspense fallback={<PageLoader />}>
+                      <Product />
+                    </Suspense>
+                  </PageErrorBoundary>
+                }
+              />
+              <Route
+                path="security"
+                element={
+                  <PageErrorBoundary>
+                    <Suspense fallback={<PageLoader />}>
+                      <Security />
+                    </Suspense>
+                  </PageErrorBoundary>
+                }
+              />
+              <Route
+                path="help"
+                element={
+                  <PageErrorBoundary>
+                    <Suspense fallback={<PageLoader />}>
+                      <Help />
+                    </Suspense>
+                  </PageErrorBoundary>
+                }
+              />
+              <Route
+                path="invoice"
+                element={
+                  <PageErrorBoundary>
+                    <Suspense fallback={<PageLoader />}>
+                      <Invoice />
+                    </Suspense>
+                  </PageErrorBoundary>
+                }
+              />
+              <Route
+                path="automation"
+                element={
+                  <PageErrorBoundary>
+                    <Suspense fallback={<PageLoader />}>
+                      <Automation />
+                    </Suspense>
+                  </PageErrorBoundary>
+                }
+              />
+              <Route
+                path="payment"
+                element={
+                  <PageErrorBoundary>
+                    <Suspense fallback={<PageLoader />}>
+                      <Payment />
+                    </Suspense>
+                  </PageErrorBoundary>
+                }
+              />
+              <Route
+                path="messages"
+                element={
+                  <PageErrorBoundary>
+                    <Suspense fallback={<PageLoader />}>
+                      <Messages />
+                    </Suspense>
+                  </PageErrorBoundary>
+                }
+              />
+            </Route>
+          </Routes>
         </BrowserRouter>
       </ErrorBoundary>
       <ReactQueryDevtools initialIsOpen={false} />
